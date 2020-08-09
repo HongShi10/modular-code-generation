@@ -35,9 +35,6 @@ object PromelaFileGenerator {
             result.appendln()
 
         }
-
-
-
         return result.toString().trim()
     }
 
@@ -49,11 +46,9 @@ object PromelaFileGenerator {
             val locationName = location.name
             result.appendln("${locationName}:  ${instanceName}_finished == 0 ->")
             result.appendln("   if")
-
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
-
-                result.appendln("   ::(${Utils.generateCodeForParseTreeItem(guard,globalVariable = globalOutputInputVariables )})")
-
+                result.append("   ::(${Utils.generateCodeForParseTreeItem(guard,globalVariable = globalOutputInputVariables )})")
+//                result.append(" ${variable} = ${Utils.generateCodeForParseTreeItem(upd, globalVariable = globalOutputInputVariables )};")
             }
             result.appendln("   :: else -> ${instanceName}_finished == 1; goto ${locationName}")
             result.appendln("   fi")
