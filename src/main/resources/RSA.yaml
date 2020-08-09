@@ -1,0 +1,606 @@
+name: RSA_pacemaker
+
+system:
+  outputs:
+    AP: BOOLEAN
+    VP: BOOLEAN
+    AS: BOOLEAN
+    VS: BOOLEAN
+    time: REAL
+    inspiration: BOOLEAN  
+    AEI: REAL
+    pacing_rate: REAL
+    toggle_value: REAL
+    value_value: REAL
+    clock: REAL
+    
+  definitions:
+    RLM_com:
+      outputs:
+        INS: BOOLEAN
+      parameters:
+        res_int:
+          type: REAL
+          default: 3400
+        res_exp:
+          type: REAL
+          default: 2400
+      locations:
+        INS:
+          invariant: t < res_int
+          flow:
+            t: 1
+          update:
+            INS: true
+          transitions:
+            - to: EXP
+              guard: t >= res_int
+              update:
+                t: 0
+                INS: false
+        EXP:
+          invariant: t < res_int
+          flow:
+            t: 1
+          update:
+            INS: false
+          transitions:
+            - to: INS
+              guard: t >= res_int
+              update:
+                t: 0
+                INS: true
+      initialisation:
+        state: INS
+        valuations:
+          t: 0 
+        
+    RHM_com:
+      inputs:
+        AP: BOOLEAN
+        VP: BOOLEAN
+      outputs:
+        Aget: BOOLEAN
+        Vget: BOOLEAN
+      parameters:
+        TAV:
+          type: REAL
+          default: 2000000
+        TVA:
+          type: REAL
+          default: 2000000
+      locations:
+        R1:
+          invariant: t < TAV && !VP && !AP
+          flow:
+            t: 1
+          update:
+            Aget: false
+            Vget: false
+          transitions:
+            - to: R2
+              guard: t == TAV
+              update: 
+                t: 0 
+                Aget: false
+                Vget: true
+            - to: R2
+              guard: VP
+              update:
+                t: 0
+            - to: R1
+              guard: AP
+              update:
+                t: 0
+        R2:
+          invariant: t < TVA && !AP && !VP
+          flow: 
+           t: 1
+          update:
+           Aget: false
+           Vget: false
+          transitions:
+            - to: R1
+              guard: t == TVA
+              update:
+               t: 0
+               Aget: true
+               Vget: false
+            - to: R1
+              guard: AP
+              update:
+               t: 0
+            - to: R2
+              guard: VP
+              update:
+                t: 0
+      initialisation:
+        state: R1
+        valuations:
+          t: 0
+
+    PVARP_com:
+      inputs:
+        Aget: BOOLEAN
+        VS: BOOLEAN
+        VP: BOOLEAN
+      outputs:
+        AS: BOOLEAN
+        AR: BOOLEAN
+      parameters:
+        TPVAB:
+          type: REAL
+          default: 0.003
+        TPVARP:
+          type: REAL
+          default: 0.005
+      locations:
+        IDLE:
+          invariant: '!VS && !VP'
+          flow:
+           t: 0
+          update:
+            AS: false
+            AR: false
+          transitions:
+           - to: PVAB
+             guard: VS || VP
+             update:
+               t: 0
+           - to: PVAB
+             guard: Aget && (VS || VP)
+             update:
+              t: 0
+              AS: true
+        PVAB:
+          invariant: t < TPVAB
+          flow:
+            t: 1
+          update:
+            AS: false
+            AR: false
+          transitions:
+           - to: PVARP
+             guard: t >= TPVAB
+        PVARP:
+          invariant: '!Aget || t < TPVARP'
+          flow: 
+           t: 1
+          update:
+            AS: false
+            AR: false
+          transitions:
+            - to: PVARP
+              guard: Aget && t < TPVARP
+              update:
+                AS: false
+                AR: true
+            - to: IDLE
+              guard: Aget && t >= TPVARP
+              update:
+                t: 0
+                AR: true
+            - to: IDLE
+              guard: t >= TPVARP
+              update:
+                t: 0
+      initialisation:
+        state: IDLE
+        valuations:
+          t: 0
+    
+    VRP_com:
+      inputs:
+        Vget: BOOLEAN
+        VP: BOOLEAN
+      outputs:
+        VS: BOOLEAN
+      parameters:
+        TVRP:
+          type: REAL
+          default: 0.003
+      locations:
+        IDLE:
+          invariant: '!Vget && !VP'
+          flow:
+           t: 0
+          update:
+            VS: false
+          transitions:
+            - to: VRP
+              guard: VP
+              update:
+                t: 0
+            - to: VRP
+              guard: Vget
+              update:
+                t: 0
+                VS: true
+        VRP:
+          invariant: t < TVRP
+          flow:
+            t: 1
+          update:
+            VS: false
+          transitions:
+            - to: IDLE
+              guard: t >= TVRP
+      initialisation:
+        state: IDLE
+        valuations:
+          t: 0
+    
+    LRI_com:
+      inputs:
+        AS: BOOLEAN
+        VS: BOOLEAN
+        VP: BOOLEAN
+        INS: BOOLEAN
+        toggle: BOOLEAN
+        value: REAL
+        current_AEI: REAL
+      outputs:
+        AP: BOOLEAN
+        AEI: REAL
+        t: REAL
+      locations:
+        LRI:
+          invariant: '!( (AS && !toggle) || ( AS && toggle) || ( VS || VP) || (toggle) || (t >= AEI) )'
+          flow:
+            t: 1
+          update:
+            AP: false
+            AEI: AEI
+          transitions:
+            - to: ASED 
+              guard: AS && !toggle
+            - to: ASED
+              guard: AS && toggle
+              update:
+                AEI: rsa(value, current_AEI)
+                AP: false
+            - to: LRI
+              guard: VS || VP
+              update:   
+                t: 0
+            - to: LRI
+              guard: toggle
+              update:
+                AEI: rsa(value, current_AEI)
+                AP: false
+            - to: LRI
+              guard: t >= AEI
+              update:
+                t: 0
+                AP: true
+        ASED:
+          invariant: '!( (VS || VP) || (toggle) )'
+          flow:
+            t: 1
+          update:
+            AP: false
+            AEI: AEI
+          transitions:
+            - to: LRI
+              guard: (VS || VP)
+              update:
+                t: 0
+              
+            - to: ASED
+              guard: toggle
+              update:
+                AEI: rsa(value, current_AEI)
+                AP: false
+      functions:
+        rsa:
+          inputs:
+            value: REAL
+            current_AEI: REAL
+          logic: |
+            
+            if(value == 0){
+                return (0.402)
+            }
+            elseif (value == 1){
+              return (0.357)
+            }
+            elseif ( value == 2){
+              return (0.457)
+            }
+            elseif ( value == 3){
+                if (current_AEI > 0.346){
+                  return (current_AEI - 0.01)
+                }
+                else{
+                  return (0.337) 
+                }
+            }
+            elseif ( value == 4){
+              if (current_AEI < 0.468){
+                return (current_AEI + 0.01)
+              }
+              else{
+                return (0.477)
+              }
+            }
+            else{
+              return (0.402)
+            }
+      initialisation:
+        state: LRI
+        valuations:
+          t: 0.402
+          AEI: 0.402
+
+    URI_com:
+      inputs:
+        VS: BOOLEAN
+        VP: BOOLEAN
+      outputs:
+        clk: REAL
+      locations:
+        URI:
+          invariant: '!VP && !VS'
+          flow:
+           clk: 1
+          transitions:
+            - to: URI
+              guard: VS || VP
+              update:
+                clk: 0
+      initialisation:
+        state: URI
+        valuations:
+          clk: 0
+
+    AVI_com:
+      inputs:
+        AS: BOOLEAN
+        AP: BOOLEAN
+        VS: BOOLEAN
+        clk: REAL
+      outputs:
+        VP: BOOLEAN
+        t: REAL
+      parameters:
+        TURI:
+          type: REAL
+          default: 0.1
+        TAVI:
+          type: REAL
+          default: 0.165
+      locations:
+        IDLE: 
+          invariant: '!(AS || AP)'
+          flow:
+            t: 1
+          update:
+            VP: false
+          transitions:
+            - to: AVI
+              guard: AS || AP
+              update:
+                VP: false
+                t: 0
+        AVI:
+          invariant: '!( VS || ((clk >= TURI) && (t >= TAVI)) || ((clk < TURI) && (t >= TAVI)) )'
+          flow:
+            t: 1
+          update:
+            VP: false
+          transitions:
+            - to: IDLE
+              guard: VS
+            - to: IDLE
+              guard: '(clk >= TURI) && (t >= TAVI)'
+              update:
+                VP: true
+            - to: WAIT
+              guard: '(clk < TURI) && (t >= TAVI)'
+        WAIT:
+          invariant: '! (VS || !VS && (clk >= TURI) )'
+          flow:
+            t: 1
+          update:
+            VP: false
+          transitions: 
+            - to: IDLE
+              guard: VS
+            - to: IDLE
+              guard: '!VS && (clk >= TURI)'
+              update:
+                VP: true
+      initialisation:
+        state: IDLE
+        valuations:
+          t: 0
+    
+    RSA_com:
+      inputs:
+        AS: BOOLEAN
+        AP: BOOLEAN
+        INS: BOOLEAN
+      outputs:
+        value: REAL
+        toggle: BOOLEAN
+        APED: BOOLEAN
+        INSED: BOOLEAN
+      locations:
+        INS_init:
+          invariant: '!( (AP) || (!INS) )'
+          flow:
+            t: 1
+          update:
+            toggle: false
+          transitions:
+            - to: INS_trim
+              guard: 'AP'
+              update:
+                value: 0
+                toggle: true
+                t: 0
+            - to: INS_EXP
+              guard: '!INS'
+              update:
+                value: 2
+                toggle: true
+                t: 0
+        INS_trim:
+          invariant: '!( (AP) || (!INS) )'
+          flow:
+            t: 1
+          update:
+            toggle: false
+          transitions:
+            - to: INS_trim
+              guard: 'AP'
+              update:
+                value: 0
+                toggle: true
+                t: 0
+            - to: INS_EXP
+              guard: '!INS'
+              update:
+                value: 2
+                toggle: true
+                t: 0
+        EXP_init:
+          invariant: '!( (AP) || (INS) )'
+          flow:
+            t: 1
+          update:
+            toggle: false
+          transitions:
+            - to: EXP_trim
+              guard: 'AP'
+              update:
+                value: 0
+                toggle: true
+                t: 0
+            - to: EXP_INS
+              guard: 'INS'
+              update:
+                value: 1
+                toggle: true
+                t: 0
+        EXP_trim:
+          invariant: '!( (AP) || (INS) )'
+          flow:
+            t: 1
+          update:
+            toggle: false
+          transitions:
+            - to: EXP_trim
+              guard: 'AP'
+              update:
+                value: 0
+                toggle: true
+                t: 0
+            - to: EXP_INS
+              guard: 'INS'
+              update:
+                value: 1
+                toggle: true
+                t: 0
+        INS_EXP:
+          invariant: '!( (INS) || (AP) )'
+          flow:
+            t: 1
+          update:
+            toggle: false
+          transitions:
+            - to: INS_init
+              guard: 'INS'
+              update:
+                value: 0
+                toggle: true
+                t: 0
+            - to: EXP_init
+              guard: 'AP'
+              update:
+                value:  0
+                toggle: true
+                t: 0
+        EXP_INS:
+          invariant: '!( (!INS) || (AP) )'
+          flow:
+            t: 1
+          update:
+            toggle: false
+          transitions:
+            - to: EXP_init
+              guard: '!INS'
+              update:
+                value: 0
+                toggle: true
+                t: 0
+            - to: INS_init
+              guard: 'AP'
+              update:
+                value: 0
+                toggle: true
+                t: 0
+      initialisation:
+        state: EXP_init
+        valuations:
+         value: 0
+        
+  instances:
+    RHM: RHM_com
+    PVARP: PVARP_com
+    VRP: VRP_com
+    LRI: LRI_com
+    URI: URI_com
+    AVI: AVI_com
+    RSA: RSA_com
+
+  mappings:
+    AP: LRI.AP
+    VP: AVI.VP
+    AS: PVARP.AS
+    VS: VRP.VS
+    time: AVI.t
+    AEI: LRI.AEI
+    pacing_rate: LRI.t
+    toggle_value: RSA.toggle
+    value_value: RSA.value
+    clock: URI.clk
+
+    RHM.AP: LRI.AP
+    RHM.VP: AVI.VP
+
+    PVARP.Aget: RHM.Aget
+    VRP.Vget: RHM.Vget
+
+    PVARP.VS: VRP.VS
+    PVARP.VP: AVI.VP
+
+    VRP.VP: AVI.VP
+
+    LRI.AS: PVARP.AS
+    LRI.VS: VRP.VS
+    LRI.VP: AVI.VP
+    LRI.toggle: RSA.toggle
+    LRI.value: RSA.value
+    LRI.current_AEI: LRI.AEI
+    URI.VS: VRP.VS
+    URI.VP: AVI.VP
+
+    AVI.AS: PVARP.AS
+    AVI.AP: LRI.AP
+    AVI.VS: VRP.VS
+    AVI.clk: URI.clk
+    
+    RSA.AS: PVARP.AS
+    RSA.AP: LRI.AP 
+    
+codegenConfig:
+  execution:
+    stepSize: 0.001
+    simulationTime: 1200
+  logging:
+    enable: true
+    file: out.csv
+  parametrisationMethod: COMPILE_TIME
+  maximumInterTransitions: 1
+  requireOneIntraTransitionPerTick: false

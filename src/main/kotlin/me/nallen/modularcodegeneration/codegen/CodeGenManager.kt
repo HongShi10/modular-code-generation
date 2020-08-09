@@ -2,6 +2,7 @@ package me.nallen.modularcodegeneration.codegen
 
 import com.fasterxml.jackson.module.kotlin.*
 import me.nallen.modularcodegeneration.codegen.c.CCodeGenerator
+import me.nallen.modularcodegeneration.codegen.promela.PromelaCodeGenerator
 import me.nallen.modularcodegeneration.codegen.vhdl.VHDLGenerator
 import me.nallen.modularcodegeneration.hybridautomata.*
 import me.nallen.modularcodegeneration.hybridautomata.Locality
@@ -57,6 +58,7 @@ object CodeGenManager {
         when(language) {
             CodeGenLanguage.C -> CCodeGenerator.generate(generateItem, dir, config)
             CodeGenLanguage.VHDL -> VHDLGenerator.generate(generateItem, dir, config)
+
         }
     }
 
