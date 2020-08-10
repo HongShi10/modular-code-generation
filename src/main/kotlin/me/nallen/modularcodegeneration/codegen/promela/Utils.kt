@@ -1,5 +1,6 @@
 package me.nallen.modularcodegeneration.codegen.promela
 
+import me.nallen.modularcodegeneration.codegen.c.Utils
 import me.nallen.modularcodegeneration.parsetree.*
 import me.nallen.modularcodegeneration.utils.NamingConvention
 import me.nallen.modularcodegeneration.utils.convertWordDelimiterConvention
@@ -29,18 +30,19 @@ object Utils {
         return original.convertWordDelimiterConvention(NamingConvention.SNAKE_CASE)
     }
 
-    fun generateCodeForParseTreeItem(item: ParseTreeItem, parent: ParseTreeItem? = null, globalVariable: HashSet<String>? = null): String {
+    fun generateCodeForParseTreeItem(instanceName: String, item: ParseTreeItem, parent: ParseTreeItem? = null, globalVariable: HashSet<String>? = null): String {
         // For each possible ParseTreeItem we have a different output string that will be generated
         // We recursively call these generation functions until we reach the end of the tree
         return when (item) {
-            is And -> padOperand(item, item.operandA, globalVariable) + " || " + padOperand(item, item.operandB, globalVariable)
-            is Not -> padOperand(item, item.operandA, globalVariable) + " == 0"
-            is GreaterThan -> padOperand(item, item.operandA, globalVariable) + " > " + padOperand(item, item.operandB, globalVariable)
-            is GreaterThanOrEqual -> padOperand(item, item.operandA, globalVariable) + " >= " + padOperand(item, item.operandB,globalVariable )
-            is LessThanOrEqual -> padOperand(item, item.operandA, globalVariable) + " <= " + padOperand(item, item.operandB,globalVariable)
-            is LessThan -> padOperand(item, item.operandA, globalVariable) + " < " + padOperand(item, item.operandB,globalVariable)
-            is Equal -> padOperand(item, item.operandA, globalVariable) + " == " + padOperand(item, item.operandB,globalVariable)
-            is NotEqual -> padOperand(item, item.operandA, globalVariable) + " != " + padOperand(item, item.operandB,globalVariable)
+            is And -> padOperand(instanceName,item, item.operandA,globalVariable) + " && " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is Or -> padOperand(instanceName,item, item.operandA,globalVariable) + " || " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is Not -> padOperand(instanceName,item, item.operandA, globalVariable) + " == 0"
+            is GreaterThan -> padOperand(instanceName,item, item.operandA, globalVariable) + " > " + padOperand(instanceName,item, item.operandB, globalVariable)
+            is GreaterThanOrEqual -> padOperand(instanceName,item, item.operandA, globalVariable) + " >= " + padOperand(instanceName,item, item.operandB,globalVariable )
+            is LessThanOrEqual -> padOperand(instanceName,item, item.operandA, globalVariable) + " <= " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is LessThan -> padOperand(instanceName,item, item.operandA, globalVariable) + " < " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is Equal -> padOperand(instanceName,item, item.operandA, globalVariable) + " == " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is NotEqual -> padOperand(instanceName,item, item.operandA, globalVariable) + " != " + padOperand(instanceName,item, item.operandB,globalVariable)
             is FunctionCall -> {
                 // Functions have a lot of extra logic we need to do
                 // Firstly we should check if it's a delayed function call, which will have special handling
@@ -53,7 +55,7 @@ object Utils {
                 for (argument in item.arguments) {
                     // If needed, deliminate by a comma
                     if (builder.isNotEmpty()) builder.append(", ")
-                    builder.append(generateCodeForParseTreeItem(argument, globalVariable = globalVariable))
+                    builder.append(generateCodeForParseTreeItem(instanceName,argument, globalVariable = globalVariable))
                 }
 
                 // And then return the final function name
@@ -66,7 +68,7 @@ object Utils {
                 // If the variable has a value assigned to it
                 if (item.value != null)
                 // Then we want to just replace this with the string representing the value
-                    return padOperand(parent ?: item, item.value!!)
+                    return padOperand(instanceName,parent ?: item, item.value!!, globalVariable)
                 else {
                     // Otherwise we want to generate this variable
                     // It may consist of data inside structs, separated by periods
@@ -78,12 +80,13 @@ object Utils {
                         finishedVar = part
                         if(globalVariable!!.contains(part)){
                             finishedVar = "pre_$part"
+                            return finishedVar;
                         }
 
                         // If needed, deliminate by a period
                         if (builder.isNotEmpty()) builder.append(".")
 
-                        builder.append(finishedVar)
+                        builder.append("${finishedVar}_${instanceName}")
 
                     }
 
@@ -94,21 +97,20 @@ object Utils {
             is Constant -> when (item.name) {
                 ConstantType.PI -> "M_PI"
             }
-            is Plus -> padOperand(item, item.operandA) + " + " + padOperand(item, item.operandB)
-            is Minus -> padOperand(item, item.operandA) + " - " + padOperand(item, item.operandB)
-            is Negative -> "-" + padOperand(item, item.operandA)
-            is Power -> "pow(" + generateCodeForParseTreeItem(item.operandA) + ", " + generateCodeForParseTreeItem(item.operandB) + ")"
-            is Multiply -> padOperand(item, item.operandA) + " * " + padOperand(item, item.operandB)
-            is Divide -> padOperand(item, item.operandA) + " / " + padOperand(item, item.operandB)
-            is SquareRoot -> "sqrt(" + generateCodeForParseTreeItem(item.operandA) + ")"
-            is Exponential -> "exp(" + generateCodeForParseTreeItem(item.operandA) + ")"
-            is Ln -> "log(" + generateCodeForParseTreeItem(item.operandA) + ")"
-            is Sine -> "sin(" + generateCodeForParseTreeItem(item.operandA) + ")"
-            is Cosine -> "cos(" + generateCodeForParseTreeItem(item.operandA) + ")"
-            is Tangent -> "tan(" + generateCodeForParseTreeItem(item.operandA) + ")"
-            is Floor -> "floor(" + generateCodeForParseTreeItem(item.operandA) + ")"
-            is Ceil -> "ceil(" + generateCodeForParseTreeItem(item.operandA) + ")"
-            is Or -> ""
+            is Plus -> padOperand(instanceName,item, item.operandA) + " + " + padOperand(instanceName,item, item.operandB)
+            is Minus -> padOperand(instanceName,item, item.operandA) + " - " + padOperand(instanceName,item, item.operandB)
+            is Negative -> "-" + padOperand(instanceName,item, item.operandA)
+            is Power -> "pow(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ", " + generateCodeForParseTreeItem(instanceName,item.operandB) + ")"
+            is Multiply -> padOperand(instanceName,item, item.operandA) + " * " + padOperand(instanceName,item, item.operandB)
+            is Divide -> padOperand(instanceName,item, item.operandA) + " / " + padOperand(instanceName,item, item.operandB)
+            is SquareRoot -> "sqrt(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
+            is Exponential -> "exp(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
+            is Ln -> "log(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
+            is Sine -> "sin(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
+            is Cosine -> "cos(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
+            is Tangent -> "tan(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
+            is Floor -> "floor(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
+            is Ceil -> "ceil(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
         }
     }
 
@@ -116,7 +118,7 @@ object Utils {
      * Looks at a provided ParseTreeItem and its child and generates a C representation of the formula
      * If required, this method will add brackets around any operations that require them
      */
-    private fun padOperand(item: ParseTreeItem, operand: ParseTreeItem, globalVariable: HashSet<String>? = null): String {
+    private fun padOperand(instanceName: String,item: ParseTreeItem, operand: ParseTreeItem, globalVariable: HashSet<String>? = null): String {
         // We need to look at the precedence of both this operator and the child to decide whether brackets are needed
         var precedence = item.getPrecedence()
 
@@ -128,13 +130,13 @@ object Utils {
 
         // If the current operation's precedence is more than the childs, then we want brackets
         if (precedence < operand.getPrecedence())
-            return "(" + generateCodeForParseTreeItem(operand) + ")"
+            return "(" + generateCodeForParseTreeItem(instanceName,operand, globalVariable = globalVariable) + ")"
 
         // Special cases for C revolve around Or and And
         if (item is Or && operand is And)
-            return "(" + generateCodeForParseTreeItem(operand) + ")"
+            return "(" + generateCodeForParseTreeItem(instanceName,operand, globalVariable = globalVariable) + ")"
 
         // Otherwise no brackets
-        return generateCodeForParseTreeItem(operand, item, globalVariable = globalVariable)
+        return generateCodeForParseTreeItem(instanceName,operand, item, globalVariable = globalVariable)
     }
 }

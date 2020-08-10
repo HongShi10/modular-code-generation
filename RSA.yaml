@@ -7,7 +7,7 @@ system:
     AS: BOOLEAN
     VS: BOOLEAN
     time: REAL
-    inspiration: BOOLEAN  
+    inspiration: BOOLEAN
     AEI: REAL
     pacing_rate: REAL
     toggle_value: REAL
@@ -53,8 +53,8 @@ system:
       initialisation:
         state: INS
         valuations:
-          t: 0 
-        
+          t: 0
+
     RHM_com:
       inputs:
         AP: BOOLEAN
@@ -80,8 +80,8 @@ system:
           transitions:
             - to: R2
               guard: t == TAV
-              update: 
-                t: 0 
+              update:
+                t: 0
                 Aget: false
                 Vget: true
             - to: R2
@@ -94,7 +94,7 @@ system:
                 t: 0
         R2:
           invariant: t < TVA && !AP && !VP
-          flow: 
+          flow:
            t: 1
           update:
            Aget: false
@@ -164,7 +164,7 @@ system:
              guard: t >= TPVAB
         PVARP:
           invariant: '!Aget || t < TPVARP'
-          flow: 
+          flow:
            t: 1
           update:
             AS: false
@@ -188,7 +188,7 @@ system:
         state: IDLE
         valuations:
           t: 0
-    
+
     VRP_com:
       inputs:
         Vget: BOOLEAN
@@ -229,7 +229,7 @@ system:
         state: IDLE
         valuations:
           t: 0
-    
+
     LRI_com:
       inputs:
         AS: BOOLEAN
@@ -252,7 +252,7 @@ system:
             AP: false
             AEI: AEI
           transitions:
-            - to: ASED 
+            - to: ASED
               guard: AS && !toggle
             - to: ASED
               guard: AS && toggle
@@ -261,7 +261,7 @@ system:
                 AP: false
             - to: LRI
               guard: VS || VP
-              update:   
+              update:
                 t: 0
             - to: LRI
               guard: toggle
@@ -285,7 +285,7 @@ system:
               guard: (VS || VP)
               update:
                 t: 0
-              
+
             - to: ASED
               guard: toggle
               update:
@@ -297,7 +297,7 @@ system:
             value: REAL
             current_AEI: REAL
           logic: |
-            
+
             if(value == 0){
                 return (0.402)
             }
@@ -312,7 +312,7 @@ system:
                   return (current_AEI - 0.01)
                 }
                 else{
-                  return (0.337) 
+                  return (0.337)
                 }
             }
             elseif ( value == 4){
@@ -370,7 +370,7 @@ system:
           type: REAL
           default: 0.165
       locations:
-        IDLE: 
+        IDLE:
           invariant: '!(AS || AP)'
           flow:
             t: 1
@@ -403,7 +403,7 @@ system:
             t: 1
           update:
             VP: false
-          transitions: 
+          transitions:
             - to: IDLE
               guard: VS
             - to: IDLE
@@ -414,7 +414,7 @@ system:
         state: IDLE
         valuations:
           t: 0
-    
+
     RSA_com:
       inputs:
         AS: BOOLEAN
@@ -544,7 +544,7 @@ system:
         state: EXP_init
         valuations:
          value: 0
-        
+
   instances:
     RHM: RHM_com
     PVARP: PVARP_com
@@ -590,9 +590,9 @@ system:
     AVI.AP: LRI.AP
     AVI.VS: VRP.VS
     AVI.clk: URI.clk
-    
+
     RSA.AS: PVARP.AS
-    RSA.AP: LRI.AP 
+    RSA.AP: LRI.AP
     
 codegenConfig:
   execution:

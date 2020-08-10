@@ -47,10 +47,17 @@ object PromelaFileGenerator {
             result.appendln("${locationName}:  ${instanceName}_finished == 0 ->")
             result.appendln("   if")
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
-                result.append("   ::(${Utils.generateCodeForParseTreeItem(guard,globalVariable = globalOutputInputVariables )})")
-//                result.append(" ${variable} = ${Utils.generateCodeForParseTreeItem(upd, globalVariable = globalOutputInputVariables )};")
+
+                result.append("   ::(${Utils.generateCodeForParseTreeItem(instanceName,guard,globalVariable = globalOutputInputVariables )})")
+                for((variable, equation) in update) {
+                    result.append(" ${variable}_${instanceName} = ${Utils.generateCodeForParseTreeItem(instanceName,equation, globalVariable = globalOutputInputVariables)};")
+                }
+                // Adds the transition location after all variables have been updated
+                result.append(" ${instanceName}_finished == 1; goto $toLocation;")
+                    result.appendln()
             }
-            result.appendln("   :: else -> ${instanceName}_finished == 1; goto ${locationName}")
+
+            result.appendln("   ::else -> ${instanceName}_finished == 1; goto ${locationName}")
             result.appendln("   fi")
         }
         return result.toString()
@@ -105,8 +112,7 @@ object PromelaFileGenerator {
         for(instanceName in instanceToAutomataMap.keys){
             result.appendln("bit ${instanceName}_finished = 0;")
         }
-
-            return result.toString().trim()
+        return result.toString().trim()
     }
     /**
      * Generates the variables initial value if present
@@ -118,7 +124,7 @@ object PromelaFileGenerator {
         // But, if an initial value for the variable is provided then let's use that
         if(automata is HybridAutomata && (automata as HybridAutomata).init.valuations.containsKey(variable.name)) {
             // Generate code that represents the initial value for the variable
-            initValue = Utils.generateCodeForParseTreeItem((automata as HybridAutomata).init.valuations[variable.name] !!)
+            initValue = Utils.generateCodeForParseTreeItem("",(automata as HybridAutomata).init.valuations[variable.name] !!)
         }
 
         // Now we can return the code that initialises the variable
@@ -131,9 +137,9 @@ object PromelaFileGenerator {
     private fun generateDefaultInitForType(type: VariableType): String {
         // A simple switch based on the type returns the default value for the types of variables
         return when(type) {
-            VariableType.BOOLEAN -> Utils.generateCodeForParseTreeItem(Literal("0"))
-            VariableType.REAL -> Utils.generateCodeForParseTreeItem(Literal("0"))
-            VariableType.INTEGER -> Utils.generateCodeForParseTreeItem(Literal("0"))
+            VariableType.BOOLEAN -> Utils.generateCodeForParseTreeItem("",Literal("0"))
+            VariableType.REAL -> Utils.generateCodeForParseTreeItem("",Literal("0"))
+            VariableType.INTEGER -> Utils.generateCodeForParseTreeItem("",Literal("0"))
             else -> throw NotImplementedError("Unable to generate code for requested type '$type'")
         }
     }
