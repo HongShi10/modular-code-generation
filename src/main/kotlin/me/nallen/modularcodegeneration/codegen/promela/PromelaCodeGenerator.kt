@@ -1,7 +1,5 @@
 package me.nallen.modularcodegeneration.codegen.promela
 
-import me.nallen.modularcodegeneration.codegen.c.HFileGenerator
-import me.nallen.modularcodegeneration.codegen.promela.Utils
 import me.nallen.modularcodegeneration.hybridautomata.HybridItem
 import me.nallen.modularcodegeneration.logging.Logger
 import me.nallen.modularcodegeneration.utils.getRelativePath
@@ -21,8 +19,8 @@ class PromelaCodeGenerator {
 
             // Use default parameters for top-level item
             item.setDefaultParametrisation()
-            System.out.println(PromelaFileGenerator.generate(item))
-//            File(outputDir, "${Utils.createFileName(item.name)}.pml").writeText(PromelaFileGenerator.generate(item))
+//            System.out.println(PromelaFileGenerator.generate(item))
+            File(outputDir, "${Utils.createFileName(item.name)}.pml").writeText(PromelaFileGenerator.generate(item))
         }
 
 

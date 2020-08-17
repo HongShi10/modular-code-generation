@@ -58,92 +58,21 @@ double clock = URI_clk;
 
 // LRI Variables with mappings
 bit LRI_toggle = RSA_toggle;
-bit LRI_toggle = RSA_toggle;
-bit LRI_toggle = RSA_toggle;
-bit LRI_toggle = RSA_toggle;
-double LRI_toggle = RSA_toggle;
-bit LRI_toggle = RSA_toggle;
-double LRI_toggle = RSA_toggle;
-double LRI_toggle = RSA_toggle;
-double LRI_toggle = RSA_toggle;
-double LRI_toggle = RSA_toggle;
-double LRI_toggle = RSA_toggle;
-bit LRI_value = RSA_value;
-bit LRI_value = RSA_value;
-bit LRI_value = RSA_value;
-bit LRI_value = RSA_value;
 double LRI_value = RSA_value;
-bit LRI_value = RSA_value;
-double LRI_value = RSA_value;
-double LRI_value = RSA_value;
-double LRI_value = RSA_value;
-double LRI_value = RSA_value;
-double LRI_value = RSA_value;
-bit LRI_current_AEI = LRI_AEI;
-bit LRI_current_AEI = LRI_AEI;
-bit LRI_current_AEI = LRI_AEI;
-bit LRI_current_AEI = LRI_AEI;
-double LRI_current_AEI = LRI_AEI;
-bit LRI_current_AEI = LRI_AEI;
-double LRI_current_AEI = LRI_AEI;
-double LRI_current_AEI = LRI_AEI;
-double LRI_current_AEI = LRI_AEI;
-double LRI_current_AEI = LRI_AEI;
 double LRI_current_AEI = LRI_AEI;
 
 // AVI Variables with mappings
-bit AVI_clk = URI_clk;
-bit AVI_clk = URI_clk;
-bit AVI_clk = URI_clk;
-bit AVI_clk = URI_clk;
-double AVI_clk = URI_clk;
-bit AVI_clk = URI_clk;
-double AVI_clk = URI_clk;
-double AVI_clk = URI_clk;
-double AVI_clk = URI_clk;
-double AVI_clk = URI_clk;
 double AVI_clk = URI_clk;
 
 // VRP Variables with mappings
 bit VRP_Vget = RHM_Vget;
-bit VRP_Vget = RHM_Vget;
-bit VRP_Vget = RHM_Vget;
-bit VRP_Vget = RHM_Vget;
-double VRP_Vget = RHM_Vget;
-bit VRP_Vget = RHM_Vget;
-double VRP_Vget = RHM_Vget;
-double VRP_Vget = RHM_Vget;
-double VRP_Vget = RHM_Vget;
-double VRP_Vget = RHM_Vget;
-double VRP_Vget = RHM_Vget;
 
 // RHM Variables with mappings
 
 // PVARP Variables with mappings
 bit PVARP_Aget = RHM_Aget;
-bit PVARP_Aget = RHM_Aget;
-bit PVARP_Aget = RHM_Aget;
-bit PVARP_Aget = RHM_Aget;
-double PVARP_Aget = RHM_Aget;
-bit PVARP_Aget = RHM_Aget;
-double PVARP_Aget = RHM_Aget;
-double PVARP_Aget = RHM_Aget;
-double PVARP_Aget = RHM_Aget;
-double PVARP_Aget = RHM_Aget;
-double PVARP_Aget = RHM_Aget;
 
 // URI Variables with mappings
-bit AP = 0;
-bit VP = 0;
-bit AS = 0;
-bit VS = 0;
-double time = 0;
-bit inspiration = 0;
-double AEI = 0;
-double pacing_rate = 0;
-double toggle_value = 0;
-double value_value = 0;
-double clock = 0;
 
 bit pre_AP = 0;
 bit pre_VP = 0;

@@ -3,12 +3,9 @@ package me.nallen.modularcodegeneration.codegen.promela
 import me.nallen.modularcodegeneration.codegen.Configuration
 import me.nallen.modularcodegeneration.codegen.promela.Utils.generateCodeForParseTreeItem
 import me.nallen.modularcodegeneration.hybridautomata.*
-import me.nallen.modularcodegeneration.hybridautomata.Locality.*
 import me.nallen.modularcodegeneration.parsetree.Literal
 import me.nallen.modularcodegeneration.parsetree.VariableType
 import me.nallen.modularcodegeneration.logging.Logger
-import me.nallen.modularcodegeneration.parsetree.Locality
-import me.nallen.modularcodegeneration.parsetree.generateParseTreeFromString
 
 object PromelaFileGenerator {
     private var instanceToAutomataMap: HashMap<String,HybridItem> = HashMap()
@@ -173,7 +170,9 @@ object PromelaFileGenerator {
             if( automata is HybridAutomata){
                 for( variable in automata.variables){
                     val variableName = instanceName + "_" + variable.name
+                    // If the variable name hasnt been used before we can use it and continue
                     if(!globalOutputInputVariables.contains(variable.name) && !usedVariableNames.contains(variableName)){
+                        // Checks the IO mappings in HAML to see if the variable with the instance exists as a mapped variable
                         if(item is HybridNetwork){
                             for(key in item.ioMapping.keys){
                                 if("${key.automata}_${key.variable}" == variableName){
@@ -187,11 +186,7 @@ object PromelaFileGenerator {
                 }
             }
         }
-        for( variable in item.variables){
-            val variableName = variable.name
-            result.appendln("${Utils.generatePromelaType(variable.type)} $variableName = ${getVariableInitialValue(variable)};");
-            globalOutputInputVariables.add(variableName)
-        }
+
         result.appendln()
         // Generates the input and output variables of the previous tick to be assigned to this variable
         for( variable in item.variables){
