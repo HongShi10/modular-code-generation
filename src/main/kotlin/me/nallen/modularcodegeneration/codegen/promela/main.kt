@@ -4,7 +4,7 @@ import me.nallen.modularcodegeneration.description.Importer
 
 fun main() {
 //    val imported = Importer.import("RSA.yaml");
-    val imported = Importer.import("examples/thermostat/main.yaml");
+    val imported = Importer.import("examples/water_heater/main.yaml");
 
     val network = imported.first
 

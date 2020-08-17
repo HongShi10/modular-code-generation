@@ -89,9 +89,17 @@ object PromelaFileGenerator {
         }
         // If item is a hybrid network then we need to retrieve all the objects to make the processes for each
         if(item is HybridNetwork) {
-            for(instanceName in item.getAllInstances().keys){
+            for (instanceName in item.getAllInstances().keys) {
                 val automataDefinition = item.instances[instanceName]?.instantiate?.let { item.getDefinitionForInstantiateId(it) };
-                if (automataDefinition != null) {
+                if (automataDefinition is HybridNetwork) {
+                    for (instanceName in automataDefinition.getAllInstances().keys) {
+                        val automataDefinition = automataDefinition.instances[instanceName]?.instantiate?.let { item.getDefinitionForInstantiateId(it) };
+                        if (automataDefinition != null) {
+                            instanceToAutomataMap[instanceName] = automataDefinition
+                        }
+                    }
+                }
+                if (automataDefinition != null && automataDefinition is HybridAutomata) {
                     instanceToAutomataMap[instanceName] = automataDefinition
                 }
             }
