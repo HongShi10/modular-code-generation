@@ -87,10 +87,15 @@ object Utils {
                         }
 
                         // If needed, deliminate by a period
-                        if (builder.isNotEmpty()) builder.append(".")
+                        if (builder.isNotEmpty()) builder.append("_")
 
-                        builder.append("${finishedVar}_${instanceName}")
+                        if(instanceName != "") {
+                            builder.append("${instanceName}_${finishedVar}")
+                        }
+                        else{
+                            builder.append("${finishedVar}")
 
+                        }
                     }
 
                     // And return the final variable name

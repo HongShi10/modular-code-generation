@@ -11,13 +11,13 @@ class PromelaCodeGenerator {
     companion object {
 
         fun generate(item: HybridItem, dir: String) {
-//            val outputDir = File(dir)
-//
-//            // If the directory doesn't already exist, we want to create it
-//            if (!outputDir.exists())
-//                outputDir.mkdirs()
-//
-//            Logger.info("Generating Promela Code to \"${outputDir.getRelativePath()}\"")
+            val outputDir = File(dir)
+
+            // If the directory doesn't already exist, we want to create it
+            if (!outputDir.exists())
+                outputDir.mkdirs()
+
+            Logger.info("Generating Promela Code to \"${outputDir.getRelativePath()}\"")
 
             // Use default parameters for top-level item
             item.setDefaultParametrisation()
