@@ -1,5 +1,6 @@
 package me.nallen.modularcodegeneration.codegen.promela
 
+import me.nallen.modularcodegeneration.codegen.Configuration
 import me.nallen.modularcodegeneration.codegen.c.Utils
 import me.nallen.modularcodegeneration.parsetree.*
 import me.nallen.modularcodegeneration.utils.NamingConvention
@@ -78,9 +79,11 @@ object Utils {
                     // For each part
                     for (part in parts) {
                         finishedVar = part
-                        if(globalVariable!!.contains(part)){
-                            finishedVar = "pre_$part"
-                            return finishedVar;
+                        if(globalVariable != null) {
+                            if (globalVariable!!.contains(part)) {
+                                finishedVar = "pre_$part"
+                                return finishedVar;
+                            }
                         }
 
                         // If needed, deliminate by a period

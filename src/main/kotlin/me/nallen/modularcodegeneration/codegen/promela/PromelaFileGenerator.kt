@@ -1,5 +1,6 @@
 package me.nallen.modularcodegeneration.codegen.promela
 
+import me.nallen.modularcodegeneration.codegen.Configuration
 import me.nallen.modularcodegeneration.codegen.c.CFileGenerator
 import me.nallen.modularcodegeneration.hybridautomata.*
 import me.nallen.modularcodegeneration.parsetree.Literal
@@ -10,16 +11,19 @@ object PromelaFileGenerator {
     private val globalOutputInputVariables = HashSet<String>();
     private val usedVariableNames = HashSet<String>();
     private var automata: HybridItem = HybridAutomata()
+    private var config: Configuration = Configuration()
 
     fun generate(item: HybridItem): String {
         automata = item;
         val result = StringBuilder()
         // And return the total source file contents
         result.appendln(generateVariableInitialisation(item))
+        result.appendln(generateTimerProcess())
         result.appendln(generateProcesses())
         val x = instanceToAutomataMap
         return result.toString().trim()
     }
+
     fun generateProcesses(): String {
 
         val result = StringBuilder()
@@ -44,11 +48,11 @@ object PromelaFileGenerator {
         for(location in automataInstance.locations){
             result.appendln()
             val locationName = location.name
-            result.appendln("${locationName}:  ${instanceName}_finished == 0 ->")
-            result.appendln("   if")
+            result.appendln("${config.getIndent(1)}${locationName}:  ${instanceName}_finished == 0 ->")
+            result.appendln("${config.getIndent(2)}if")
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
 
-                result.append("   ::(${Utils.generateCodeForParseTreeItem(instanceName,guard,globalVariable = globalOutputInputVariables )})")
+                result.append("${config.getIndent(2)}::(${Utils.generateCodeForParseTreeItem(instanceName,guard,globalVariable = globalOutputInputVariables )})")
                 for((variable, equation) in update) {
                     result.append(" ${variable}_${instanceName} = ${Utils.generateCodeForParseTreeItem(instanceName,equation, globalVariable = globalOutputInputVariables)};")
                 }
@@ -57,8 +61,8 @@ object PromelaFileGenerator {
                     result.appendln()
             }
 
-            result.appendln("   ::else -> ${instanceName}_finished == 1; goto ${locationName}")
-            result.appendln("   fi")
+            result.appendln("${config.getIndent(2)}::else -> ${instanceName}_finished == 1; goto ${locationName}")
+            result.appendln("${config.getIndent(2)}fi")
         }
         return result.toString()
 
@@ -142,5 +146,9 @@ object PromelaFileGenerator {
             VariableType.INTEGER -> Utils.generateCodeForParseTreeItem("",Literal("0"))
             else -> throw NotImplementedError("Unable to generate code for requested type '$type'")
         }
+    }
+
+    private fun generateTimerProcess(): String {
+        return ""
     }
 }
