@@ -96,6 +96,10 @@ object PromelaFileGenerator {
                 }
             }
         }
+        // If its just a automata then directly add it into the map so we can generate the process later
+        if(item is HybridAutomata) {
+            instanceToAutomataMap[item.name] = item
+        }
         // Variables of each instantiation of the automata
         for(instanceName in instanceToAutomataMap.keys){
             result.appendln()
