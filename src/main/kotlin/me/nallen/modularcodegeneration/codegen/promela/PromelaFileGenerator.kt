@@ -1,10 +1,10 @@
 package me.nallen.modularcodegeneration.codegen.promela
 
 import me.nallen.modularcodegeneration.codegen.Configuration
-import me.nallen.modularcodegeneration.codegen.c.CFileGenerator
 import me.nallen.modularcodegeneration.hybridautomata.*
 import me.nallen.modularcodegeneration.parsetree.Literal
 import me.nallen.modularcodegeneration.parsetree.VariableType
+import me.nallen.modularcodegeneration.logging.Logger
 
 object PromelaFileGenerator {
     private var instanceToAutomataMap: HashMap<String,HybridItem> = HashMap();
@@ -15,9 +15,17 @@ object PromelaFileGenerator {
 
     fun generate(item: HybridItem): String {
         automata = item;
+        var generateItem = item
         val result = StringBuilder()
-        // And return the total source file contents
-        result.appendln(generateVariableInitialisation(item))
+        if(generateItem is HybridNetwork && !generateItem.isFlat()) {
+                // We need to flatten the network so we can generate efficient code
+                // Let's warn the user first
+                Logger.warn("PROMELA Run-time generation requires a \"flat\" network. Network has automatically been " +
+                        "flattened.")
+                // And then flatten the network
+            generateItem = generateItem.flatten()
+            }
+        result.appendln(generateVariableInitialisation(generateItem))
         result.appendln(generateTimerProcess())
         result.appendln(generateProcesses())
         val x = instanceToAutomataMap
@@ -27,6 +35,7 @@ object PromelaFileGenerator {
     fun generateProcesses(): String {
 
         val result = StringBuilder()
+        // For each avaiable instance that maps to a automata create a process for that instance
         for (instanceName in instanceToAutomataMap.keys){
             val automataInstance = instanceToAutomataMap[instanceName]
             result.appendln("proctype ${instanceName}_model(){")
@@ -44,12 +53,13 @@ object PromelaFileGenerator {
 
     private fun findAllTransitionLocationEdges(automataInstance: HybridAutomata, instanceName: String): String {
         val result = StringBuilder()
-
+        // Finds all transitions for the automata for each location
         for(location in automataInstance.locations){
             result.appendln()
             val locationName = location.name
             result.appendln("${config.getIndent(1)}${locationName}:  ${instanceName}_finished == 0 ->")
             result.appendln("${config.getIndent(2)}if")
+            // finds the location of the transition with the update and guards
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
 
                 result.append("${config.getIndent(2)}::(${Utils.generateCodeForParseTreeItem(instanceName,guard,globalVariable = globalOutputInputVariables )})")
@@ -67,13 +77,12 @@ object PromelaFileGenerator {
         return result.toString()
 
     }
-
     /**
      * Initialises all the variables that are needed at the start of the file
      */
     fun generateVariableInitialisation(item: HybridItem): String {
         val result = StringBuilder()
-        // Variables for inputs and outputs of the whole system
+        // Finds Variables for inputs and outputs of the whole system
         result.appendln("// Network Variables")
         for( variable in item.variables){
             val variableName = variable.name
@@ -81,7 +90,7 @@ object PromelaFileGenerator {
             globalOutputInputVariables.add(variableName)
         }
         result.appendln()
-
+        // Generates the input and output variables of the previous tick to be assigned to this variable
         for( variable in item.variables){
             val variableName = variable.name
             result.appendln("${Utils.generatePromelaType(variable.type)} pre_$variableName = ${getVariableInitialValue(variable)};");
@@ -91,14 +100,6 @@ object PromelaFileGenerator {
         if(item is HybridNetwork) {
             for (instanceName in item.getAllInstances().keys) {
                 val automataDefinition = item.instances[instanceName]?.instantiate?.let { item.getDefinitionForInstantiateId(it) };
-                if (automataDefinition is HybridNetwork) {
-                    for (instanceName in automataDefinition.getAllInstances().keys) {
-                        val automataDefinition = automataDefinition.instances[instanceName]?.instantiate?.let { item.getDefinitionForInstantiateId(it) };
-                        if (automataDefinition != null) {
-                            instanceToAutomataMap[instanceName] = automataDefinition
-                        }
-                    }
-                }
                 if (automataDefinition != null && automataDefinition is HybridAutomata) {
                     instanceToAutomataMap[instanceName] = automataDefinition
                 }
