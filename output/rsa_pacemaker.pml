@@ -100,7 +100,7 @@ proctype clock_pro(){
     INITIAL: (RSA_finished == 1 && LRI_finished == 1 && AVI_finished == 1 && VRP_finished == 1 && RHM_finished == 1 && PVARP_finished == 1 && URI_finished == 1) ->
         d_step{
             RSA_finished == 0; LRI_finished == 0; AVI_finished == 0; VRP_finished == 0; RHM_finished == 0; PVARP_finished == 0; URI_finished == 0; 
-AP = LRI_AP;
+            AP = LRI_AP;
             VP = AVI_VP;
             AS = PVARP_AS;
             VS = VRP_VS;
@@ -110,6 +110,7 @@ AP = LRI_AP;
             toggle_value = RSA_toggle;
             value_value = RSA_value;
             clock = URI_clk;
+
             // ADD ASSERT STATEMENT CHECK HERE
             //if
             //:: (pre_x < y) -> assert(false)

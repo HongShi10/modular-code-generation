@@ -271,12 +271,7 @@ object PromelaFileGenerator {
                 }
             }
         }
-
-
-
-        return result.toString().trim()
-
-
+        return result.toString()
     }
 
     private fun getProcessFinishVariablesEqualOne(): String {
