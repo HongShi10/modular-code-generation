@@ -2,6 +2,7 @@ package me.nallen.modularcodegeneration.codegen.promela
 
 import me.nallen.modularcodegeneration.codegen.Configuration
 import me.nallen.modularcodegeneration.codegen.promela.Utils.generateCodeForParseTreeItem
+import me.nallen.modularcodegeneration.codegen.promela.Utils.generateCodeForProgram
 import me.nallen.modularcodegeneration.hybridautomata.*
 import me.nallen.modularcodegeneration.parsetree.Literal
 import me.nallen.modularcodegeneration.parsetree.VariableType
@@ -31,6 +32,7 @@ object PromelaFileGenerator {
         result.appendln(generateTimerProcess())
         // creates all other processes from the instantiation of automata
         result.appendln(generateProcesses())
+        result.append(generateFunctionsForEachLocation())
         return result.toString().trim()
     }
 
@@ -65,26 +67,34 @@ object PromelaFileGenerator {
             // finds the location of the transition with the update and guards
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
 
-                result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(instanceName,guard,globalVariable = globalOutputInputVariables )}) ->")
+                result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(guard,instanceName,globalVariable = globalOutputInputVariables )}) ->")
                 // for each equation in the transition add it in
                 for((variable, equation) in update) {
+                    if(equation.type == "functionCall"){
+                        result.append(" run ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)};")
+                        continue
+                    }
                     var mapped = false;
                     // Checks if the current variable is a global variable and if it is then it checks if the variable has a mapping which maps it to this instance of the automata
-                    // if all the checks are correct then dont create a instance variable for this automata to map but map it direectly to the output variable
+                    // if all the checks are correct then dont create a instance variable for this automata to map but map it directly to the output variable
                     if(automata is HybridNetwork){
                         for (mappedVariables in (automata as HybridNetwork).ioMapping){
                             val key = mappedVariables.key
                             val value = mappedVariables.value
-                            val name = generateCodeForParseTreeItem("",value)
+                            val name = generateCodeForParseTreeItem(value)
                             val convertedName = instanceName + "_" + variable
                             if(key.automata.isBlank() && convertedName == name){
-                                 result.append(" ${key.variable} = ${generateCodeForParseTreeItem(instanceName,equation, globalVariable = globalOutputInputVariables)};")
+                                System.out.println(equation.type)
+
+                                result.append(" ${key.variable} = ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)};")
                                 mapped = true
                             }
                         }
                     }
                     if(!mapped){
-                        result.append(" ${instanceName}_${variable} = ${generateCodeForParseTreeItem(instanceName,equation, globalVariable = globalOutputInputVariables)};")
+                        System.out.println(equation.type)
+
+                      result.append(" ${instanceName}_${variable} = ${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputInputVariables)};")
                     }
                 }
                 // Adds the transition location after all variables have been updated as well as increment local tick for that process
@@ -179,7 +189,7 @@ object PromelaFileGenerator {
                         if(item is HybridNetwork){
                             for(key in item.ioMapping.keys){
                                 if("${key.automata}_${key.variable}" == variableName){
-                                    result.appendln("${Utils.generatePromelaType(variable.type)} ${variableName} = ${item.ioMapping[key]?.let { generateCodeForParseTreeItem("", it) }};")
+                                    result.appendln("${Utils.generatePromelaType(variable.type)} ${variableName} = ${item.ioMapping[key]?.let { generateCodeForParseTreeItem( it) }};")
                                     usedVariableNames.add(variableName)
                                 }
                             }
@@ -197,6 +207,7 @@ object PromelaFileGenerator {
             if(variable.locality.getTextualName() == "Outputs"){
                 result.appendln("${Utils.generatePromelaType(variable.type)} pre_$variableName = ${getVariableInitialValue(variable)};")
                 globalOutputInputVariables.add(variableName)
+                usedVariableNames.add(variableName)
             }
         }
 
@@ -217,7 +228,7 @@ object PromelaFileGenerator {
         // But, if an initial value for the variable is provided then let's use that
         if(automata is HybridAutomata && (automata as HybridAutomata).init.valuations.containsKey(variable.name)) {
             // Generate code that represents the initial value for the variable
-            initValue = Utils.generateCodeForParseTreeItem("",(automata as HybridAutomata).init.valuations[variable.name] !!)
+            initValue = generateCodeForParseTreeItem((automata as HybridAutomata).init.valuations[variable.name] !!)
         }
 
         // Now we can return the code that initialises the variable
@@ -229,9 +240,9 @@ object PromelaFileGenerator {
     private fun generateDefaultInitForType(type: VariableType): String {
         // A simple switch based on the type returns the default value for the types of variables
         return when(type) {
-            VariableType.BOOLEAN -> Utils.generateCodeForParseTreeItem("",Literal("0"))
-            VariableType.REAL -> Utils.generateCodeForParseTreeItem("",Literal("0"))
-            VariableType.INTEGER -> Utils.generateCodeForParseTreeItem("",Literal("0"))
+            VariableType.BOOLEAN -> generateCodeForParseTreeItem(Literal("0"))
+            VariableType.REAL -> generateCodeForParseTreeItem(Literal("0"))
+            VariableType.INTEGER -> generateCodeForParseTreeItem(Literal("0"))
             else -> throw NotImplementedError("Unable to generate code for requested type '$type'")
         }
     }
@@ -311,6 +322,26 @@ object PromelaFileGenerator {
                 result.appendln("${config.getIndent(3)}${variable.name} = ${getVariableInitialValue(variable)};");
             }
         }
+        return result.toString()
+    }
+
+    private fun generateFunctionsForEachLocation(): String {
+        val result = StringBuilder()
+        for (instanceName in instanceToAutomataMap.keys){
+            val automataInstance = instanceToAutomataMap[instanceName]
+            // creates the process method header
+
+            if(automataInstance is HybridAutomata && automataInstance.functions.isNotEmpty()){
+                for(function in automataInstance.functions){
+                    result.appendln(generateCodeForProgram(function.logic, config))
+                }
+
+            }
+
+        }
+
+
+
         return result.toString()
     }
 }

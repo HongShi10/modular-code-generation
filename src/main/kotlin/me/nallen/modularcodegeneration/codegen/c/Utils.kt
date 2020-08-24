@@ -296,13 +296,13 @@ object Utils {
                     // Note that some of these will recursively call this method, as they contain their own bodies
                     // (such as If statements)
                     when(it) {
-                        is Statement -> "${Utils.generateCodeForParseTreeItem(it.logic, prefixData)};"
+                        is Statement -> "${generateCodeForParseTreeItem(it.logic, prefixData)};"
                         is Break -> "break;"
-                        is Assignment -> "${Utils.generateCodeForParseTreeItem(it.variableName, prefixData)} = ${Utils.generateCodeForParseTreeItem(it.variableValue, prefixData)};"
-                        is Return -> "return ${Utils.generateCodeForParseTreeItem(it.logic, prefixData)};"
-                        is IfStatement -> "if(${Utils.generateCodeForParseTreeItem(it.condition, prefixData)}) {\n${Utils.generateCodeForProgram(it.body, config, 1, prefixData, true)}\n}"
-                        is ElseIfStatement -> "else if(${Utils.generateCodeForParseTreeItem(it.condition, prefixData)}) {\n${Utils.generateCodeForProgram(it.body, config, 1, prefixData, true)}\n}"
-                        is ElseStatement -> "else {\n${Utils.generateCodeForProgram(it.body, config, 1, prefixData, true)}\n}"
+                        is Assignment -> "${generateCodeForParseTreeItem(it.variableName, prefixData)} = ${generateCodeForParseTreeItem(it.variableValue, prefixData)};"
+                        is Return -> "return ${generateCodeForParseTreeItem(it.logic, prefixData)};"
+                        is IfStatement -> "if(${generateCodeForParseTreeItem(it.condition, prefixData)}) {\n${generateCodeForProgram(it.body, config, 1, prefixData, true)}\n}"
+                        is ElseIfStatement -> "else if(${generateCodeForParseTreeItem(it.condition, prefixData)}) {\n${generateCodeForProgram(it.body, config, 1, prefixData, true)}\n}"
+                        is ElseStatement -> "else {\n${generateCodeForProgram(it.body, config, 1, prefixData, true)}\n}"
                         is ForStatement -> {
                             var loopAnnotation = ""
                             if(config.ccodeSettings.hasLoopAnnotations) {
@@ -312,17 +312,17 @@ object Utils {
                             
                             if(it.lowerBound <= it.upperBound) {
                                 "for(" +
-                                        "int ${Utils.generateCodeForParseTreeItem(it.variableName, prefixData)} = ${it.lowerBound}; " +
-                                        "${Utils.generateCodeForParseTreeItem(it.variableName, prefixData)} <= ${it.upperBound}; " +
-                                        "${Utils.generateCodeForParseTreeItem(it.variableName, prefixData)}++" +
-                                        ") {$loopAnnotation\n${Utils.generateCodeForProgram(it.body, config, 1, prefixData, true)}\n}"
+                                        "int ${generateCodeForParseTreeItem(it.variableName, prefixData)} = ${it.lowerBound}; " +
+                                        "${generateCodeForParseTreeItem(it.variableName, prefixData)} <= ${it.upperBound}; " +
+                                        "${generateCodeForParseTreeItem(it.variableName, prefixData)}++" +
+                                        ") {$loopAnnotation\n${generateCodeForProgram(it.body, config, 1, prefixData, true)}\n}"
                             }
                             else {
                                 "for(" +
-                                        "int ${Utils.generateCodeForParseTreeItem(it.variableName, prefixData)} = ${it.lowerBound}; " +
-                                        "${Utils.generateCodeForParseTreeItem(it.variableName, prefixData)} >= ${it.upperBound}; " +
-                                        "${Utils.generateCodeForParseTreeItem(it.variableName, prefixData)}--" +
-                                        ") {$loopAnnotation\n${Utils.generateCodeForProgram(it.body, config, 1, prefixData, true)}\n}"
+                                        "int ${generateCodeForParseTreeItem(it.variableName, prefixData)} = ${it.lowerBound}; " +
+                                        "${generateCodeForParseTreeItem(it.variableName, prefixData)} >= ${it.upperBound}; " +
+                                        "${generateCodeForParseTreeItem(it.variableName, prefixData)}--" +
+                                        ") {$loopAnnotation\n${generateCodeForProgram(it.body, config, 1, prefixData, true)}\n}"
                             }
                         }
                     }

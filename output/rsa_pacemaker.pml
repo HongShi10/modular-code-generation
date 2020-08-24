@@ -199,9 +199,9 @@ proctype LRI_model(){
     LRI:  LRI_finished == 0 ->
         if
         ::(pre_AS && LRI_toggle == 0) -> LRI_finished = 1; goto ASED;
-        ::(pre_AS && LRI_toggle) -> AEI = rsa(LRI_value, LRI_current_AEI); AP = false; LRI_finished = 1; goto ASED;
+        ::(pre_AS && LRI_toggle) -> run rsa(LRI_value, LRI_current_AEI); AP = false; LRI_finished = 1; goto ASED;
         ::(pre_VS || pre_VP) -> pacing_rate = 0; LRI_finished = 1; goto LRI;
-        ::(LRI_toggle) -> AEI = rsa(LRI_value, LRI_current_AEI); AP = false; LRI_finished = 1; goto LRI;
+        ::(LRI_toggle) -> run rsa(LRI_value, LRI_current_AEI); AP = false; LRI_finished = 1; goto LRI;
         ::(LRI_t >= pre_AEI) -> pacing_rate = 0; AP = true; LRI_finished = 1; goto LRI;
         ::else -> LRI_finished == 1; goto LRI;
         fi
@@ -209,7 +209,7 @@ proctype LRI_model(){
     ASED:  LRI_finished == 0 ->
         if
         ::(pre_VS || pre_VP) -> pacing_rate = 0; LRI_finished = 1; goto LRI;
-        ::(LRI_toggle) -> AEI = rsa(LRI_value, LRI_current_AEI); AP = false; LRI_finished = 1; goto ASED;
+        ::(LRI_toggle) -> run rsa(LRI_value, LRI_current_AEI); AP = false; LRI_finished = 1; goto ASED;
         ::else -> LRI_finished == 1; goto ASED;
         fi
 
@@ -315,4 +315,32 @@ proctype URI_model(){
         ::else -> URI_finished == 1; goto URI;
         fi
 
+}
+if(value == 0) {
+    return 0.402;
+}
+else if(value == 1) {
+    return 0.357;
+}
+else if(value == 2) {
+    return 0.457;
+}
+else if(value == 3) {
+    if(current_AEI > 0.346) {
+        return current_AEI - 0.01;
+    }
+    else {
+        return 0.337;
+    }
+}
+else if(value == 4) {
+    if(current_AEI < 0.468) {
+        return current_AEI + 0.01;
+    }
+    else {
+        return 0.477;
+    }
+}
+else {
+    return 0.402;
 }

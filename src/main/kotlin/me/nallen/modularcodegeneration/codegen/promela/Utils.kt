@@ -31,7 +31,7 @@ object Utils {
         return original.convertWordDelimiterConvention(NamingConvention.SNAKE_CASE)
     }
 
-    fun generateCodeForParseTreeItem(instanceName: String, item: ParseTreeItem, parent: ParseTreeItem? = null, globalVariable: HashSet<String>? = null): String {
+    fun generateCodeForParseTreeItem( item: ParseTreeItem,instanceName: String = "", parent: ParseTreeItem? = null, globalVariable: HashSet<String>? = null): String {
         // For each possible ParseTreeItem we have a different output string that will be generated
         // We recursively call these generation functions until we reach the end of the tree
         return when (item) {
@@ -56,7 +56,7 @@ object Utils {
                 for (argument in item.arguments) {
                     // If needed, deliminate by a comma
                     if (builder.isNotEmpty()) builder.append(", ")
-                    builder.append(generateCodeForParseTreeItem(instanceName,argument, globalVariable = globalVariable))
+                    builder.append(generateCodeForParseTreeItem(argument,instanceName, globalVariable = globalVariable))
                 }
 
                 // And then return the final function name
@@ -108,19 +108,76 @@ object Utils {
             is Plus -> padOperand(instanceName,item, item.operandA) + " + " + padOperand(instanceName,item, item.operandB)
             is Minus -> padOperand(instanceName,item, item.operandA) + " - " + padOperand(instanceName,item, item.operandB)
             is Negative -> "-" + padOperand(instanceName,item, item.operandA)
-            is Power -> "pow(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ", " + generateCodeForParseTreeItem(instanceName,item.operandB) + ")"
+            is Power -> "pow(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ", " + generateCodeForParseTreeItem(item.operandB,instanceName) + ")"
             is Multiply -> padOperand(instanceName,item, item.operandA) + " * " + padOperand(instanceName,item, item.operandB)
             is Divide -> padOperand(instanceName,item, item.operandA) + " / " + padOperand(instanceName,item, item.operandB)
-            is SquareRoot -> "sqrt(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
-            is Exponential -> "exp(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
-            is Ln -> "log(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
-            is Sine -> "sin(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
-            is Cosine -> "cos(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
-            is Tangent -> "tan(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
-            is Floor -> "floor(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
-            is Ceil -> "ceil(" + generateCodeForParseTreeItem(instanceName,item.operandA) + ")"
+            is SquareRoot -> "sqrt(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
+            is Exponential -> "exp(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
+            is Ln -> "log(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
+            is Sine -> "sin(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
+            is Cosine -> "cos(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
+            is Tangent -> "tan(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
+            is Floor -> "floor(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
+            is Ceil -> "ceil(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
         }
     }
+
+    fun generateCodeForProgram(program: Program, config: Configuration, depth: Int = 0, innerProgram: Boolean = false, usedVariableNames: HashSet<String>? = null): String {
+        val builder = StringBuilder()
+
+        // First, we want to declare and initialise any internal variables that exist in this program, if it's not an inner program
+        if(!innerProgram) {
+            program.variables.filter {it.locality == ParseTreeLocality.INTERNAL}
+                    .filterNot { usedVariableNames!!.contains(it.name) }
+                    .forEach { builder.appendln("${config.getIndent(depth)}${generatePromelaType(it.type)} ${(it.name)};") }
+            if(builder.isNotEmpty())
+                builder.appendln()
+        }
+
+        // Now, we need to go through each line
+        program.lines
+                .map {
+                    // And convert the ProgramLine into a string representation
+                    // Note that some of these will recursively call this method, as they contain their own bodies
+                    // (such as If statements)
+                    when(it) {
+                        is Statement -> "${generateCodeForParseTreeItem(it.logic)};"
+                        is Break -> "break;"
+                        is Assignment -> "${generateCodeForParseTreeItem(it.variableName)} = ${generateCodeForParseTreeItem(it.variableValue)};"
+                        is Return -> "return ${generateCodeForParseTreeItem(it.logic)};"
+                        is IfStatement -> "if(${generateCodeForParseTreeItem(it.condition)}) {\n${generateCodeForProgram(it.body, config, 1,  true,usedVariableNames)}\n}"
+                        is ElseIfStatement -> "else if(${generateCodeForParseTreeItem(it.condition)}) {\n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames)}\n}"
+                        is ElseStatement -> "else {\n${generateCodeForProgram(it.body, config, 1,true,usedVariableNames)}\n}"
+                        is ForStatement -> {
+                            var loopAnnotation = ""
+                            if(config.ccodeSettings.hasLoopAnnotations) {
+                                val loops = Math.abs(it.upperBound - it.lowerBound) + 1
+                                loopAnnotation = "\n${config.getIndent(1)}${config.ccodeSettings.getLoopAnnotation(loops)}"
+                            }
+
+                            if(it.lowerBound <= it.upperBound) {
+                                "for(" +
+                                        "int ${generateCodeForParseTreeItem(it.variableName)} = ${it.lowerBound}; " +
+                                        "${generateCodeForParseTreeItem(it.variableName)} <= ${it.upperBound}; " +
+                                        "${generateCodeForParseTreeItem(it.variableName)}++" +
+                                        ") {$loopAnnotation\n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames)}\n}"
+                            }
+                            else {
+                                "for(" +
+                                        "int ${generateCodeForParseTreeItem(it.variableName)} = ${it.lowerBound}; " +
+                                        "${generateCodeForParseTreeItem(it.variableName)} >= ${it.upperBound}; " +
+                                        "${generateCodeForParseTreeItem(it.variableName)}--" +
+                                        ") {$loopAnnotation\n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames)}\n}"
+                            }
+                        }
+                    }
+                }
+                .forEach { builder.appendln(it.prependIndent(config.getIndent(depth))) }
+
+        // And return the total program
+        return builder.toString().trimEnd()
+    }
+
 
     /**
      * Looks at a provided ParseTreeItem and its child and generates a C representation of the formula
@@ -138,13 +195,13 @@ object Utils {
 
         // If the current operation's precedence is more than the childs, then we want brackets
         if (precedence < operand.getPrecedence())
-            return "(" + generateCodeForParseTreeItem(instanceName,operand, globalVariable = globalVariable) + ")"
+            return "(" + generateCodeForParseTreeItem(operand, instanceName,globalVariable = globalVariable) + ")"
 
         // Special cases for C revolve around Or and And
         if (item is Or && operand is And)
-            return "(" + generateCodeForParseTreeItem(instanceName,operand, globalVariable = globalVariable) + ")"
+            return "(" + generateCodeForParseTreeItem(operand,instanceName, globalVariable = globalVariable) + ")"
 
         // Otherwise no brackets
-        return generateCodeForParseTreeItem(instanceName,operand, item, globalVariable = globalVariable)
+        return generateCodeForParseTreeItem(operand,instanceName,item, globalVariable = globalVariable)
     }
 }
