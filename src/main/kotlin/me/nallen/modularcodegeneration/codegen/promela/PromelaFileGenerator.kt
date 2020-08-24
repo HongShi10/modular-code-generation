@@ -65,13 +65,30 @@ object PromelaFileGenerator {
             // finds the location of the transition with the update and guards
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
 
-                result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(instanceName,guard,globalVariable = globalOutputInputVariables )})")
+                result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(instanceName,guard,globalVariable = globalOutputInputVariables )}) ->")
                 // for each equation in the transition add it in
                 for((variable, equation) in update) {
-                    result.append(" ${instanceName}_${variable} = ${generateCodeForParseTreeItem(instanceName,equation, globalVariable = globalOutputInputVariables)};")
+                    var mapped = false;
+                    // Checks if the current variable is a global variable and if it is then it checks if the variable has a mapping which maps it to this instance of the automata
+                    // if all the checks are correct then dont create a instance variable for this automata to map but map it direectly to the output variable
+                    if(automata is HybridNetwork){
+                        for (mappedVariables in (automata as HybridNetwork).ioMapping){
+                            val key = mappedVariables.key
+                            val value = mappedVariables.value
+                            val name = generateCodeForParseTreeItem("",value)
+                            val convertedName = instanceName + "_" + variable
+                            if(key.automata.isBlank() && convertedName == name){
+                                 result.append(" ${key.variable} = ${generateCodeForParseTreeItem(instanceName,equation, globalVariable = globalOutputInputVariables)};")
+                                mapped = true
+                            }
+                        }
+                    }
+                    if(!mapped){
+                        result.append(" ${instanceName}_${variable} = ${generateCodeForParseTreeItem(instanceName,equation, globalVariable = globalOutputInputVariables)};")
+                    }
                 }
                 // Adds the transition location after all variables have been updated as well as increment local tick for that process
-                result.append(" ${instanceName}_finished == 1; goto $toLocation;")
+                result.append(" ${instanceName}_finished = 1; goto $toLocation;")
                     result.appendln()
             }
 
@@ -118,11 +135,11 @@ object PromelaFileGenerator {
         if(item is HybridAutomata) {
             instanceToAutomataMap[item.name] = item
         }
-        // Finds all the global variables with NO MAPPINGS
-        for(variable in item.variables){
-            if(!checkVariableHasMapping(item,variable.name,true)){
-                result.appendln("${Utils.generatePromelaType(variable.type)} ${variable.name} = ${getVariableInitialValue(variable)};")
-                globalOutputInputVariables.add(variable.name)
+
+        result.appendln("// Global Variables ")
+        for(variable in automata.variables){
+            if(variable.locality.getTextualName() == "Outputs"){
+                result.appendln("${Utils.generatePromelaType(variable.type)} ${variable.name} = ${getVariableInitialValue(variable)};");
             }
         }
 
@@ -147,20 +164,6 @@ object PromelaFileGenerator {
         }
 
         result.appendln()
-        // Finds Variables for inputs and outputs of the whole system with mappings
-        if(item is HybridNetwork){
-            result.appendln("// Global Variables with mappings")
-            for(key in item.ioMapping.keys){
-                if(key.automata.isBlank()){
-                    for(variable in item.variables){
-                        if(variable.name == key.variable){
-                            result.appendln("${Utils.generatePromelaType(variable.type)} ${variable.name} = ${item.ioMapping[key]?.let { generateCodeForParseTreeItem("", it) }};")
-                            globalOutputInputVariables.add(variable.name)
-                        }
-                    }
-                }
-            }
-        }
 
         // Finds all the variables for processes with NO MAPPINGS
         for(instanceName in instanceToAutomataMap.keys){
@@ -243,8 +246,6 @@ object PromelaFileGenerator {
         result.appendln("${config.getIndent(2)}d_step{")
         // resets the local tick so every process is synchronised
         result.appendln(resetProcessFinishVariables())
-        // sets the mapped output variables to be outputting the correct values based on the HAML
-        result.appendln(setMappedIOVariables())
         // Example assert statement printed in the file for user to change
         result.appendln("${config.getIndent(3)}// ADD ASSERT STATEMENT CHECK HERE")
         result.appendln("${config.getIndent(3)}//if")
@@ -258,21 +259,21 @@ object PromelaFileGenerator {
         return result.toString()
     }
 
-    private fun setMappedIOVariables(): String {
-        val result = StringBuilder()
-        if(automata is HybridNetwork){
-            for(key in (automata as HybridNetwork).ioMapping.keys){
-                if(key.automata.isBlank()){
-                    for(variable in automata.variables){
-                        if(variable.name == key.variable){
-                            result.appendln("${config.getIndent(3)}${variable.name} = ${(automata as HybridNetwork).ioMapping[key]?.let { generateCodeForParseTreeItem("", it) }};")
-                        }
-                    }
-                }
-            }
-        }
-        return result.toString()
-    }
+//    private fun setMappedIOVariables(): String {
+//        val result = StringBuilder()
+//        if(automata is HybridNetwork){
+//            for(key in (automata as HybridNetwork).ioMapping.keys){
+//                if(key.automata.isBlank()){
+//                    for(variable in automata.variables){
+//                        if(variable.name == key.variable){
+//                            result.appendln("${config.getIndent(3)}${variable.name} = ${(automata as HybridNetwork).ioMapping[key]?.let { generateCodeForParseTreeItem("", it) }};")
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return result.toString()
+//    }
 
     private fun getProcessFinishVariablesEqualOne(): String {
         val result = StringBuilder()
