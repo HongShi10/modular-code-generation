@@ -316,31 +316,29 @@ proctype URI_model(){
         fi
 
 }
-if(value == 0) {
-    return 0.402;
-}
-else if(value == 1) {
-    return 0.357;
-}
-else if(value == 2) {
-    return 0.457;
-}
-else if(value == 3) {
-    if(current_AEI > 0.346) {
-        return current_AEI - 0.01;
-    }
-    else {
-        return 0.337;
-    }
-}
-else if(value == 4) {
-    if(current_AEI < 0.468) {
-        return current_AEI + 0.01;
-    }
-    else {
-        return 0.477;
-    }
-}
-else {
-    return 0.402;
+LRI_rsa(double value, double current_AEI){
+    if 
+    ::(value == 0) -> 
+        return 0.402; 
+    ::(value == 1) -> 
+        return 0.357;
+    ::(value == 2) -> 
+        return 0.457;
+    ::(value == 3) -> 
+        if 
+        ::(current_AEI > 0.346) -> 
+            return current_AEI - 0.01; 
+        ::else -> 
+            return 0.337;
+        fi
+    ::(value == 4) -> 
+        if 
+        ::(current_AEI < 0.468) -> 
+            return current_AEI + 0.01; 
+        ::else -> 
+            return 0.477;
+        fi
+    ::else -> 
+        return 0.402;
+    fi
 }

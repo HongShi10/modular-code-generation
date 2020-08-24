@@ -3,6 +3,7 @@ package me.nallen.modularcodegeneration.codegen.promela
 import me.nallen.modularcodegeneration.codegen.Configuration
 import me.nallen.modularcodegeneration.codegen.promela.Utils.generateCodeForParseTreeItem
 import me.nallen.modularcodegeneration.codegen.promela.Utils.generateCodeForProgram
+import me.nallen.modularcodegeneration.codegen.promela.Utils.generatePromelaType
 import me.nallen.modularcodegeneration.hybridautomata.*
 import me.nallen.modularcodegeneration.parsetree.Literal
 import me.nallen.modularcodegeneration.parsetree.VariableType
@@ -330,10 +331,23 @@ object PromelaFileGenerator {
         for (instanceName in instanceToAutomataMap.keys){
             val automataInstance = instanceToAutomataMap[instanceName]
             // creates the process method header
-
             if(automataInstance is HybridAutomata && automataInstance.functions.isNotEmpty()){
                 for(function in automataInstance.functions){
-                    result.appendln(generateCodeForProgram(function.logic, config))
+                    result.append("${instanceName}_${function.name}(")
+                    val numberOfInputs = function.inputs.size
+                    var counter = 1
+                    for(inputVar in function.inputs){
+                        result.append("${generatePromelaType(inputVar.type)} ${inputVar.name}")
+                        if(counter < numberOfInputs){
+                            result.append(", ")
+                        }
+                        counter++
+                    }
+                    result.append("){")
+                    result.appendln()
+                    result.appendln(generateCodeForProgram(function.logic, config,1))
+                    result.appendln("}")
+
                 }
 
             }
@@ -342,6 +356,6 @@ object PromelaFileGenerator {
 
 
 
-        return result.toString()
+        return result.toString().trimEnd()
     }
 }

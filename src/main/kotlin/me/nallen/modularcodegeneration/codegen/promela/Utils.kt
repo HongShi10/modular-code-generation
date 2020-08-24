@@ -145,9 +145,9 @@ object Utils {
                         is Break -> "break;"
                         is Assignment -> "${generateCodeForParseTreeItem(it.variableName)} = ${generateCodeForParseTreeItem(it.variableValue)};"
                         is Return -> "return ${generateCodeForParseTreeItem(it.logic)};"
-                        is IfStatement -> "if(${generateCodeForParseTreeItem(it.condition)}) {\n${generateCodeForProgram(it.body, config, 1,  true,usedVariableNames)}\n}"
-                        is ElseIfStatement -> "else if(${generateCodeForParseTreeItem(it.condition)}) {\n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames)}\n}"
-                        is ElseStatement -> "else {\n${generateCodeForProgram(it.body, config, 1,true,usedVariableNames)}\n}"
+                        is IfStatement -> "if \n::(${generateCodeForParseTreeItem(it.condition)}) -> \n${generateCodeForProgram(it.body, config, 1,  true,usedVariableNames)} "
+                        is ElseIfStatement -> "::(${generateCodeForParseTreeItem(it.condition)}) -> \n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames)}"
+                        is ElseStatement -> "::else -> \n${generateCodeForProgram(it.body, config, 1,true,usedVariableNames)}\nfi"
                         is ForStatement -> {
                             var loopAnnotation = ""
                             if(config.ccodeSettings.hasLoopAnnotations) {
