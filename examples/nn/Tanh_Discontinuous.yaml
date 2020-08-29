@@ -1,0 +1,99 @@
+inputs:
+    in: REAL
+outputs:
+    out: REAL
+locations:
+  q0:
+    update:
+      out: activation_func(in)
+functions:
+  activation_func:
+    inputs:
+      in: REAL
+    logic: |
+
+      neg_Input = false
+      if(in < 0.0){
+        abs_in = in * -1
+        neg_Input = true
+      }
+      else{
+        abs_in = in
+      }
+      if(abs_in >= 0.0 && abs_in < 0.25){ 
+        m = 0.984536
+        c = 0.001286
+      }
+      else if(abs_in >= 0.25 && abs_in < 0.5){ 
+        m = 0.87158
+        c = 0.031515
+      }
+      else if(abs_in >= 0.5 && abs_in < 0.75){ 
+        m = 0.692419
+        c = 0.121838
+      }
+      else if(abs_in >= 0.75 && abs_in < 1.0){ 
+        m = 0.504517
+        c = 0.262453
+      }
+      else if(abs_in >= 1.0 && abs_in < 1.25){ 
+        m = 0.345032
+        c = 0.42114
+      }
+      else if(abs_in >= 1.25 && abs_in < 1.5){ 
+        m = 0.225905
+        c = 0.569207
+      }
+      else if(abs_in >= 1.5 && abs_in < 1.75){ 
+        m = 0.143734
+        c = 0.691778
+      }
+      else if(abs_in >= 1.75 && abs_in < 2.0){ 
+        m = 0.089798
+        c = 0.785675
+      }
+      else if(abs_in >= 2.0 && abs_in < 2.25){ 
+        m = 0.055463
+        c = 0.854013
+      }
+      else if(abs_in >= 2.25 && abs_in < 2.5){ 
+        m = 0.034016
+        c = 0.902058
+      }
+      else if(abs_in >= 2.5 && abs_in < 2.75){ 
+        m = 0.020772
+        c = 0.935035
+      }
+      else if(abs_in >= 2.75 && abs_in < 3.0){ 
+        m = 0.01265
+        c = 0.957285
+      }
+      else if(abs_in >= 3.0 && abs_in < 3.25){ 
+        m = 0.007692
+        c = 0.972109
+      }
+      else if(abs_in >= 3.25 && abs_in < 3.5){ 
+        m = 0.004673
+        c = 0.981891
+      }
+      else if(abs_in >= 3.5 && abs_in < 3.75){ 
+        m = 0.002837
+        c = 0.988298
+      }
+      else if(abs_in >= 3.75 && abs_in < 4.0){ 
+        m = 0.001721
+        c = 0.992468
+      }
+      else{
+        m = 0.000000
+        c = 1.000000
+      }
+      y = m * abs_in + c
+      if(neg_Input == true){
+        y =  y * -1
+      }
+
+      return y
+
+initialisation:
+  state: q0

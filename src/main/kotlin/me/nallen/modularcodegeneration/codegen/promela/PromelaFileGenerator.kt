@@ -169,6 +169,8 @@ object PromelaFileGenerator {
         result.appendln(generateVariablesForPreviousClockTick(item))
         // Creates variables for local clock ticks
         result.appendln(generateVariablesForProcessLocalTick())
+        result.appendln(generateVariablesForFunctions()
+        )
         return result.toString()
 
     }
@@ -176,12 +178,9 @@ object PromelaFileGenerator {
         val result = StringBuilder()
         result.appendln("// Global Variables ")
         for(variable in automata.variables){
-            if(variable.locality.getTextualName() == "Outputs"){
                 result.appendln("${generatePromelaType(variable.type)} ${variable.name} = ${getVariableInitialValue(variable)};");
                 globalOutputInputVariables.add(variable.name)
                 usedVariableNames.add(variable.name)
-
-            }
         }
         return result.toString()
     }
@@ -256,6 +255,21 @@ object PromelaFileGenerator {
         val result = StringBuilder()
         for(instanceName in instanceToAutomataMap.keys){
             result.appendln("bit ${instanceName}_finished = 0;")
+        }
+        return result.toString()
+    }
+    private fun generateVariablesForFunctions() : String{
+        val result = StringBuilder()
+        for (instanceName in instanceToAutomataMap.keys){
+            val automataInstance = instanceToAutomataMap[instanceName]
+            // creates the process method header
+            if(automataInstance is HybridAutomata && automataInstance.functions.isNotEmpty()){
+                for(function in automataInstance.functions){
+                    result.appendln("${ generatePromelaType(function.returnType)} ${instanceName}_${function.name}_function_returnVar = ${function.returnType?.let { generateDefaultInitForType(it) }};")
+                }
+
+            }
+
         }
         return result.toString()
     }

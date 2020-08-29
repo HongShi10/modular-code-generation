@@ -110,6 +110,8 @@ bit RHM_finished = 0;
 bit PVARP_finished = 0;
 bit URI_finished = 0;
 
+double LRI_rsa_function_returnVar = 0;
+
 
 
 proctype clock_pro(){
