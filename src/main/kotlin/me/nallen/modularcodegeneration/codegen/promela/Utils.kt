@@ -45,8 +45,6 @@ object Utils {
             is Equal -> padOperand(instanceName,item, item.operandA, globalVariable) + " == " + padOperand(instanceName,item, item.operandB,globalVariable)
             is NotEqual -> padOperand(instanceName,item, item.operandA, globalVariable) + " != " + padOperand(instanceName,item, item.operandB,globalVariable)
             is FunctionCall -> {
-                // Functions have a lot of extra logic we need to do
-                // Firstly we should check if it's a delayed function call, which will have special handling
 
                 // Otherwise, let's build a function
                 val builder = StringBuilder()
@@ -122,7 +120,7 @@ object Utils {
         }
     }
 
-    fun generateCodeForProgram(program: Program, config: Configuration, depth: Int = 0, innerProgram: Boolean = false, usedVariableNames: HashSet<String>? = null): String {
+    fun generateCodeForProgram(program: Program, config: Configuration, depth: Int = 0, innerProgram: Boolean = false, usedVariableNames: HashSet<String>? = null, functionName: String = ""): String {
         val builder = StringBuilder()
 
         // First, we want to declare and initialise any internal variables that exist in this program, if it's not an inner program
@@ -144,10 +142,10 @@ object Utils {
                         is Statement -> "${generateCodeForParseTreeItem(it.logic)};"
                         is Break -> "break;"
                         is Assignment -> "${generateCodeForParseTreeItem(it.variableName)} = ${generateCodeForParseTreeItem(it.variableValue)};"
-                        is Return -> "return ${generateCodeForParseTreeItem(it.logic)};"
-                        is IfStatement -> "if \n::(${generateCodeForParseTreeItem(it.condition)}) -> \n${generateCodeForProgram(it.body, config, 1,  true,usedVariableNames)} "
-                        is ElseIfStatement -> "::(${generateCodeForParseTreeItem(it.condition)}) -> \n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames)}"
-                        is ElseStatement -> "::else -> \n${generateCodeForProgram(it.body, config, 1,true,usedVariableNames)}\nfi"
+                        is Return -> "${functionName} = ${generateCodeForParseTreeItem(it.logic)};"
+                        is IfStatement -> "if \n::(${generateCodeForParseTreeItem(it.condition)}) -> \n${generateCodeForProgram(it.body, config, 1,  true,usedVariableNames,functionName)} "
+                        is ElseIfStatement -> "::(${generateCodeForParseTreeItem(it.condition)}) -> \n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames,functionName)}"
+                        is ElseStatement -> "::else -> \n${generateCodeForProgram(it.body, config, 1,true,usedVariableNames,functionName)}\nfi"
                         is ForStatement -> {
                             var loopAnnotation = ""
                             if(config.ccodeSettings.hasLoopAnnotations) {
@@ -160,14 +158,14 @@ object Utils {
                                         "int ${generateCodeForParseTreeItem(it.variableName)} = ${it.lowerBound}; " +
                                         "${generateCodeForParseTreeItem(it.variableName)} <= ${it.upperBound}; " +
                                         "${generateCodeForParseTreeItem(it.variableName)}++" +
-                                        ") {$loopAnnotation\n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames)}\n}"
+                                        ") {$loopAnnotation\n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames,functionName)}\n}"
                             }
                             else {
                                 "for(" +
                                         "int ${generateCodeForParseTreeItem(it.variableName)} = ${it.lowerBound}; " +
                                         "${generateCodeForParseTreeItem(it.variableName)} >= ${it.upperBound}; " +
                                         "${generateCodeForParseTreeItem(it.variableName)}--" +
-                                        ") {$loopAnnotation\n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames)}\n}"
+                                        ") {$loopAnnotation\n${generateCodeForProgram(it.body, config, 1, true,usedVariableNames,functionName)}\n}"
                             }
                         }
                     }

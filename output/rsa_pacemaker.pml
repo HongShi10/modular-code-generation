@@ -11,6 +11,7 @@ double toggle_value = 0;
 double value_value = 0;
 double clock = 0;
 
+
 // RSA Variables without mappings
 bit RSA_INS = 0;
 double RSA_value = 0;
@@ -110,6 +111,7 @@ bit PVARP_finished = 0;
 bit URI_finished = 0;
 
 
+
 proctype clock_pro(){
 
     INITIAL: (RSA_finished == 1 && LRI_finished == 1 && AVI_finished == 1 && VRP_finished == 1 && RHM_finished == 1 && PVARP_finished == 1 && URI_finished == 1) ->
@@ -199,9 +201,9 @@ proctype LRI_model(){
     LRI:  LRI_finished == 0 ->
         if
         ::(pre_AS && LRI_toggle == 0) -> LRI_finished = 1; goto ASED;
-        ::(pre_AS && LRI_toggle) -> run rsa(LRI_value, LRI_current_AEI); AP = false; LRI_finished = 1; goto ASED;
+        ::(pre_AS && LRI_toggle) -> atomic{ run rsa(LRI_value, LRI_current_AEI); AEI = LRI_rsa_function_returnVar;} AP = false; LRI_finished = 1; goto ASED;
         ::(pre_VS || pre_VP) -> pacing_rate = 0; LRI_finished = 1; goto LRI;
-        ::(LRI_toggle) -> run rsa(LRI_value, LRI_current_AEI); AP = false; LRI_finished = 1; goto LRI;
+        ::(LRI_toggle) -> atomic{ run rsa(LRI_value, LRI_current_AEI); AEI = LRI_rsa_function_returnVar;} AP = false; LRI_finished = 1; goto LRI;
         ::(LRI_t >= pre_AEI) -> pacing_rate = 0; AP = true; LRI_finished = 1; goto LRI;
         ::else -> LRI_finished == 1; goto LRI;
         fi
@@ -209,7 +211,7 @@ proctype LRI_model(){
     ASED:  LRI_finished == 0 ->
         if
         ::(pre_VS || pre_VP) -> pacing_rate = 0; LRI_finished = 1; goto LRI;
-        ::(LRI_toggle) -> run rsa(LRI_value, LRI_current_AEI); AP = false; LRI_finished = 1; goto ASED;
+        ::(LRI_toggle) -> atomic{ run rsa(LRI_value, LRI_current_AEI); AEI = LRI_rsa_function_returnVar;} AP = false; LRI_finished = 1; goto ASED;
         ::else -> LRI_finished == 1; goto ASED;
         fi
 
@@ -319,26 +321,26 @@ proctype URI_model(){
 LRI_rsa(double value, double current_AEI){
     if 
     ::(value == 0) -> 
-        return 0.402; 
+        LRI_rsa_function_returnVar = 0.402; 
     ::(value == 1) -> 
-        return 0.357;
+        LRI_rsa_function_returnVar = 0.357;
     ::(value == 2) -> 
-        return 0.457;
+        LRI_rsa_function_returnVar = 0.457;
     ::(value == 3) -> 
         if 
         ::(current_AEI > 0.346) -> 
-            return current_AEI - 0.01; 
+            LRI_rsa_function_returnVar = current_AEI - 0.01; 
         ::else -> 
-            return 0.337;
+            LRI_rsa_function_returnVar = 0.337;
         fi
     ::(value == 4) -> 
         if 
         ::(current_AEI < 0.468) -> 
-            return current_AEI + 0.01; 
+            LRI_rsa_function_returnVar = current_AEI + 0.01; 
         ::else -> 
-            return 0.477;
+            LRI_rsa_function_returnVar = 0.477;
         fi
     ::else -> 
-        return 0.402;
+        LRI_rsa_function_returnVar = 0.402;
     fi
 }
