@@ -86,32 +86,40 @@ object PromelaFileGenerator {
                     result.append("${instanceName}_${variable} = ${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputInputVariables)}; ")
                 }
         }
-        return result.toString()
+        return result.toString().trim()
     }
 
     private fun findAllTransitionLocationEdges(automataInstance: HybridAutomata, instanceName: String): String {
         val result = StringBuilder()
         // Finds all transitions for the automata for each location
         for(location in automataInstance.locations){
+            var edges = 0
             result.appendln()
             val locationName = location.name
             result.appendln("${config.getIndent(1)}${locationName}:  ${instanceName}_finished == 0 ->")
             result.appendln("${config.getIndent(2)}${generateUpdateOrFlowForLocation(location.update, instanceName)}")
             result.appendln("${config.getIndent(2)}${generateUpdateOrFlowForLocation(location.flow, instanceName)}")
-            result.appendln("${config.getIndent(2)}if")
             // finds the location of the transition with the update and guards
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
-
+                if(edges == 0){
+                    result.appendln("${config.getIndent(2)}if")
+                }
                 result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(guard,instanceName,globalVariable = globalOutputInputVariables )}) ->")
                 // for each equation in the transition add it in
                 result.append(generateUpdateOrFlowForLocation(update,instanceName))
                 // Adds the transition location after all variables have been updated as well as increment local tick for that process
                 result.append(" ${instanceName}_finished = 1; goto $toLocation;")
-                    result.appendln()
+                result.appendln()
+                edges++
             }
+            if(edges > 0){
+                result.appendln("${config.getIndent(2)}::else -> ${instanceName}_finished == 1; goto ${locationName};")
+                result.appendln("${config.getIndent(2)}fi;")
+            }
+            else{
+                result.appendln("${config.getIndent(2)}${instanceName}_finished == 1; goto ${locationName};")
 
-            result.appendln("${config.getIndent(2)}::else -> ${instanceName}_finished == 1; goto ${locationName};")
-            result.appendln("${config.getIndent(2)}fi")
+            }
         }
         return result.toString()
 
