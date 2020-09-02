@@ -9,7 +9,7 @@ import me.nallen.modularcodegeneration.parsetree.Literal
 import me.nallen.modularcodegeneration.parsetree.VariableType
 import me.nallen.modularcodegeneration.logging.Logger
 import me.nallen.modularcodegeneration.parsetree.FunctionCall
-import sun.net.idn.StringPrep
+import me.nallen.modularcodegeneration.parsetree.ParseTreeItem
 
 object PromelaFileGenerator {
     private var instanceToAutomataMap: HashMap<String,HybridItem> = HashMap()
@@ -59,6 +59,36 @@ object PromelaFileGenerator {
         return result.toString().trim()
     }
 
+    private fun generateUpdateOrFlowForLocation(update: LinkedHashMap<String, ParseTreeItem>, instanceName: String) : String {
+        val result = StringBuilder()
+            for((variable, equation) in update){
+                if(equation.type == "functionCall"){
+                    result.append(" atomic{" )
+                    result.append(" run ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)};")
+                    if(equation is FunctionCall){
+                        val mapped = getAutomataVariablePairForMappedGlobalVariables(instanceName,variable)
+                        if(mapped != null){
+                            result.append(" ${mapped.variable} = ${instanceName}_${equation.functionName}_function_returnVar;")
+
+                        }
+                        else{
+                            result.append(" ${instanceName}_${variable} =  ${instanceName}_${equation.functionName}_function_returnVar;")
+                        }
+                    }
+                    result.append("}")
+                    continue
+                }
+                val mapped = getAutomataVariablePairForMappedGlobalVariables(instanceName,variable)
+                if(mapped != null){
+                    result.append("${mapped.variable} = ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)}; ")
+                }
+                else{
+                    result.append("${instanceName}_${variable} = ${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputInputVariables)}; ")
+                }
+        }
+        return result.toString()
+    }
+
     private fun findAllTransitionLocationEdges(automataInstance: HybridAutomata, instanceName: String): String {
         val result = StringBuilder()
         // Finds all transitions for the automata for each location
@@ -66,39 +96,15 @@ object PromelaFileGenerator {
             result.appendln()
             val locationName = location.name
             result.appendln("${config.getIndent(1)}${locationName}:  ${instanceName}_finished == 0 ->")
+            result.appendln("${config.getIndent(2)}${generateUpdateOrFlowForLocation(location.update, instanceName)}")
+            result.appendln("${config.getIndent(2)}${generateUpdateOrFlowForLocation(location.flow, instanceName)}")
             result.appendln("${config.getIndent(2)}if")
             // finds the location of the transition with the update and guards
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
 
                 result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(guard,instanceName,globalVariable = globalOutputInputVariables )}) ->")
                 // for each equation in the transition add it in
-                for((variable, equation) in update) {
-                    if(equation.type == "functionCall"){
-                        result.append(" atomic{" )
-                        result.append(" run ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)};")
-                        if(equation is FunctionCall){
-                            val mapped = getAutomataVariablePairForMappedGlobalVariables(instanceName,variable)
-                            if(mapped != null){
-                                result.append(" ${mapped.variable} = ${instanceName}_${equation.functionName}_function_returnVar;")
-
-                            }
-                            else{
-                                result.append(" ${instanceName}_${variable} =  ${instanceName}_${equation.functionName}_function_returnVar;")
-
-                            }
-                        }
-                        result.append("}")
-                        continue
-                    }
-                    val mapped = getAutomataVariablePairForMappedGlobalVariables(instanceName,variable)
-                    if(mapped != null){
-                        result.append(" ${mapped.variable} = ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)};")
-                    }
-                    else{
-                        result.append(" ${instanceName}_${variable} = ${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputInputVariables)};")
-
-                    }
-                }
+                result.append(generateUpdateOrFlowForLocation(update,instanceName))
                 // Adds the transition location after all variables have been updated as well as increment local tick for that process
                 result.append(" ${instanceName}_finished = 1; goto $toLocation;")
                     result.appendln()

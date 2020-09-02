@@ -6,6 +6,8 @@ locations:
   q0:
     update:
       out: activation_func(in)
+    transitions:
+      - to: q0
 functions:
   activation_func:
     inputs:

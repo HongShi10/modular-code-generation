@@ -1,4 +1,65 @@
 // Global Variables 
+double input_0 = 0;
+double input_1 = 0;
+double input_2 = 0;
+double input_3 = 0;
+double input_4 = 0;
+double input_5 = 0;
+double input_6 = 0;
+double input_7 = 0;
+double input_8 = 0;
+double input_9 = 0;
+double input_10 = 0;
+double input_11 = 0;
+double input_12 = 0;
+double input_13 = 0;
+double input_14 = 0;
+double input_15 = 0;
+double input_16 = 0;
+double input_17 = 0;
+double input_18 = 0;
+double input_19 = 0;
+double input_20 = 0;
+double input_21 = 0;
+double input_22 = 0;
+double input_23 = 0;
+double input_24 = 0;
+double input_25 = 0;
+double input_26 = 0;
+double input_27 = 0;
+double input_28 = 0;
+double input_29 = 0;
+double input_30 = 0;
+double input_31 = 0;
+double input_32 = 0;
+double input_33 = 0;
+double input_34 = 0;
+double input_35 = 0;
+double input_36 = 0;
+double input_37 = 0;
+double input_38 = 0;
+double input_39 = 0;
+double input_40 = 0;
+double input_41 = 0;
+double input_42 = 0;
+double input_43 = 0;
+double input_44 = 0;
+double input_45 = 0;
+double input_46 = 0;
+double input_47 = 0;
+double input_48 = 0;
+double input_49 = 0;
+double input_50 = 0;
+double input_51 = 0;
+double input_52 = 0;
+double input_53 = 0;
+double input_54 = 0;
+double input_55 = 0;
+double input_56 = 0;
+double input_57 = 0;
+double input_58 = 0;
+double input_59 = 0;
+double input_60 = 0;
 double output_0 = 0;
 
 
@@ -1059,9 +1120,12 @@ proctype clock_pro(){
 }
 
 proctype HiddenNeuron_2_60_model(){
+ atomic{ run activation_func(HiddenNeuron_2_60_in); HiddenNeuron_2_60_out =  HiddenNeuron_2_60_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_60_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_60_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_60_finished == 1; goto q0;
         fi
 
@@ -1069,9 +1133,12 @@ proctype HiddenNeuron_2_60_model(){
 
 
 proctype HiddenNeuron_2_62_model(){
+ atomic{ run activation_func(HiddenNeuron_2_62_in); HiddenNeuron_2_62_out =  HiddenNeuron_2_62_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_62_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_62_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_62_finished == 1; goto q0;
         fi
 
@@ -1079,9 +1146,12 @@ proctype HiddenNeuron_2_62_model(){
 
 
 proctype HiddenNeuron_2_61_model(){
+ atomic{ run activation_func(HiddenNeuron_2_61_in); HiddenNeuron_2_61_out =  HiddenNeuron_2_61_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_61_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_61_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_61_finished == 1; goto q0;
         fi
 
@@ -1089,9 +1159,12 @@ proctype HiddenNeuron_2_61_model(){
 
 
 proctype HiddenNeuron_2_64_model(){
+ atomic{ run activation_func(HiddenNeuron_2_64_in); HiddenNeuron_2_64_out =  HiddenNeuron_2_64_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_64_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_64_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_64_finished == 1; goto q0;
         fi
 
@@ -1099,9 +1172,12 @@ proctype HiddenNeuron_2_64_model(){
 
 
 proctype HiddenNeuron_2_63_model(){
+ atomic{ run activation_func(HiddenNeuron_2_63_in); HiddenNeuron_2_63_out =  HiddenNeuron_2_63_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_63_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_63_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_63_finished == 1; goto q0;
         fi
 
@@ -1109,9 +1185,12 @@ proctype HiddenNeuron_2_63_model(){
 
 
 proctype HiddenNeuron_1_10_model(){
+ atomic{ run activation_func(HiddenNeuron_1_10_in); HiddenNeuron_1_10_out =  HiddenNeuron_1_10_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_10_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_10_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_10_finished == 1; goto q0;
         fi
 
@@ -1119,9 +1198,12 @@ proctype HiddenNeuron_1_10_model(){
 
 
 proctype HiddenNeuron_1_19_model(){
+ atomic{ run activation_func(HiddenNeuron_1_19_in); HiddenNeuron_1_19_out =  HiddenNeuron_1_19_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_19_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_19_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_19_finished == 1; goto q0;
         fi
 
@@ -1129,9 +1211,12 @@ proctype HiddenNeuron_1_19_model(){
 
 
 proctype HiddenNeuron_1_12_model(){
+ atomic{ run activation_func(HiddenNeuron_1_12_in); HiddenNeuron_1_12_out =  HiddenNeuron_1_12_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_12_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_12_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_12_finished == 1; goto q0;
         fi
 
@@ -1139,9 +1224,12 @@ proctype HiddenNeuron_1_12_model(){
 
 
 proctype HiddenNeuron_1_11_model(){
+ atomic{ run activation_func(HiddenNeuron_1_11_in); HiddenNeuron_1_11_out =  HiddenNeuron_1_11_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_11_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_11_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_11_finished == 1; goto q0;
         fi
 
@@ -1149,9 +1237,12 @@ proctype HiddenNeuron_1_11_model(){
 
 
 proctype HiddenNeuron_1_14_model(){
+ atomic{ run activation_func(HiddenNeuron_1_14_in); HiddenNeuron_1_14_out =  HiddenNeuron_1_14_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_14_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_14_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_14_finished == 1; goto q0;
         fi
 
@@ -1159,9 +1250,12 @@ proctype HiddenNeuron_1_14_model(){
 
 
 proctype HiddenNeuron_1_13_model(){
+ atomic{ run activation_func(HiddenNeuron_1_13_in); HiddenNeuron_1_13_out =  HiddenNeuron_1_13_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_13_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_13_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_13_finished == 1; goto q0;
         fi
 
@@ -1169,9 +1263,12 @@ proctype HiddenNeuron_1_13_model(){
 
 
 proctype HiddenNeuron_1_16_model(){
+ atomic{ run activation_func(HiddenNeuron_1_16_in); HiddenNeuron_1_16_out =  HiddenNeuron_1_16_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_16_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_16_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_16_finished == 1; goto q0;
         fi
 
@@ -1179,9 +1276,12 @@ proctype HiddenNeuron_1_16_model(){
 
 
 proctype HiddenNeuron_1_15_model(){
+ atomic{ run activation_func(HiddenNeuron_1_15_in); HiddenNeuron_1_15_out =  HiddenNeuron_1_15_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_15_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_15_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_15_finished == 1; goto q0;
         fi
 
@@ -1189,9 +1289,12 @@ proctype HiddenNeuron_1_15_model(){
 
 
 proctype HiddenNeuron_1_18_model(){
+ atomic{ run activation_func(HiddenNeuron_1_18_in); HiddenNeuron_1_18_out =  HiddenNeuron_1_18_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_18_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_18_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_18_finished == 1; goto q0;
         fi
 
@@ -1199,9 +1302,12 @@ proctype HiddenNeuron_1_18_model(){
 
 
 proctype HiddenNeuron_1_17_model(){
+ atomic{ run activation_func(HiddenNeuron_1_17_in); HiddenNeuron_1_17_out =  HiddenNeuron_1_17_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_17_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_17_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_17_finished == 1; goto q0;
         fi
 
@@ -1209,9 +1315,12 @@ proctype HiddenNeuron_1_17_model(){
 
 
 proctype HiddenNeuron_1_21_model(){
+ atomic{ run activation_func(HiddenNeuron_1_21_in); HiddenNeuron_1_21_out =  HiddenNeuron_1_21_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_21_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_21_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_21_finished == 1; goto q0;
         fi
 
@@ -1219,9 +1328,12 @@ proctype HiddenNeuron_1_21_model(){
 
 
 proctype HiddenNeuron_1_20_model(){
+ atomic{ run activation_func(HiddenNeuron_1_20_in); HiddenNeuron_1_20_out =  HiddenNeuron_1_20_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_20_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_20_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_20_finished == 1; goto q0;
         fi
 
@@ -1229,9 +1341,12 @@ proctype HiddenNeuron_1_20_model(){
 
 
 proctype HiddenNeuron_1_23_model(){
+ atomic{ run activation_func(HiddenNeuron_1_23_in); HiddenNeuron_1_23_out =  HiddenNeuron_1_23_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_23_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_23_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_23_finished == 1; goto q0;
         fi
 
@@ -1239,9 +1354,12 @@ proctype HiddenNeuron_1_23_model(){
 
 
 proctype OutputNeuron_3_1_model(){
+ atomic{ run activation_func(OutputNeuron_3_1_in); output_0 = OutputNeuron_3_1_activation_func_function_returnVar;}
 
     q0:  OutputNeuron_3_1_finished == 0 ->
         if
+        ::(true) ->
+ OutputNeuron_3_1_finished = 1; goto q0;
         ::else -> OutputNeuron_3_1_finished == 1; goto q0;
         fi
 
@@ -1249,9 +1367,12 @@ proctype OutputNeuron_3_1_model(){
 
 
 proctype HiddenNeuron_1_22_model(){
+ atomic{ run activation_func(HiddenNeuron_1_22_in); HiddenNeuron_1_22_out =  HiddenNeuron_1_22_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_22_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_22_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_22_finished == 1; goto q0;
         fi
 
@@ -1259,9 +1380,12 @@ proctype HiddenNeuron_1_22_model(){
 
 
 proctype HiddenNeuron_1_25_model(){
+ atomic{ run activation_func(HiddenNeuron_1_25_in); HiddenNeuron_1_25_out =  HiddenNeuron_1_25_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_25_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_25_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_25_finished == 1; goto q0;
         fi
 
@@ -1269,9 +1393,12 @@ proctype HiddenNeuron_1_25_model(){
 
 
 proctype HiddenNeuron_1_24_model(){
+ atomic{ run activation_func(HiddenNeuron_1_24_in); HiddenNeuron_1_24_out =  HiddenNeuron_1_24_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_24_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_24_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_24_finished == 1; goto q0;
         fi
 
@@ -1279,9 +1406,12 @@ proctype HiddenNeuron_1_24_model(){
 
 
 proctype HiddenNeuron_1_27_model(){
+ atomic{ run activation_func(HiddenNeuron_1_27_in); HiddenNeuron_1_27_out =  HiddenNeuron_1_27_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_27_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_27_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_27_finished == 1; goto q0;
         fi
 
@@ -1289,9 +1419,12 @@ proctype HiddenNeuron_1_27_model(){
 
 
 proctype HiddenNeuron_1_26_model(){
+ atomic{ run activation_func(HiddenNeuron_1_26_in); HiddenNeuron_1_26_out =  HiddenNeuron_1_26_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_26_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_26_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_26_finished == 1; goto q0;
         fi
 
@@ -1299,9 +1432,12 @@ proctype HiddenNeuron_1_26_model(){
 
 
 proctype HiddenNeuron_1_29_model(){
+ atomic{ run activation_func(HiddenNeuron_1_29_in); HiddenNeuron_1_29_out =  HiddenNeuron_1_29_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_29_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_29_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_29_finished == 1; goto q0;
         fi
 
@@ -1309,9 +1445,12 @@ proctype HiddenNeuron_1_29_model(){
 
 
 proctype HiddenNeuron_1_28_model(){
+ atomic{ run activation_func(HiddenNeuron_1_28_in); HiddenNeuron_1_28_out =  HiddenNeuron_1_28_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_28_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_28_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_28_finished == 1; goto q0;
         fi
 
@@ -1319,9 +1458,12 @@ proctype HiddenNeuron_1_28_model(){
 
 
 proctype HiddenNeuron_1_30_model(){
+ atomic{ run activation_func(HiddenNeuron_1_30_in); HiddenNeuron_1_30_out =  HiddenNeuron_1_30_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_30_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_30_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_30_finished == 1; goto q0;
         fi
 
@@ -1329,9 +1471,12 @@ proctype HiddenNeuron_1_30_model(){
 
 
 proctype HiddenNeuron_1_32_model(){
+ atomic{ run activation_func(HiddenNeuron_1_32_in); HiddenNeuron_1_32_out =  HiddenNeuron_1_32_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_32_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_32_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_32_finished == 1; goto q0;
         fi
 
@@ -1339,9 +1484,12 @@ proctype HiddenNeuron_1_32_model(){
 
 
 proctype HiddenNeuron_1_31_model(){
+ atomic{ run activation_func(HiddenNeuron_1_31_in); HiddenNeuron_1_31_out =  HiddenNeuron_1_31_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_31_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_31_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_31_finished == 1; goto q0;
         fi
 
@@ -1349,9 +1497,12 @@ proctype HiddenNeuron_1_31_model(){
 
 
 proctype HiddenNeuron_1_34_model(){
+ atomic{ run activation_func(HiddenNeuron_1_34_in); HiddenNeuron_1_34_out =  HiddenNeuron_1_34_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_34_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_34_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_34_finished == 1; goto q0;
         fi
 
@@ -1359,9 +1510,12 @@ proctype HiddenNeuron_1_34_model(){
 
 
 proctype HiddenNeuron_1_33_model(){
+ atomic{ run activation_func(HiddenNeuron_1_33_in); HiddenNeuron_1_33_out =  HiddenNeuron_1_33_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_33_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_33_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_33_finished == 1; goto q0;
         fi
 
@@ -1369,9 +1523,12 @@ proctype HiddenNeuron_1_33_model(){
 
 
 proctype HiddenNeuron_1_36_model(){
+ atomic{ run activation_func(HiddenNeuron_1_36_in); HiddenNeuron_1_36_out =  HiddenNeuron_1_36_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_36_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_36_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_36_finished == 1; goto q0;
         fi
 
@@ -1379,9 +1536,12 @@ proctype HiddenNeuron_1_36_model(){
 
 
 proctype HiddenNeuron_1_35_model(){
+ atomic{ run activation_func(HiddenNeuron_1_35_in); HiddenNeuron_1_35_out =  HiddenNeuron_1_35_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_35_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_35_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_35_finished == 1; goto q0;
         fi
 
@@ -1389,9 +1549,12 @@ proctype HiddenNeuron_1_35_model(){
 
 
 proctype HiddenNeuron_1_38_model(){
+ atomic{ run activation_func(HiddenNeuron_1_38_in); HiddenNeuron_1_38_out =  HiddenNeuron_1_38_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_38_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_38_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_38_finished == 1; goto q0;
         fi
 
@@ -1399,9 +1562,12 @@ proctype HiddenNeuron_1_38_model(){
 
 
 proctype HiddenNeuron_1_37_model(){
+ atomic{ run activation_func(HiddenNeuron_1_37_in); HiddenNeuron_1_37_out =  HiddenNeuron_1_37_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_37_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_37_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_37_finished == 1; goto q0;
         fi
 
@@ -1409,9 +1575,12 @@ proctype HiddenNeuron_1_37_model(){
 
 
 proctype HiddenNeuron_1_39_model(){
+ atomic{ run activation_func(HiddenNeuron_1_39_in); HiddenNeuron_1_39_out =  HiddenNeuron_1_39_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_39_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_39_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_39_finished == 1; goto q0;
         fi
 
@@ -1419,9 +1588,12 @@ proctype HiddenNeuron_1_39_model(){
 
 
 proctype HiddenNeuron_1_41_model(){
+ atomic{ run activation_func(HiddenNeuron_1_41_in); HiddenNeuron_1_41_out =  HiddenNeuron_1_41_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_41_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_41_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_41_finished == 1; goto q0;
         fi
 
@@ -1429,9 +1601,12 @@ proctype HiddenNeuron_1_41_model(){
 
 
 proctype HiddenNeuron_1_40_model(){
+ atomic{ run activation_func(HiddenNeuron_1_40_in); HiddenNeuron_1_40_out =  HiddenNeuron_1_40_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_40_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_40_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_40_finished == 1; goto q0;
         fi
 
@@ -1439,9 +1614,12 @@ proctype HiddenNeuron_1_40_model(){
 
 
 proctype HiddenNeuron_1_43_model(){
+ atomic{ run activation_func(HiddenNeuron_1_43_in); HiddenNeuron_1_43_out =  HiddenNeuron_1_43_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_43_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_43_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_43_finished == 1; goto q0;
         fi
 
@@ -1449,9 +1627,12 @@ proctype HiddenNeuron_1_43_model(){
 
 
 proctype HiddenNeuron_2_11_model(){
+ atomic{ run activation_func(HiddenNeuron_2_11_in); HiddenNeuron_2_11_out =  HiddenNeuron_2_11_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_11_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_11_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_11_finished == 1; goto q0;
         fi
 
@@ -1459,9 +1640,12 @@ proctype HiddenNeuron_2_11_model(){
 
 
 proctype HiddenNeuron_1_42_model(){
+ atomic{ run activation_func(HiddenNeuron_1_42_in); HiddenNeuron_1_42_out =  HiddenNeuron_1_42_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_42_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_42_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_42_finished == 1; goto q0;
         fi
 
@@ -1469,9 +1653,12 @@ proctype HiddenNeuron_1_42_model(){
 
 
 proctype HiddenNeuron_2_10_model(){
+ atomic{ run activation_func(HiddenNeuron_2_10_in); HiddenNeuron_2_10_out =  HiddenNeuron_2_10_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_10_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_10_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_10_finished == 1; goto q0;
         fi
 
@@ -1479,9 +1666,12 @@ proctype HiddenNeuron_2_10_model(){
 
 
 proctype HiddenNeuron_1_45_model(){
+ atomic{ run activation_func(HiddenNeuron_1_45_in); HiddenNeuron_1_45_out =  HiddenNeuron_1_45_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_45_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_45_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_45_finished == 1; goto q0;
         fi
 
@@ -1489,9 +1679,12 @@ proctype HiddenNeuron_1_45_model(){
 
 
 proctype HiddenNeuron_2_13_model(){
+ atomic{ run activation_func(HiddenNeuron_2_13_in); HiddenNeuron_2_13_out =  HiddenNeuron_2_13_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_13_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_13_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_13_finished == 1; goto q0;
         fi
 
@@ -1499,9 +1692,12 @@ proctype HiddenNeuron_2_13_model(){
 
 
 proctype HiddenNeuron_1_44_model(){
+ atomic{ run activation_func(HiddenNeuron_1_44_in); HiddenNeuron_1_44_out =  HiddenNeuron_1_44_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_44_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_44_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_44_finished == 1; goto q0;
         fi
 
@@ -1509,9 +1705,12 @@ proctype HiddenNeuron_1_44_model(){
 
 
 proctype HiddenNeuron_2_12_model(){
+ atomic{ run activation_func(HiddenNeuron_2_12_in); HiddenNeuron_2_12_out =  HiddenNeuron_2_12_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_12_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_12_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_12_finished == 1; goto q0;
         fi
 
@@ -1519,9 +1718,12 @@ proctype HiddenNeuron_2_12_model(){
 
 
 proctype HiddenNeuron_1_47_model(){
+ atomic{ run activation_func(HiddenNeuron_1_47_in); HiddenNeuron_1_47_out =  HiddenNeuron_1_47_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_47_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_47_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_47_finished == 1; goto q0;
         fi
 
@@ -1529,9 +1731,12 @@ proctype HiddenNeuron_1_47_model(){
 
 
 proctype HiddenNeuron_2_15_model(){
+ atomic{ run activation_func(HiddenNeuron_2_15_in); HiddenNeuron_2_15_out =  HiddenNeuron_2_15_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_15_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_15_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_15_finished == 1; goto q0;
         fi
 
@@ -1539,9 +1744,12 @@ proctype HiddenNeuron_2_15_model(){
 
 
 proctype HiddenNeuron_1_46_model(){
+ atomic{ run activation_func(HiddenNeuron_1_46_in); HiddenNeuron_1_46_out =  HiddenNeuron_1_46_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_46_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_46_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_46_finished == 1; goto q0;
         fi
 
@@ -1549,9 +1757,12 @@ proctype HiddenNeuron_1_46_model(){
 
 
 proctype HiddenNeuron_2_14_model(){
+ atomic{ run activation_func(HiddenNeuron_2_14_in); HiddenNeuron_2_14_out =  HiddenNeuron_2_14_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_14_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_14_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_14_finished == 1; goto q0;
         fi
 
@@ -1559,9 +1770,12 @@ proctype HiddenNeuron_2_14_model(){
 
 
 proctype HiddenNeuron_1_49_model(){
+ atomic{ run activation_func(HiddenNeuron_1_49_in); HiddenNeuron_1_49_out =  HiddenNeuron_1_49_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_49_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_49_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_49_finished == 1; goto q0;
         fi
 
@@ -1569,9 +1783,12 @@ proctype HiddenNeuron_1_49_model(){
 
 
 proctype HiddenNeuron_2_17_model(){
+ atomic{ run activation_func(HiddenNeuron_2_17_in); HiddenNeuron_2_17_out =  HiddenNeuron_2_17_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_17_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_17_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_17_finished == 1; goto q0;
         fi
 
@@ -1579,9 +1796,12 @@ proctype HiddenNeuron_2_17_model(){
 
 
 proctype HiddenNeuron_1_48_model(){
+ atomic{ run activation_func(HiddenNeuron_1_48_in); HiddenNeuron_1_48_out =  HiddenNeuron_1_48_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_48_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_48_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_48_finished == 1; goto q0;
         fi
 
@@ -1589,9 +1809,12 @@ proctype HiddenNeuron_1_48_model(){
 
 
 proctype HiddenNeuron_2_16_model(){
+ atomic{ run activation_func(HiddenNeuron_2_16_in); HiddenNeuron_2_16_out =  HiddenNeuron_2_16_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_16_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_16_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_16_finished == 1; goto q0;
         fi
 
@@ -1599,9 +1822,12 @@ proctype HiddenNeuron_2_16_model(){
 
 
 proctype HiddenNeuron_2_19_model(){
+ atomic{ run activation_func(HiddenNeuron_2_19_in); HiddenNeuron_2_19_out =  HiddenNeuron_2_19_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_19_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_19_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_19_finished == 1; goto q0;
         fi
 
@@ -1609,9 +1835,12 @@ proctype HiddenNeuron_2_19_model(){
 
 
 proctype HiddenNeuron_2_18_model(){
+ atomic{ run activation_func(HiddenNeuron_2_18_in); HiddenNeuron_2_18_out =  HiddenNeuron_2_18_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_18_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_18_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_18_finished == 1; goto q0;
         fi
 
@@ -1619,9 +1848,12 @@ proctype HiddenNeuron_2_18_model(){
 
 
 proctype HiddenNeuron_1_50_model(){
+ atomic{ run activation_func(HiddenNeuron_1_50_in); HiddenNeuron_1_50_out =  HiddenNeuron_1_50_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_50_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_50_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_50_finished == 1; goto q0;
         fi
 
@@ -1629,9 +1861,12 @@ proctype HiddenNeuron_1_50_model(){
 
 
 proctype HiddenNeuron_1_52_model(){
+ atomic{ run activation_func(HiddenNeuron_1_52_in); HiddenNeuron_1_52_out =  HiddenNeuron_1_52_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_52_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_52_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_52_finished == 1; goto q0;
         fi
 
@@ -1639,9 +1874,12 @@ proctype HiddenNeuron_1_52_model(){
 
 
 proctype HiddenNeuron_2_20_model(){
+ atomic{ run activation_func(HiddenNeuron_2_20_in); HiddenNeuron_2_20_out =  HiddenNeuron_2_20_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_20_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_20_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_20_finished == 1; goto q0;
         fi
 
@@ -1649,9 +1887,12 @@ proctype HiddenNeuron_2_20_model(){
 
 
 proctype HiddenNeuron_1_51_model(){
+ atomic{ run activation_func(HiddenNeuron_1_51_in); HiddenNeuron_1_51_out =  HiddenNeuron_1_51_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_51_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_51_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_51_finished == 1; goto q0;
         fi
 
@@ -1659,9 +1900,12 @@ proctype HiddenNeuron_1_51_model(){
 
 
 proctype HiddenNeuron_1_54_model(){
+ atomic{ run activation_func(HiddenNeuron_1_54_in); HiddenNeuron_1_54_out =  HiddenNeuron_1_54_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_54_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_54_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_54_finished == 1; goto q0;
         fi
 
@@ -1669,9 +1913,12 @@ proctype HiddenNeuron_1_54_model(){
 
 
 proctype HiddenNeuron_2_22_model(){
+ atomic{ run activation_func(HiddenNeuron_2_22_in); HiddenNeuron_2_22_out =  HiddenNeuron_2_22_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_22_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_22_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_22_finished == 1; goto q0;
         fi
 
@@ -1679,9 +1926,12 @@ proctype HiddenNeuron_2_22_model(){
 
 
 proctype HiddenNeuron_1_53_model(){
+ atomic{ run activation_func(HiddenNeuron_1_53_in); HiddenNeuron_1_53_out =  HiddenNeuron_1_53_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_53_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_53_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_53_finished == 1; goto q0;
         fi
 
@@ -1689,9 +1939,12 @@ proctype HiddenNeuron_1_53_model(){
 
 
 proctype HiddenNeuron_2_21_model(){
+ atomic{ run activation_func(HiddenNeuron_2_21_in); HiddenNeuron_2_21_out =  HiddenNeuron_2_21_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_21_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_21_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_21_finished == 1; goto q0;
         fi
 
@@ -1699,9 +1952,12 @@ proctype HiddenNeuron_2_21_model(){
 
 
 proctype HiddenNeuron_1_56_model(){
+ atomic{ run activation_func(HiddenNeuron_1_56_in); HiddenNeuron_1_56_out =  HiddenNeuron_1_56_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_56_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_56_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_56_finished == 1; goto q0;
         fi
 
@@ -1709,9 +1965,12 @@ proctype HiddenNeuron_1_56_model(){
 
 
 proctype HiddenNeuron_2_24_model(){
+ atomic{ run activation_func(HiddenNeuron_2_24_in); HiddenNeuron_2_24_out =  HiddenNeuron_2_24_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_24_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_24_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_24_finished == 1; goto q0;
         fi
 
@@ -1719,9 +1978,12 @@ proctype HiddenNeuron_2_24_model(){
 
 
 proctype HiddenNeuron_1_55_model(){
+ atomic{ run activation_func(HiddenNeuron_1_55_in); HiddenNeuron_1_55_out =  HiddenNeuron_1_55_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_55_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_55_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_55_finished == 1; goto q0;
         fi
 
@@ -1729,9 +1991,12 @@ proctype HiddenNeuron_1_55_model(){
 
 
 proctype HiddenNeuron_2_23_model(){
+ atomic{ run activation_func(HiddenNeuron_2_23_in); HiddenNeuron_2_23_out =  HiddenNeuron_2_23_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_23_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_23_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_23_finished == 1; goto q0;
         fi
 
@@ -1739,9 +2004,12 @@ proctype HiddenNeuron_2_23_model(){
 
 
 proctype HiddenNeuron_1_58_model(){
+ atomic{ run activation_func(HiddenNeuron_1_58_in); HiddenNeuron_1_58_out =  HiddenNeuron_1_58_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_58_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_58_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_58_finished == 1; goto q0;
         fi
 
@@ -1749,9 +2017,12 @@ proctype HiddenNeuron_1_58_model(){
 
 
 proctype HiddenNeuron_2_26_model(){
+ atomic{ run activation_func(HiddenNeuron_2_26_in); HiddenNeuron_2_26_out =  HiddenNeuron_2_26_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_26_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_26_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_26_finished == 1; goto q0;
         fi
 
@@ -1759,9 +2030,12 @@ proctype HiddenNeuron_2_26_model(){
 
 
 proctype HiddenNeuron_1_57_model(){
+ atomic{ run activation_func(HiddenNeuron_1_57_in); HiddenNeuron_1_57_out =  HiddenNeuron_1_57_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_57_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_57_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_57_finished == 1; goto q0;
         fi
 
@@ -1769,9 +2043,12 @@ proctype HiddenNeuron_1_57_model(){
 
 
 proctype HiddenNeuron_2_25_model(){
+ atomic{ run activation_func(HiddenNeuron_2_25_in); HiddenNeuron_2_25_out =  HiddenNeuron_2_25_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_25_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_25_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_25_finished == 1; goto q0;
         fi
 
@@ -1779,9 +2056,12 @@ proctype HiddenNeuron_2_25_model(){
 
 
 proctype HiddenNeuron_2_28_model(){
+ atomic{ run activation_func(HiddenNeuron_2_28_in); HiddenNeuron_2_28_out =  HiddenNeuron_2_28_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_28_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_28_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_28_finished == 1; goto q0;
         fi
 
@@ -1789,9 +2069,12 @@ proctype HiddenNeuron_2_28_model(){
 
 
 proctype HiddenNeuron_1_59_model(){
+ atomic{ run activation_func(HiddenNeuron_1_59_in); HiddenNeuron_1_59_out =  HiddenNeuron_1_59_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_59_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_59_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_59_finished == 1; goto q0;
         fi
 
@@ -1799,9 +2082,12 @@ proctype HiddenNeuron_1_59_model(){
 
 
 proctype HiddenNeuron_2_27_model(){
+ atomic{ run activation_func(HiddenNeuron_2_27_in); HiddenNeuron_2_27_out =  HiddenNeuron_2_27_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_27_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_27_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_27_finished == 1; goto q0;
         fi
 
@@ -1809,9 +2095,12 @@ proctype HiddenNeuron_2_27_model(){
 
 
 proctype HiddenNeuron_2_29_model(){
+ atomic{ run activation_func(HiddenNeuron_2_29_in); HiddenNeuron_2_29_out =  HiddenNeuron_2_29_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_29_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_29_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_29_finished == 1; goto q0;
         fi
 
@@ -1819,9 +2108,12 @@ proctype HiddenNeuron_2_29_model(){
 
 
 proctype HiddenNeuron_2_4_model(){
+ atomic{ run activation_func(HiddenNeuron_2_4_in); HiddenNeuron_2_4_out =  HiddenNeuron_2_4_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_4_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_4_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_4_finished == 1; goto q0;
         fi
 
@@ -1829,9 +2121,12 @@ proctype HiddenNeuron_2_4_model(){
 
 
 proctype HiddenNeuron_2_3_model(){
+ atomic{ run activation_func(HiddenNeuron_2_3_in); HiddenNeuron_2_3_out =  HiddenNeuron_2_3_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_3_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_3_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_3_finished == 1; goto q0;
         fi
 
@@ -1839,9 +2134,12 @@ proctype HiddenNeuron_2_3_model(){
 
 
 proctype HiddenNeuron_1_61_model(){
+ atomic{ run activation_func(HiddenNeuron_1_61_in); HiddenNeuron_1_61_out =  HiddenNeuron_1_61_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_61_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_61_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_61_finished == 1; goto q0;
         fi
 
@@ -1849,9 +2147,12 @@ proctype HiddenNeuron_1_61_model(){
 
 
 proctype HiddenNeuron_2_6_model(){
+ atomic{ run activation_func(HiddenNeuron_2_6_in); HiddenNeuron_2_6_out =  HiddenNeuron_2_6_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_6_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_6_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_6_finished == 1; goto q0;
         fi
 
@@ -1859,9 +2160,12 @@ proctype HiddenNeuron_2_6_model(){
 
 
 proctype HiddenNeuron_1_60_model(){
+ atomic{ run activation_func(HiddenNeuron_1_60_in); HiddenNeuron_1_60_out =  HiddenNeuron_1_60_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_60_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_60_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_60_finished == 1; goto q0;
         fi
 
@@ -1869,9 +2173,12 @@ proctype HiddenNeuron_1_60_model(){
 
 
 proctype HiddenNeuron_2_5_model(){
+ atomic{ run activation_func(HiddenNeuron_2_5_in); HiddenNeuron_2_5_out =  HiddenNeuron_2_5_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_5_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_5_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_5_finished == 1; goto q0;
         fi
 
@@ -1879,9 +2186,12 @@ proctype HiddenNeuron_2_5_model(){
 
 
 proctype HiddenNeuron_1_63_model(){
+ atomic{ run activation_func(HiddenNeuron_1_63_in); HiddenNeuron_1_63_out =  HiddenNeuron_1_63_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_63_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_63_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_63_finished == 1; goto q0;
         fi
 
@@ -1889,9 +2199,12 @@ proctype HiddenNeuron_1_63_model(){
 
 
 proctype HiddenNeuron_2_31_model(){
+ atomic{ run activation_func(HiddenNeuron_2_31_in); HiddenNeuron_2_31_out =  HiddenNeuron_2_31_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_31_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_31_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_31_finished == 1; goto q0;
         fi
 
@@ -1899,9 +2212,12 @@ proctype HiddenNeuron_2_31_model(){
 
 
 proctype HiddenNeuron_1_62_model(){
+ atomic{ run activation_func(HiddenNeuron_1_62_in); HiddenNeuron_1_62_out =  HiddenNeuron_1_62_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_62_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_62_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_62_finished == 1; goto q0;
         fi
 
@@ -1909,9 +2225,12 @@ proctype HiddenNeuron_1_62_model(){
 
 
 proctype HiddenNeuron_2_30_model(){
+ atomic{ run activation_func(HiddenNeuron_2_30_in); HiddenNeuron_2_30_out =  HiddenNeuron_2_30_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_30_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_30_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_30_finished == 1; goto q0;
         fi
 
@@ -1919,9 +2238,12 @@ proctype HiddenNeuron_2_30_model(){
 
 
 proctype HiddenNeuron_2_2_model(){
+ atomic{ run activation_func(HiddenNeuron_2_2_in); HiddenNeuron_2_2_out =  HiddenNeuron_2_2_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_2_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_2_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_2_finished == 1; goto q0;
         fi
 
@@ -1929,9 +2251,12 @@ proctype HiddenNeuron_2_2_model(){
 
 
 proctype HiddenNeuron_2_33_model(){
+ atomic{ run activation_func(HiddenNeuron_2_33_in); HiddenNeuron_2_33_out =  HiddenNeuron_2_33_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_33_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_33_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_33_finished == 1; goto q0;
         fi
 
@@ -1939,9 +2264,12 @@ proctype HiddenNeuron_2_33_model(){
 
 
 proctype HiddenNeuron_1_64_model(){
+ atomic{ run activation_func(HiddenNeuron_1_64_in); HiddenNeuron_1_64_out =  HiddenNeuron_1_64_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_64_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_64_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_64_finished == 1; goto q0;
         fi
 
@@ -1949,9 +2277,12 @@ proctype HiddenNeuron_1_64_model(){
 
 
 proctype HiddenNeuron_2_1_model(){
+ atomic{ run activation_func(HiddenNeuron_2_1_in); HiddenNeuron_2_1_out =  HiddenNeuron_2_1_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_1_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_1_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_1_finished == 1; goto q0;
         fi
 
@@ -1959,9 +2290,12 @@ proctype HiddenNeuron_2_1_model(){
 
 
 proctype HiddenNeuron_2_32_model(){
+ atomic{ run activation_func(HiddenNeuron_2_32_in); HiddenNeuron_2_32_out =  HiddenNeuron_2_32_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_32_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_32_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_32_finished == 1; goto q0;
         fi
 
@@ -1969,9 +2303,12 @@ proctype HiddenNeuron_2_32_model(){
 
 
 proctype HiddenNeuron_2_8_model(){
+ atomic{ run activation_func(HiddenNeuron_2_8_in); HiddenNeuron_2_8_out =  HiddenNeuron_2_8_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_8_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_8_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_8_finished == 1; goto q0;
         fi
 
@@ -1979,9 +2316,12 @@ proctype HiddenNeuron_2_8_model(){
 
 
 proctype HiddenNeuron_2_7_model(){
+ atomic{ run activation_func(HiddenNeuron_2_7_in); HiddenNeuron_2_7_out =  HiddenNeuron_2_7_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_7_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_7_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_7_finished == 1; goto q0;
         fi
 
@@ -1989,9 +2329,12 @@ proctype HiddenNeuron_2_7_model(){
 
 
 proctype HiddenNeuron_2_9_model(){
+ atomic{ run activation_func(HiddenNeuron_2_9_in); HiddenNeuron_2_9_out =  HiddenNeuron_2_9_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_9_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_9_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_9_finished == 1; goto q0;
         fi
 
@@ -1999,9 +2342,12 @@ proctype HiddenNeuron_2_9_model(){
 
 
 proctype HiddenNeuron_2_35_model(){
+ atomic{ run activation_func(HiddenNeuron_2_35_in); HiddenNeuron_2_35_out =  HiddenNeuron_2_35_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_35_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_35_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_35_finished == 1; goto q0;
         fi
 
@@ -2009,9 +2355,12 @@ proctype HiddenNeuron_2_35_model(){
 
 
 proctype HiddenNeuron_2_34_model(){
+ atomic{ run activation_func(HiddenNeuron_2_34_in); HiddenNeuron_2_34_out =  HiddenNeuron_2_34_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_34_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_34_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_34_finished == 1; goto q0;
         fi
 
@@ -2019,9 +2368,12 @@ proctype HiddenNeuron_2_34_model(){
 
 
 proctype HiddenNeuron_2_37_model(){
+ atomic{ run activation_func(HiddenNeuron_2_37_in); HiddenNeuron_2_37_out =  HiddenNeuron_2_37_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_37_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_37_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_37_finished == 1; goto q0;
         fi
 
@@ -2029,9 +2381,12 @@ proctype HiddenNeuron_2_37_model(){
 
 
 proctype HiddenNeuron_2_36_model(){
+ atomic{ run activation_func(HiddenNeuron_2_36_in); HiddenNeuron_2_36_out =  HiddenNeuron_2_36_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_36_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_36_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_36_finished == 1; goto q0;
         fi
 
@@ -2039,9 +2394,12 @@ proctype HiddenNeuron_2_36_model(){
 
 
 proctype HiddenNeuron_2_39_model(){
+ atomic{ run activation_func(HiddenNeuron_2_39_in); HiddenNeuron_2_39_out =  HiddenNeuron_2_39_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_39_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_39_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_39_finished == 1; goto q0;
         fi
 
@@ -2049,9 +2407,12 @@ proctype HiddenNeuron_2_39_model(){
 
 
 proctype HiddenNeuron_2_38_model(){
+ atomic{ run activation_func(HiddenNeuron_2_38_in); HiddenNeuron_2_38_out =  HiddenNeuron_2_38_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_38_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_38_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_38_finished == 1; goto q0;
         fi
 
@@ -2059,9 +2420,12 @@ proctype HiddenNeuron_2_38_model(){
 
 
 proctype HiddenNeuron_2_40_model(){
+ atomic{ run activation_func(HiddenNeuron_2_40_in); HiddenNeuron_2_40_out =  HiddenNeuron_2_40_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_40_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_40_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_40_finished == 1; goto q0;
         fi
 
@@ -2069,9 +2433,12 @@ proctype HiddenNeuron_2_40_model(){
 
 
 proctype HiddenNeuron_2_42_model(){
+ atomic{ run activation_func(HiddenNeuron_2_42_in); HiddenNeuron_2_42_out =  HiddenNeuron_2_42_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_42_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_42_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_42_finished == 1; goto q0;
         fi
 
@@ -2079,9 +2446,12 @@ proctype HiddenNeuron_2_42_model(){
 
 
 proctype HiddenNeuron_2_41_model(){
+ atomic{ run activation_func(HiddenNeuron_2_41_in); HiddenNeuron_2_41_out =  HiddenNeuron_2_41_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_41_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_41_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_41_finished == 1; goto q0;
         fi
 
@@ -2089,9 +2459,12 @@ proctype HiddenNeuron_2_41_model(){
 
 
 proctype HiddenNeuron_2_44_model(){
+ atomic{ run activation_func(HiddenNeuron_2_44_in); HiddenNeuron_2_44_out =  HiddenNeuron_2_44_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_44_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_44_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_44_finished == 1; goto q0;
         fi
 
@@ -2099,9 +2472,12 @@ proctype HiddenNeuron_2_44_model(){
 
 
 proctype HiddenNeuron_2_43_model(){
+ atomic{ run activation_func(HiddenNeuron_2_43_in); HiddenNeuron_2_43_out =  HiddenNeuron_2_43_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_43_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_43_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_43_finished == 1; goto q0;
         fi
 
@@ -2109,9 +2485,12 @@ proctype HiddenNeuron_2_43_model(){
 
 
 proctype HiddenNeuron_2_46_model(){
+ atomic{ run activation_func(HiddenNeuron_2_46_in); HiddenNeuron_2_46_out =  HiddenNeuron_2_46_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_46_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_46_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_46_finished == 1; goto q0;
         fi
 
@@ -2119,9 +2498,12 @@ proctype HiddenNeuron_2_46_model(){
 
 
 proctype HiddenNeuron_2_45_model(){
+ atomic{ run activation_func(HiddenNeuron_2_45_in); HiddenNeuron_2_45_out =  HiddenNeuron_2_45_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_45_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_45_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_45_finished == 1; goto q0;
         fi
 
@@ -2129,9 +2511,12 @@ proctype HiddenNeuron_2_45_model(){
 
 
 proctype HiddenNeuron_2_48_model(){
+ atomic{ run activation_func(HiddenNeuron_2_48_in); HiddenNeuron_2_48_out =  HiddenNeuron_2_48_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_48_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_48_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_48_finished == 1; goto q0;
         fi
 
@@ -2139,9 +2524,12 @@ proctype HiddenNeuron_2_48_model(){
 
 
 proctype HiddenNeuron_2_47_model(){
+ atomic{ run activation_func(HiddenNeuron_2_47_in); HiddenNeuron_2_47_out =  HiddenNeuron_2_47_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_47_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_47_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_47_finished == 1; goto q0;
         fi
 
@@ -2149,9 +2537,12 @@ proctype HiddenNeuron_2_47_model(){
 
 
 proctype HiddenNeuron_2_49_model(){
+ atomic{ run activation_func(HiddenNeuron_2_49_in); HiddenNeuron_2_49_out =  HiddenNeuron_2_49_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_49_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_49_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_49_finished == 1; goto q0;
         fi
 
@@ -2159,9 +2550,12 @@ proctype HiddenNeuron_2_49_model(){
 
 
 proctype HiddenNeuron_1_5_model(){
+ atomic{ run activation_func(HiddenNeuron_1_5_in); HiddenNeuron_1_5_out =  HiddenNeuron_1_5_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_5_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_5_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_5_finished == 1; goto q0;
         fi
 
@@ -2169,9 +2563,12 @@ proctype HiddenNeuron_1_5_model(){
 
 
 proctype HiddenNeuron_1_4_model(){
+ atomic{ run activation_func(HiddenNeuron_1_4_in); HiddenNeuron_1_4_out =  HiddenNeuron_1_4_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_4_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_4_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_4_finished == 1; goto q0;
         fi
 
@@ -2179,9 +2576,12 @@ proctype HiddenNeuron_1_4_model(){
 
 
 proctype HiddenNeuron_1_7_model(){
+ atomic{ run activation_func(HiddenNeuron_1_7_in); HiddenNeuron_1_7_out =  HiddenNeuron_1_7_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_7_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_7_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_7_finished == 1; goto q0;
         fi
 
@@ -2189,9 +2589,12 @@ proctype HiddenNeuron_1_7_model(){
 
 
 proctype HiddenNeuron_2_51_model(){
+ atomic{ run activation_func(HiddenNeuron_2_51_in); HiddenNeuron_2_51_out =  HiddenNeuron_2_51_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_51_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_51_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_51_finished == 1; goto q0;
         fi
 
@@ -2199,9 +2602,12 @@ proctype HiddenNeuron_2_51_model(){
 
 
 proctype HiddenNeuron_1_6_model(){
+ atomic{ run activation_func(HiddenNeuron_1_6_in); HiddenNeuron_1_6_out =  HiddenNeuron_1_6_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_6_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_6_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_6_finished == 1; goto q0;
         fi
 
@@ -2209,9 +2615,12 @@ proctype HiddenNeuron_1_6_model(){
 
 
 proctype HiddenNeuron_2_50_model(){
+ atomic{ run activation_func(HiddenNeuron_2_50_in); HiddenNeuron_2_50_out =  HiddenNeuron_2_50_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_50_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_50_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_50_finished == 1; goto q0;
         fi
 
@@ -2219,9 +2628,12 @@ proctype HiddenNeuron_2_50_model(){
 
 
 proctype HiddenNeuron_1_1_model(){
+ atomic{ run activation_func(HiddenNeuron_1_1_in); HiddenNeuron_1_1_out =  HiddenNeuron_1_1_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_1_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_1_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_1_finished == 1; goto q0;
         fi
 
@@ -2229,9 +2641,12 @@ proctype HiddenNeuron_1_1_model(){
 
 
 proctype HiddenNeuron_2_53_model(){
+ atomic{ run activation_func(HiddenNeuron_2_53_in); HiddenNeuron_2_53_out =  HiddenNeuron_2_53_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_53_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_53_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_53_finished == 1; goto q0;
         fi
 
@@ -2239,9 +2654,12 @@ proctype HiddenNeuron_2_53_model(){
 
 
 proctype HiddenNeuron_2_52_model(){
+ atomic{ run activation_func(HiddenNeuron_2_52_in); HiddenNeuron_2_52_out =  HiddenNeuron_2_52_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_52_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_52_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_52_finished == 1; goto q0;
         fi
 
@@ -2249,9 +2667,12 @@ proctype HiddenNeuron_2_52_model(){
 
 
 proctype HiddenNeuron_1_3_model(){
+ atomic{ run activation_func(HiddenNeuron_1_3_in); HiddenNeuron_1_3_out =  HiddenNeuron_1_3_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_3_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_3_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_3_finished == 1; goto q0;
         fi
 
@@ -2259,9 +2680,12 @@ proctype HiddenNeuron_1_3_model(){
 
 
 proctype HiddenNeuron_2_55_model(){
+ atomic{ run activation_func(HiddenNeuron_2_55_in); HiddenNeuron_2_55_out =  HiddenNeuron_2_55_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_55_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_55_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_55_finished == 1; goto q0;
         fi
 
@@ -2269,9 +2693,12 @@ proctype HiddenNeuron_2_55_model(){
 
 
 proctype HiddenNeuron_1_2_model(){
+ atomic{ run activation_func(HiddenNeuron_1_2_in); HiddenNeuron_1_2_out =  HiddenNeuron_1_2_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_2_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_2_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_2_finished == 1; goto q0;
         fi
 
@@ -2279,9 +2706,12 @@ proctype HiddenNeuron_1_2_model(){
 
 
 proctype HiddenNeuron_2_54_model(){
+ atomic{ run activation_func(HiddenNeuron_2_54_in); HiddenNeuron_2_54_out =  HiddenNeuron_2_54_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_54_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_54_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_54_finished == 1; goto q0;
         fi
 
@@ -2289,9 +2719,12 @@ proctype HiddenNeuron_2_54_model(){
 
 
 proctype HiddenNeuron_1_9_model(){
+ atomic{ run activation_func(HiddenNeuron_1_9_in); HiddenNeuron_1_9_out =  HiddenNeuron_1_9_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_9_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_9_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_9_finished == 1; goto q0;
         fi
 
@@ -2299,9 +2732,12 @@ proctype HiddenNeuron_1_9_model(){
 
 
 proctype HiddenNeuron_1_8_model(){
+ atomic{ run activation_func(HiddenNeuron_1_8_in); HiddenNeuron_1_8_out =  HiddenNeuron_1_8_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_1_8_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_1_8_finished = 1; goto q0;
         ::else -> HiddenNeuron_1_8_finished == 1; goto q0;
         fi
 
@@ -2309,9 +2745,12 @@ proctype HiddenNeuron_1_8_model(){
 
 
 proctype HiddenNeuron_2_57_model(){
+ atomic{ run activation_func(HiddenNeuron_2_57_in); HiddenNeuron_2_57_out =  HiddenNeuron_2_57_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_57_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_57_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_57_finished == 1; goto q0;
         fi
 
@@ -2319,9 +2758,12 @@ proctype HiddenNeuron_2_57_model(){
 
 
 proctype HiddenNeuron_2_56_model(){
+ atomic{ run activation_func(HiddenNeuron_2_56_in); HiddenNeuron_2_56_out =  HiddenNeuron_2_56_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_56_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_56_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_56_finished == 1; goto q0;
         fi
 
@@ -2329,9 +2771,12 @@ proctype HiddenNeuron_2_56_model(){
 
 
 proctype HiddenNeuron_2_59_model(){
+ atomic{ run activation_func(HiddenNeuron_2_59_in); HiddenNeuron_2_59_out =  HiddenNeuron_2_59_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_59_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_59_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_59_finished == 1; goto q0;
         fi
 
@@ -2339,9 +2784,12 @@ proctype HiddenNeuron_2_59_model(){
 
 
 proctype HiddenNeuron_2_58_model(){
+ atomic{ run activation_func(HiddenNeuron_2_58_in); HiddenNeuron_2_58_out =  HiddenNeuron_2_58_activation_func_function_returnVar;}
 
     q0:  HiddenNeuron_2_58_finished == 0 ->
         if
+        ::(true) ->
+ HiddenNeuron_2_58_finished = 1; goto q0;
         ::else -> HiddenNeuron_2_58_finished == 1; goto q0;
         fi
 
