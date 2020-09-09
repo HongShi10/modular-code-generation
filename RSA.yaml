@@ -13,7 +13,10 @@ system:
     toggle_value: REAL
     value_value: REAL
     clock: REAL
-    
+  parameters:
+    asdasd:
+      type: REAL
+
   definitions:
     RLM_com:
       outputs:

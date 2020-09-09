@@ -36,25 +36,23 @@ object PromelaFileGenerator {
         // creates all other processes from the instantiation of automata
         result.appendln(generateProcesses())
         result.append(generateFunctionsForEachLocation())
+        result.append(generateInitFunction())
         return result.toString().trim()
     }
 
     private fun generateProcesses(): String {
-
         val result = StringBuilder()
         // For each available instance that maps to a automata create a process for that instance
         for (instanceName in instanceToAutomataMap.keys){
             val automataInstance = instanceToAutomataMap[instanceName]
             // creates the process method header
             result.appendln("proctype ${instanceName}_model(){")
-
             if(automataInstance is HybridAutomata){
                 result.appendln(findAllTransitionLocationEdges(automataInstance,instanceName))
             }
             result.appendln("}")
             result.appendln()
             result.appendln()
-
         }
         return result.toString().trim()
     }
@@ -75,7 +73,7 @@ object PromelaFileGenerator {
                             result.append(" ${instanceName}_${variable} =  ${instanceName}_${equation.functionName}_function_returnVar;")
                         }
                     }
-                    result.append("}")
+                    result.append("} ")
                     continue
                 }
                 val mapped = getAutomataVariablePairForMappedGlobalVariables(instanceName,variable)
@@ -96,15 +94,14 @@ object PromelaFileGenerator {
             var edges = 0
             result.appendln()
             val locationName = location.name
-            result.appendln("${config.getIndent(1)}${locationName}:  ${instanceName}_finished == 0 ->")
+            result.appendln("${config.getIndent(1)}${locationName}:  (${instanceName}_finished == 0) -> ")
             result.appendln("${config.getIndent(2)}${generateUpdateOrFlowForLocation(location.update, instanceName)}")
             result.appendln("${config.getIndent(2)}${generateUpdateOrFlowForLocation(location.flow, instanceName)}")
             // finds the location of the transition with the update and guards
+            result.appendln("${config.getIndent(2)}if")
+
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
-                if(edges == 0){
-                    result.appendln("${config.getIndent(2)}if")
-                }
-                result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(guard,instanceName,globalVariable = globalOutputInputVariables )}) ->")
+                result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(guard,instanceName,globalVariable = globalOutputInputVariables )}) -> ")
                 // for each equation in the transition add it in
                 result.append(generateUpdateOrFlowForLocation(update,instanceName))
                 // Adds the transition location after all variables have been updated as well as increment local tick for that process
@@ -112,14 +109,9 @@ object PromelaFileGenerator {
                 result.appendln()
                 edges++
             }
-            if(edges > 0){
-                result.appendln("${config.getIndent(2)}::else -> ${instanceName}_finished == 1; goto ${locationName};")
-                result.appendln("${config.getIndent(2)}fi;")
-            }
-            else{
-                result.appendln("${config.getIndent(2)}${instanceName}_finished == 1; goto ${locationName};")
-
-            }
+            result.appendln("${config.getIndent(2)}::(${generateCodeForParseTreeItem(location.invariant, instanceName, globalVariable = globalOutputInputVariables)}) -> ${instanceName}_finished == 1; goto ${locationName};")
+            result.appendln("${config.getIndent(2)}::else -> ${instanceName}_finished == 1; goto ${locationName};")
+            result.appendln("${config.getIndent(2)}fi;")
         }
         return result.toString()
 
@@ -159,7 +151,6 @@ object PromelaFileGenerator {
      */
     private fun generateVariableInitialisation(item: HybridItem): String {
         val result = StringBuilder()
-
         // If item is a hybrid network then we need to retrieve all the objects to make the processes for each
         if(item is HybridNetwork) {
             for (instanceName in item.getAllInstances().keys) {
@@ -387,7 +378,7 @@ object PromelaFileGenerator {
             if(automataInstance is HybridAutomata && automataInstance.functions.isNotEmpty()){
                 for(function in automataInstance.functions){
                     val functionName = "${instanceName}_${function.name}"
-                    result.append("$functionName(")
+                    result.append("proctype $functionName(")
                     val numberOfInputs = function.inputs.size
                     var counter = 1
                     for(inputVar in function.inputs){
@@ -411,5 +402,11 @@ object PromelaFileGenerator {
 
 
         return result.toString().trimEnd()
+    }
+
+    private fun generateInitFunction(): String {
+        val result = StringBuilder()
+
+        return result.toString().trim()
     }
 }
