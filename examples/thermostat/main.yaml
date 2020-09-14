@@ -6,10 +6,10 @@ system:
   parameters:
     lowTemp:
       type: REAL
-      default: 22.78
+      default: 2278
     highTemp:
       type: REAL
-      default: 25
+      default: 2500
   locations:
     t1:
       invariant: temperature > lowTemp
@@ -21,7 +21,7 @@ system:
     t2:
       invariant: temperature < highTemp
       flow:
-        temperature: 37.78 - temperature
+        temperature: 3778 - temperature
       transitions:
         - to: t1
           guard: temperature >= highTemp

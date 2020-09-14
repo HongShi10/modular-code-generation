@@ -403,4 +403,14 @@ proctype LRI_rsa(double value, double current_AEI){
     ::else -> 
         LRI_rsa_function_returnVar = 0.402;
     fi
+}init {
+    atomic {
+         run RSA_model();
+         run LRI_model();
+         run AVI_model();
+         run VRP_model();
+         run RHM_model();
+         run PVARP_model();
+         run URI_model();
+         run clock_pro();
 }

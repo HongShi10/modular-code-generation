@@ -103,20 +103,20 @@ object Utils {
             is Constant -> when (item.name) {
                 ConstantType.PI -> "M_PI"
             }
-            is Plus -> padOperand(instanceName,item, item.operandA) + " + " + padOperand(instanceName,item, item.operandB)
-            is Minus -> padOperand(instanceName,item, item.operandA) + " - " + padOperand(instanceName,item, item.operandB)
-            is Negative -> "-" + padOperand(instanceName,item, item.operandA)
-            is Power -> "pow(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ", " + generateCodeForParseTreeItem(item.operandB,instanceName) + ")"
-            is Multiply -> padOperand(instanceName,item, item.operandA) + " * " + padOperand(instanceName,item, item.operandB)
-            is Divide -> padOperand(instanceName,item, item.operandA) + " / " + padOperand(instanceName,item, item.operandB)
-            is SquareRoot -> "sqrt(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
-            is Exponential -> "exp(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
-            is Ln -> "log(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
-            is Sine -> "sin(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
-            is Cosine -> "cos(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
-            is Tangent -> "tan(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
-            is Floor -> "floor(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
-            is Ceil -> "ceil(" + generateCodeForParseTreeItem(item.operandA,instanceName) + ")"
+            is Plus -> padOperand(instanceName,item, item.operandA,globalVariable) + " + " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is Minus -> padOperand(instanceName,item, item.operandA,globalVariable) + " - " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is Negative -> "-" + padOperand(instanceName,item, item.operandA,globalVariable)
+            is Power -> "pow(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ", " + generateCodeForParseTreeItem(item.operandB,instanceName,globalVariable = globalVariable) + ")"
+            is Multiply -> padOperand(instanceName,item, item.operandA,globalVariable) + " * " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is Divide -> padOperand(instanceName,item, item.operandA,globalVariable) + " / " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is SquareRoot -> "sqrt(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
+            is Exponential -> "exp(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
+            is Ln -> "log(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
+            is Sine -> "sin(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
+            is Cosine -> "cos(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
+            is Tangent -> "tan(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
+            is Floor -> "floor(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
+            is Ceil -> "ceil(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
         }
     }
 

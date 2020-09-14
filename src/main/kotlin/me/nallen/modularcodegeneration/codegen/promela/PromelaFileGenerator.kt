@@ -17,6 +17,7 @@ object PromelaFileGenerator {
     private val usedVariableNames = HashSet<String>()
     private var automata: HybridItem = HybridAutomata()
     private var config: Configuration = Configuration()
+    private var systemIsAutomata = false;
 
     fun generate(item: HybridItem): String {
         automata = item
@@ -77,8 +78,14 @@ object PromelaFileGenerator {
                     continue
                 }
                 val mapped = getAutomataVariablePairForMappedGlobalVariables(instanceName,variable)
-                if(mapped != null){
-                    result.append("${mapped.variable} = ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)}; ")
+                if(mapped != null || systemIsAutomata){
+                    if (mapped != null) {
+                        result.append("${mapped.variable} = ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)}; ")
+                    }
+                    else{
+                        result.append("pre_$variable = ${generateCodeForParseTreeItem(equation,"", globalVariable = globalOutputInputVariables)}; ")
+
+                    }
                 }
                 else{
                     result.append("${instanceName}_${variable} = ${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputInputVariables)}; ")
@@ -162,14 +169,17 @@ object PromelaFileGenerator {
         }
         // If its just a automata then directly add it into the map so we can generate the process later
         if(item is HybridAutomata) {
+            systemIsAutomata = true;
             instanceToAutomataMap[item.name] = item
         }
         // Creates global variables
         result.appendln(generateGlobalVariables())
-        // Finds all the variables for processes with NO MAPPINGS
-        result.appendln(generateVariablesWithNoMappings(item))
-        // Finds all the variables for processes WITH MAPPINGS
-        result.appendln(generateVariablesWithMappings(item))
+        if(item is HybridNetwork){
+            // Finds all the variables for processes with NO MAPPINGS
+            result.appendln(generateVariablesWithNoMappings(item))
+            // Finds all the variables for processes WITH MAPPINGS
+            result.appendln(generateVariablesWithMappings(item))
+        }
         // Creates variables for previous tick values to be assigned
         result.appendln(generateVariablesForPreviousClockTick(item))
         // Creates variables for local clock ticks
@@ -406,7 +416,14 @@ object PromelaFileGenerator {
 
     private fun generateInitFunction(): String {
         val result = StringBuilder()
+        result.appendln("init {")
+        result.appendln("${config.getIndent(1)}atomic {")
+        for (instanceName in instanceToAutomataMap.keys){
+            result.appendln("${config.getIndent(2)} run ${instanceName}_model();")
+        }
+        result.appendln("${config.getIndent(2)} run clock_pro();")
+        result.appendln("}")
 
-        return result.toString().trim()
+        return result.toString()
     }
 }
