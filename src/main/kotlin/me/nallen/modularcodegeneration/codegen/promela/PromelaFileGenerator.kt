@@ -102,8 +102,6 @@ object PromelaFileGenerator {
             result.appendln()
             val locationName = location.name
             result.appendln("${config.getIndent(1)}${locationName}:  (${instanceName}_finished == 0) -> ")
-            result.appendln("${config.getIndent(2)}${generateUpdateOrFlowForLocation(location.update, instanceName)}")
-            result.appendln("${config.getIndent(2)}${generateUpdateOrFlowForLocation(location.flow, instanceName)}")
             // finds the location of the transition with the update and guards
             result.appendln("${config.getIndent(2)}if")
 
@@ -116,8 +114,10 @@ object PromelaFileGenerator {
                 result.appendln()
                 edges++
             }
-            result.appendln("${config.getIndent(2)}::(${generateCodeForParseTreeItem(location.invariant, instanceName, globalVariable = globalOutputInputVariables)}) -> ${instanceName}_finished == 1; goto ${locationName};")
-            result.appendln("${config.getIndent(2)}::else -> ${instanceName}_finished == 1; goto ${locationName};")
+            result.appendln("${config.getIndent(2)}::(" +
+                    "${generateCodeForParseTreeItem(location.invariant, instanceName, globalVariable = globalOutputInputVariables)}) -> " +
+                    "${instanceName}_finished == 1; ${generateUpdateOrFlowForLocation(location.update, instanceName)}" +
+                    "${generateUpdateOrFlowForLocation(location.flow, instanceName)} goto ${locationName}")
             result.appendln("${config.getIndent(2)}fi;")
         }
         return result.toString()
@@ -324,19 +324,22 @@ object PromelaFileGenerator {
         result.appendln("proctype clock_pro(){")
         result.appendln()
         // creates the line which checks that each local tick of a process has passed
-        result.appendln("${config.getIndent(1)}INITIAL: (${getProcessFinishVariablesEqualOne()}) ->")
-        result.appendln("${config.getIndent(2)}d_step{")
+        result.appendln("${config.getIndent(1)}INITIAL:\n${config.getIndent(2)}if ::(${getProcessFinishVariablesEqualOne()}) ->")
+        result.appendln("${config.getIndent(3)}d_step{")
         // resets the local tick so every process is synchronised
         result.appendln(resetProcessFinishVariables())
         // Example assert statement printed in the file for user to change
-        result.appendln("${config.getIndent(3)}// ADD ASSERT STATEMENT CHECK HERE")
-        result.appendln("${config.getIndent(3)}//if")
-        result.appendln("${config.getIndent(3)}//:: (pre_x < y) -> assert(false)")
-        result.appendln("${config.getIndent(3)}//:: else -> skip")
-        result.appendln("${config.getIndent(3)}//fi")
+        result.appendln("${config.getIndent(4)}// ADD ASSERT STATEMENT CHECK HERE")
+        result.appendln("${config.getIndent(4)}//if")
+        result.appendln("${config.getIndent(4)}//:: (pre_x < y) -> assert(false)")
+        result.appendln("${config.getIndent(4)}//:: else -> skip")
+        result.appendln("${config.getIndent(4)}//fi")
         // sets the pre_variable to the last tick values
         result.appendln(setPastTickVariablesAndResetCurrent())
-        result.appendln("${config.getIndent(1)}}")
+        result.appendln("${config.getIndent(3)}}")
+        result.appendln("${config.getIndent(2)}goto INITIAL;")
+        result.appendln("${config.getIndent(2)}fi;")
+
         result.appendln("}")
         return result.toString()
     }
