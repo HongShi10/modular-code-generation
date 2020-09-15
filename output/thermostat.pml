@@ -33,13 +33,13 @@ proctype thermostat_model(){
     t1:  (thermostat_finished == 0) -> 
         if
         ::(pre_temperature <= 2278) ->  thermostat_finished = 1; goto t2;
-        ::(pre_temperature > 2278) -> thermostat_finished == 1; pre_temperature = 10 - pre_temperature; goto t1
+        ::(pre_temperature > 2278) -> thermostat_finished == 1; temperature = 10 - pre_temperature; goto t1
         fi;
 
     t2:  (thermostat_finished == 0) -> 
         if
         ::(pre_temperature >= 2500) ->  thermostat_finished = 1; goto t1;
-        ::(pre_temperature < 2500) -> thermostat_finished == 1; pre_temperature = 3778 - pre_temperature; goto t2
+        ::(pre_temperature < 2500) -> thermostat_finished == 1; temperature = 3778 - pre_temperature; goto t2
         fi;
 
 }

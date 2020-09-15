@@ -83,7 +83,7 @@ object PromelaFileGenerator {
                         result.append("${mapped.variable} = ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)}; ")
                     }
                     else{
-                        result.append("pre_$variable = ${generateCodeForParseTreeItem(equation,"", globalVariable = globalOutputInputVariables)}; ")
+                        result.append("$variable = ${generateCodeForParseTreeItem(equation,"", globalVariable = globalOutputInputVariables)}; ")
 
                     }
                 }
