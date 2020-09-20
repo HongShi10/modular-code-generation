@@ -145,8 +145,9 @@ object PromelaFileGenerator {
             }
             result.appendln("${config.getIndent(2)}::(" +
                     "${generateCodeForParseTreeItem(location.invariant, instanceName, globalVariable = globalOutputInputVariables)}) -> " +
-                    "${instanceName}_finished = 1; ${generateUpdateOrFlowForLocation(location.update, instanceName,false)}" +
-                    "${generateUpdateOrFlowForLocation(location.flow, instanceName, true)} goto $locationName")
+                    generateUpdateOrFlowForLocation(location.update, instanceName,false) +
+                    generateUpdateOrFlowForLocation(location.flow, instanceName, true) +
+                    "${instanceName}_finished = 1; goto $locationName")
             result.appendln("${config.getIndent(2)}fi;")
         }
         return result.toString()
@@ -369,7 +370,7 @@ object PromelaFileGenerator {
         result.appendln("${config.getIndent(4)}//:: else -> skip")
         result.appendln("${config.getIndent(4)}//fi")
         // sets the pre_variable to the last tick values
-        result.appendln(setPastTickVariablesAndResetCurrent())
+        result.appendln("${config.getIndent(4)}${setPastTickVariablesAndResetCurrent()}")
         result.appendln("${config.getIndent(3)}}")
         result.appendln("${config.getIndent(2)}goto INITIAL;")
         result.appendln("${config.getIndent(2)}fi;")
@@ -392,7 +393,7 @@ object PromelaFileGenerator {
     private fun resetProcessFinishVariables(): String {
         val result = StringBuilder()
         for(instanceName in instanceToAutomataMap.keys){
-            result.append("${instanceName}_finished == 0; ")
+            result.append("${instanceName}_finished = 0; ")
         }
         return result.toString()
     }
@@ -402,18 +403,17 @@ object PromelaFileGenerator {
         // Sets all the variables from the current tick to the pre_$variableName variable
         for(variable in automata.variables){
             if(variable.locality.getTextualName() == "Outputs"){
-                result.appendln("${config.getIndent(3)}pre_${variable.name} = ${variable.name};");
+                result.appendln("pre_${variable.name} = ${variable.name};")
 
             }
         }
-        result.appendln()
-        // resets the value of the output variable to the initial value
-        for(variable in automata.variables){
-            if(variable.locality.getTextualName() == "Outputs"){
-                result.appendln("${config.getIndent(3)}${variable.name} = ${getVariableInitialValue(variable)};");
-            }
-        }
-        return result.toString()
+//        // resets the value of the output variable to the initial value
+//        for(variable in automata.variables){
+//            if(variable.locality.getTextualName() == "Outputs"){
+//                result.appendln("${config.getIndent(4)}${variable.name} = ${getVariableInitialValue(variable)};")
+//            }
+//        }
+        return result.toString().trim()
     }
 
     private fun generateFunctionsForEachLocation(): String {
@@ -458,7 +458,9 @@ object PromelaFileGenerator {
             result.appendln("${config.getIndent(2)} run ${instanceName}_model();")
         }
         result.appendln("${config.getIndent(2)} run clock_pro();")
+        result.appendln("${config.getIndent(1)}}")
         result.appendln("}")
+
 
         return result.toString()
     }
