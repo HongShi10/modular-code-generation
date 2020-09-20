@@ -118,44 +118,7 @@ object PromelaFileGenerator {
                 else{
                     result.append("; ")
                 }
-//                if(equation.type == "functionCall"){
-//                    result.append(" atomic{" )
-//                    result.append(" run ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)};")
-//                    if(equation is FunctionCall){
-//                        if(mapped != null){
-//                            result.append(" ${mapped.variable} = ${instanceName}_${equation.functionName}_function_returnVar")
-//                        }
-//                        else{
-//                            result.append(" ${instanceName}_${variable} =  ${instanceName}_${equation.functionName}_function_returnVar")
-//                        }
-//                        if(isFlow){
-//                            result.append(createFlowEquation(mapped,"${equation.functionName}_function_returnVar",instanceName))
-//                        }
-//                        else{
-//                            result.append(";")
-//                        }
-//                    }
-//                    result.append("} ")
-//                    continue
-//                }
-//                if(mapped != null || systemIsAutomata){
-//                    if (mapped != null) {
-//                        result.append("${mapped.variable} = (${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)})")
-//                    }
-//                    else{
-//                        result.append("$variable = (${generateCodeForParseTreeItem(equation,"", globalVariable = globalOutputInputVariables)})")
-//                    }
-//                }
-//                else{
-//                    result.append("${instanceName}_${variable} = (${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputInputVariables)})")
-//                }
-//                if(isFlow){
-//                    result.append(createFlowEquation(mapped,variable,instanceName))
-//                }
-//                else{
-//                    result.append(";")
-//                }
-        }
+            }
 
         return result.toString()
     }
