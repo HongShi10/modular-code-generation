@@ -12,6 +12,10 @@ typealias ParseTreeLocality = me.nallen.modularcodegeneration.parsetree.Locality
  * A set of utilities for C Code generation regarding types, ParseTree generation, and naming conventions
  */
 object Utils {
+    fun generateFixedPointValue(double: Double, multiplier: Int): Int {
+        return (double * multiplier).toInt()
+
+    }
     /**
      * Convert our VariableType to a Promela type
      */
@@ -19,8 +23,8 @@ object Utils {
         // Switch on the type, and return the appropriate C type
         return when (type) {
             null -> "void"
-            VariableType.BOOLEAN -> "bit"
-            VariableType.REAL -> "double"
+            VariableType.BOOLEAN -> "bool"
+            VariableType.REAL -> "int"
             VariableType.INTEGER -> "int"
             else -> throw NotImplementedError("Unable to generate code for requested type '$type'")
         }
@@ -31,7 +35,7 @@ object Utils {
         return original.convertWordDelimiterConvention(NamingConvention.SNAKE_CASE)
     }
 
-    fun generateCodeForParseTreeItem( item: ParseTreeItem,instanceName: String = "", parent: ParseTreeItem? = null, globalVariable: HashSet<String>? = null): String {
+    fun generateCodeForParseTreeItem( item: ParseTreeItem,instanceName: String = "", parent: ParseTreeItem? = null, globalVariable: HashSet<String>? = null ): String {
         // For each possible ParseTreeItem we have a different output string that will be generated
         // We recursively call these generation functions until we reach the end of the tree
         return when (item) {
@@ -60,7 +64,14 @@ object Utils {
                 // And then return the final function name
                 return "${(item.functionName)}($builder)"
             }
-            is Literal -> item.value
+            is Literal ->  {
+                return if(item.value.equals("true") || item.value.equals("false")){
+                    item.value
+                } else{
+                    (item.value.toBigDecimal() * PromelaFileGenerator.multiplier.toBigDecimal()).toInt().toString()
+                }
+            }
+
             is Variable -> {
                 // Variables also have a bit of extra logic that's needed
 
@@ -107,8 +118,8 @@ object Utils {
             is Minus -> padOperand(instanceName,item, item.operandA,globalVariable) + " - " + padOperand(instanceName,item, item.operandB,globalVariable)
             is Negative -> "-" + padOperand(instanceName,item, item.operandA,globalVariable)
             is Power -> "pow(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ", " + generateCodeForParseTreeItem(item.operandB,instanceName,globalVariable = globalVariable) + ")"
-            is Multiply -> padOperand(instanceName,item, item.operandA,globalVariable) + " * " + padOperand(instanceName,item, item.operandB,globalVariable)
-            is Divide -> padOperand(instanceName,item, item.operandA,globalVariable) + " / " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is Multiply -> padOperand(instanceName,item, item.operandA,globalVariable) + " * " + padOperand(instanceName,item, item.operandB,globalVariable) + "/" + PromelaFileGenerator.multiplier
+            is Divide -> padOperand(instanceName,item, item.operandA,globalVariable) + " / " + padOperand(instanceName,item, item.operandB,globalVariable) + "*" + PromelaFileGenerator.multiplier
             is SquareRoot -> "sqrt(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
             is Exponential -> "exp(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
             is Ln -> "log(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"

@@ -1,5 +1,6 @@
 package me.nallen.modularcodegeneration.codegen.promela
 
+import me.nallen.modularcodegeneration.codegen.Configuration
 import me.nallen.modularcodegeneration.hybridautomata.HybridItem
 import me.nallen.modularcodegeneration.logging.Logger
 import me.nallen.modularcodegeneration.utils.getRelativePath
@@ -8,7 +9,7 @@ import java.io.File
 class PromelaCodeGenerator {
     companion object {
 
-        fun generate(item: HybridItem, dir: String) {
+        fun generate(item: HybridItem, codeGenConfig : Configuration, dir: String) {
             val outputDir = File(dir)
 
             // If the directory doesn't already exist, we want to create it
@@ -20,7 +21,7 @@ class PromelaCodeGenerator {
             // Use default parameters for top-level item
             item.setDefaultParametrisation()
 //            System.out.println(PromelaFileGenerator.generate(item))
-            File(outputDir, "${Utils.createFileName(item.name)}.pml").writeText(PromelaFileGenerator.generate(item))
+            File(outputDir, "${Utils.createFileName(item.name)}.pml").writeText(PromelaFileGenerator.generate(item,codeGenConfig))
         }
 
 

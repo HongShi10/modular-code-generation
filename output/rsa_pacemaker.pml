@@ -1,107 +1,108 @@
+int global_tick = 0
 // Global Variables 
-bit AP = 0;
-bit VP = 0;
-bit AS = 0;
-bit VS = 0;
-double time = 0;
-bit inspiration = 0;
-double AEI = 0;
-double pacing_rate = 0;
-double toggle_value = 0;
-double value_value = 0;
-double clock = 0;
-double asdasd = 0;
+bool AP = 0;
+bool VP = 0;
+bool AS = 0;
+bool VS = 0;
+int time = 0;
+bool inspiration = 0;
+int AEI = 0;
+int pacing_rate = 0;
+int toggle_value = 0;
+int value_value = 0;
+int clock = 0;
+int asdasd = 0;
 
 
 // RSA Variables without mappings
-bit RSA_INS = 0;
-double RSA_value = 0;
-bit RSA_toggle = 0;
-bit RSA_APED = 0;
-bit RSA_INSED = 0;
-double RSA_t = 0;
+bool RSA_INS = 0;
+int RSA_value = 0;
+bool RSA_toggle = 0;
+bool RSA_APED = 0;
+bool RSA_INSED = 0;
+int RSA_t = 0;
 
 // LRI Variables without mappings
-bit LRI_INS = 0;
-bit LRI_AP = 0;
-double LRI_AEI = 0;
-double LRI_t = 0;
+bool LRI_INS = 0;
+bool LRI_AP = 0;
+int LRI_AEI = 0;
+int LRI_t = 0;
 
 // AVI Variables without mappings
-bit AVI_VP = 0;
-double AVI_t = 0;
-double AVI_TURI = 0;
-double AVI_TAVI = 0;
+bool AVI_VP = 0;
+int AVI_t = 0;
+int AVI_TURI = 0;
+int AVI_TAVI = 0;
 
 // VRP Variables without mappings
-bit VRP_VS = 0;
-double VRP_TVRP = 0;
-double VRP_t = 0;
+bool VRP_VS = 0;
+int VRP_TVRP = 0;
+int VRP_t = 0;
 
 // RHM Variables without mappings
-bit RHM_Aget = 0;
-bit RHM_Vget = 0;
-double RHM_TAV = 0;
-double RHM_TVA = 0;
-double RHM_t = 0;
+bool RHM_Aget = 0;
+bool RHM_Vget = 0;
+int RHM_TAV = 0;
+int RHM_TVA = 0;
+int RHM_t = 0;
 
 // PVARP Variables without mappings
-bit PVARP_AS = 0;
-bit PVARP_AR = 0;
-double PVARP_TPVAB = 0;
-double PVARP_TPVARP = 0;
-double PVARP_t = 0;
+bool PVARP_AS = 0;
+bool PVARP_AR = 0;
+int PVARP_TPVAB = 0;
+int PVARP_TPVARP = 0;
+int PVARP_t = 0;
 
 // URI Variables without mappings
-double URI_clk = 0;
+int URI_clk = 0;
 
 
 // RSA Variables with mappings
-bit RSA_AS = PVARP_AS;
-bit RSA_AP = LRI_AP;
+bool RSA_AS = PVARP_AS;
+bool RSA_AP = LRI_AP;
 
 // LRI Variables with mappings
-bit LRI_AS = PVARP_AS;
-bit LRI_VS = VRP_VS;
-bit LRI_VP = AVI_VP;
-bit LRI_toggle = RSA_toggle;
-double LRI_value = RSA_value;
-double LRI_current_AEI = LRI_AEI;
+bool LRI_AS = PVARP_AS;
+bool LRI_VS = VRP_VS;
+bool LRI_VP = AVI_VP;
+bool LRI_toggle = RSA_toggle;
+int LRI_value = RSA_value;
+int LRI_current_AEI = LRI_AEI;
 
 // AVI Variables with mappings
-bit AVI_AS = PVARP_AS;
-bit AVI_AP = LRI_AP;
-bit AVI_VS = VRP_VS;
-double AVI_clk = URI_clk;
+bool AVI_AS = PVARP_AS;
+bool AVI_AP = LRI_AP;
+bool AVI_VS = VRP_VS;
+int AVI_clk = URI_clk;
 
 // VRP Variables with mappings
-bit VRP_Vget = RHM_Vget;
-bit VRP_VP = AVI_VP;
+bool VRP_Vget = RHM_Vget;
+bool VRP_VP = AVI_VP;
 
 // RHM Variables with mappings
-bit RHM_AP = LRI_AP;
-bit RHM_VP = AVI_VP;
+bool RHM_AP = LRI_AP;
+bool RHM_VP = AVI_VP;
 
 // PVARP Variables with mappings
-bit PVARP_Aget = RHM_Aget;
-bit PVARP_VS = VRP_VS;
-bit PVARP_VP = AVI_VP;
+bool PVARP_Aget = RHM_Aget;
+bool PVARP_VS = VRP_VS;
+bool PVARP_VP = AVI_VP;
 
 // URI Variables with mappings
-bit URI_VS = VRP_VS;
-bit URI_VP = AVI_VP;
+bool URI_VS = VRP_VS;
+bool URI_VP = AVI_VP;
 
-bit pre_AP = 0;
-bit pre_VP = 0;
-bit pre_AS = 0;
-bit pre_VS = 0;
-double pre_time = 0;
-bit pre_inspiration = 0;
-double pre_AEI = 0;
-double pre_pacing_rate = 0;
-double pre_toggle_value = 0;
-double pre_value_value = 0;
-double pre_clock = 0;
+bool pre_AP = 0;
+bool pre_VP = 0;
+bool pre_AS = 0;
+bool pre_VS = 0;
+int pre_time = 0;
+bool pre_inspiration = 0;
+int pre_AEI = 0;
+int pre_pacing_rate = 0;
+int pre_toggle_value = 0;
+int pre_value_value = 0;
+int pre_clock = 0;
 
 bit RSA_finished = 0;
 bit LRI_finished = 0;
@@ -111,20 +112,24 @@ bit RHM_finished = 0;
 bit PVARP_finished = 0;
 bit URI_finished = 0;
 
-double LRI_rsa_function_returnVar = 0;
+int LRI_rsa_function_returnVar = 0;
 
 
 
 proctype clock_pro(){
 
-    INITIAL: (RSA_finished == 1 && LRI_finished == 1 && AVI_finished == 1 && VRP_finished == 1 && RHM_finished == 1 && PVARP_finished == 1 && URI_finished == 1) ->
-        d_step{
-            RSA_finished == 0; LRI_finished == 0; AVI_finished == 0; VRP_finished == 0; RHM_finished == 0; PVARP_finished == 0; URI_finished == 0; 
-            // ADD ASSERT STATEMENT CHECK HERE
-            //if
-            //:: (pre_x < y) -> assert(false)
-            //:: else -> skip
-            //fi
+    INITIAL:
+        if
+        ::(global_tick == 1200000) -> skip;
+        ::(RSA_finished == 1 && LRI_finished == 1 && AVI_finished == 1 && VRP_finished == 1 && RHM_finished == 1 && PVARP_finished == 1 && URI_finished == 1) ->
+            d_step{
+                global_tick++
+                RSA_finished == 0; LRI_finished == 0; AVI_finished == 0; VRP_finished == 0; RHM_finished == 0; PVARP_finished == 0; URI_finished == 0; 
+                // ADD ASSERT STATEMENT CHECK HERE
+                //if
+                //:: (pre_x < y) -> assert(false)
+                //:: else -> skip
+                //fi
             pre_AP = AP;
             pre_VP = VP;
             pre_AS = AS;
@@ -149,57 +154,53 @@ proctype clock_pro(){
             value_value = 0;
             clock = 0;
 
-    }
+            }
+        goto INITIAL;
+        fi;
 }
 
 proctype RSA_model(){
 
     INS_init:  (RSA_finished == 0) -> 
         if
-        ::(pre_AP) -> value_value = 0; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto INS_trim;
-        ::(RSA_INS == 0) -> value_value = 2; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto INS_EXP;
-        ::((pre_AP || RSA_INS == 0) == 0) -> RSA_finished == 1; toggle_value = false;)RSA_t = 1;)goto INS_init;
-        ::else -> RSA_finished == 1; goto INS_init;
+        ::(pre_AP) -> value_value = (0); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto INS_trim;
+        ::(RSA_INS == 0) -> value_value = (20000); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto INS_EXP;
+        ::((pre_AP || RSA_INS == 0) == 0) -> RSA_finished = 1; toggle_value = (false); RSA_t = (10000) * 10 / 10000 + RSA_t;  goto INS_init
         fi;
 
     INS_trim:  (RSA_finished == 0) -> 
         if
-        ::(pre_AP) -> value_value = 0; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto INS_trim;
-        ::(RSA_INS == 0) -> value_value = 2; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto INS_EXP;
-        ::((pre_AP || RSA_INS == 0) == 0) -> RSA_finished == 1; toggle_value = false;)RSA_t = 1;)goto INS_trim;
-        ::else -> RSA_finished == 1; goto INS_trim;
+        ::(pre_AP) -> value_value = (0); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto INS_trim;
+        ::(RSA_INS == 0) -> value_value = (20000); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto INS_EXP;
+        ::((pre_AP || RSA_INS == 0) == 0) -> RSA_finished = 1; toggle_value = (false); RSA_t = (10000) * 10 / 10000 + RSA_t;  goto INS_trim
         fi;
 
     EXP_init:  (RSA_finished == 0) -> 
         if
-        ::(pre_AP) -> value_value = 0; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto EXP_trim;
-        ::(RSA_INS) -> value_value = 1; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto EXP_INS;
-        ::((pre_AP || RSA_INS) == 0) -> RSA_finished == 1; toggle_value = false;)RSA_t = 1;)goto EXP_init;
-        ::else -> RSA_finished == 1; goto EXP_init;
+        ::(pre_AP) -> value_value = (0); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto EXP_trim;
+        ::(RSA_INS) -> value_value = (10000); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto EXP_INS;
+        ::((pre_AP || RSA_INS) == 0) -> RSA_finished = 1; toggle_value = (false); RSA_t = (10000) * 10 / 10000 + RSA_t;  goto EXP_init
         fi;
 
     EXP_trim:  (RSA_finished == 0) -> 
         if
-        ::(pre_AP) -> value_value = 0; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto EXP_trim;
-        ::(RSA_INS) -> value_value = 1; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto EXP_INS;
-        ::((pre_AP || RSA_INS) == 0) -> RSA_finished == 1; toggle_value = false;)RSA_t = 1;)goto EXP_trim;
-        ::else -> RSA_finished == 1; goto EXP_trim;
+        ::(pre_AP) -> value_value = (0); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto EXP_trim;
+        ::(RSA_INS) -> value_value = (10000); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto EXP_INS;
+        ::((pre_AP || RSA_INS) == 0) -> RSA_finished = 1; toggle_value = (false); RSA_t = (10000) * 10 / 10000 + RSA_t;  goto EXP_trim
         fi;
 
     INS_EXP:  (RSA_finished == 0) -> 
         if
-        ::(RSA_INS) -> value_value = 0; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto INS_init;
-        ::(pre_AP) -> value_value = 0; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto EXP_init;
-        ::((RSA_INS || pre_AP) == 0) -> RSA_finished == 1; toggle_value = false;)RSA_t = 1;)goto INS_EXP;
-        ::else -> RSA_finished == 1; goto INS_EXP;
+        ::(RSA_INS) -> value_value = (0); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto INS_init;
+        ::(pre_AP) -> value_value = (0); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto EXP_init;
+        ::((RSA_INS || pre_AP) == 0) -> RSA_finished = 1; toggle_value = (false); RSA_t = (10000) * 10 / 10000 + RSA_t;  goto INS_EXP
         fi;
 
     EXP_INS:  (RSA_finished == 0) -> 
         if
-        ::(RSA_INS == 0) -> value_value = 0; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto EXP_init;
-        ::(pre_AP) -> value_value = 0; toggle_value = true; RSA_t = 0; RSA_finished = 1; goto INS_init;
-        ::((RSA_INS == 0 || pre_AP) == 0) -> RSA_finished == 1; toggle_value = false;)RSA_t = 1;)goto EXP_INS;
-        ::else -> RSA_finished == 1; goto EXP_INS;
+        ::(RSA_INS == 0) -> value_value = (0); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto EXP_init;
+        ::(pre_AP) -> value_value = (0); toggle_value = (true); RSA_t = (0);  RSA_finished = 1; goto INS_init;
+        ::((RSA_INS == 0 || pre_AP) == 0) -> RSA_finished = 1; toggle_value = (false); RSA_t = (10000) * 10 / 10000 + RSA_t;  goto EXP_INS
         fi;
 
 }
@@ -210,20 +211,18 @@ proctype LRI_model(){
     LRI:  (LRI_finished == 0) -> 
         if
         ::(pre_AS && LRI_toggle == 0) ->  LRI_finished = 1; goto ASED;
-        ::(pre_AS && LRI_toggle) -> atomic{ run rsa(LRI_value, LRI_current_AEI); AEI = LRI_rsa_function_returnVar;} AP = false; LRI_finished = 1; goto ASED;
-        ::(pre_VS || pre_VP) -> pacing_rate = 0; LRI_finished = 1; goto LRI;
-        ::(LRI_toggle) -> atomic{ run rsa(LRI_value, LRI_current_AEI); AEI = LRI_rsa_function_returnVar;} AP = false; LRI_finished = 1; goto LRI;
-        ::(LRI_t >= pre_AEI) -> pacing_rate = 0; AP = true; LRI_finished = 1; goto LRI;
-        ::(((pre_AS && LRI_toggle == 0) || (pre_AS && LRI_toggle) || pre_VS || pre_VP || LRI_toggle || LRI_t >= pre_AEI) == 0) -> LRI_finished == 1; AP = false; AEI = pre_AEI;)pacing_rate = 1;)goto LRI;
-        ::else -> LRI_finished == 1; goto LRI;
+        ::(pre_AS && LRI_toggle) ->  atomic{ run rsa(LRI_value, LRI_current_AEI);  AEI = LRI_rsa_function_returnVar} ; AP = (false);  LRI_finished = 1; goto ASED;
+        ::(pre_VS || pre_VP) -> pacing_rate = (0);  LRI_finished = 1; goto LRI;
+        ::(LRI_toggle) ->  atomic{ run rsa(LRI_value, LRI_current_AEI);  AEI = LRI_rsa_function_returnVar} ; AP = (false);  LRI_finished = 1; goto LRI;
+        ::(LRI_t >= pre_AEI) -> pacing_rate = (0); AP = (true);  LRI_finished = 1; goto LRI;
+        ::(((pre_AS && LRI_toggle == 0) || (pre_AS && LRI_toggle) || pre_VS || pre_VP || LRI_toggle || LRI_t >= pre_AEI) == 0) -> LRI_finished = 1; AP = (false); AEI = (pre_AEI); pacing_rate = (10000) * 10 / 10000 + pre_pacing_rate;  goto LRI
         fi;
 
     ASED:  (LRI_finished == 0) -> 
         if
-        ::(pre_VS || pre_VP) -> pacing_rate = 0; LRI_finished = 1; goto LRI;
-        ::(LRI_toggle) -> atomic{ run rsa(LRI_value, LRI_current_AEI); AEI = LRI_rsa_function_returnVar;} AP = false; LRI_finished = 1; goto ASED;
-        ::((pre_VS || pre_VP || LRI_toggle) == 0) -> LRI_finished == 1; AP = false; AEI = pre_AEI;)pacing_rate = 1;)goto ASED;
-        ::else -> LRI_finished == 1; goto ASED;
+        ::(pre_VS || pre_VP) -> pacing_rate = (0);  LRI_finished = 1; goto LRI;
+        ::(LRI_toggle) ->  atomic{ run rsa(LRI_value, LRI_current_AEI);  AEI = LRI_rsa_function_returnVar} ; AP = (false);  LRI_finished = 1; goto ASED;
+        ::((pre_VS || pre_VP || LRI_toggle) == 0) -> LRI_finished = 1; AP = (false); AEI = (pre_AEI); pacing_rate = (10000) * 10 / 10000 + pre_pacing_rate;  goto ASED
         fi;
 
 }
@@ -233,26 +232,23 @@ proctype AVI_model(){
 
     IDLE:  (AVI_finished == 0) -> 
         if
-        ::(pre_AS || pre_AP) -> VP = false; time = 0; AVI_finished = 1; goto AVI;
-        ::((pre_AS || pre_AP) == 0) -> AVI_finished == 1; VP = false;)time = 1;)goto IDLE;
-        ::else -> AVI_finished == 1; goto IDLE;
+        ::(pre_AS || pre_AP) -> VP = (false); time = (0);  AVI_finished = 1; goto AVI;
+        ::((pre_AS || pre_AP) == 0) -> AVI_finished = 1; VP = (false); time = (10000) * 10 / 10000 + pre_time;  goto IDLE
         fi;
 
     AVI:  (AVI_finished == 0) -> 
         if
         ::(pre_VS) ->  AVI_finished = 1; goto IDLE;
-        ::(AVI_clk >= AVI_TURI && AVI_t >= AVI_TAVI) -> VP = true; AVI_finished = 1; goto IDLE;
+        ::(AVI_clk >= AVI_TURI && AVI_t >= AVI_TAVI) -> VP = (true);  AVI_finished = 1; goto IDLE;
         ::(AVI_clk < AVI_TURI && AVI_t >= AVI_TAVI) ->  AVI_finished = 1; goto WAIT;
-        ::((pre_VS || (AVI_clk >= AVI_TURI && AVI_t >= AVI_TAVI) || (AVI_clk < AVI_TURI && AVI_t >= AVI_TAVI)) == 0) -> AVI_finished == 1; VP = false;)time = 1;)goto AVI;
-        ::else -> AVI_finished == 1; goto AVI;
+        ::((pre_VS || (AVI_clk >= AVI_TURI && AVI_t >= AVI_TAVI) || (AVI_clk < AVI_TURI && AVI_t >= AVI_TAVI)) == 0) -> AVI_finished = 1; VP = (false); time = (10000) * 10 / 10000 + pre_time;  goto AVI
         fi;
 
     WAIT:  (AVI_finished == 0) -> 
         if
         ::(pre_VS) ->  AVI_finished = 1; goto IDLE;
-        ::(pre_VS == 0 && AVI_clk >= AVI_TURI) -> VP = true; AVI_finished = 1; goto IDLE;
-        ::((pre_VS || (pre_VS == 0 && AVI_clk >= AVI_TURI)) == 0) -> AVI_finished == 1; VP = false;)time = 1;)goto WAIT;
-        ::else -> AVI_finished == 1; goto WAIT;
+        ::(pre_VS == 0 && AVI_clk >= AVI_TURI) -> VP = (true);  AVI_finished = 1; goto IDLE;
+        ::((pre_VS || (pre_VS == 0 && AVI_clk >= AVI_TURI)) == 0) -> AVI_finished = 1; VP = (false); time = (10000) * 10 / 10000 + pre_time;  goto WAIT
         fi;
 
 }
@@ -262,17 +258,15 @@ proctype VRP_model(){
 
     IDLE:  (VRP_finished == 0) -> 
         if
-        ::(pre_VP) -> VRP_t = 0; VRP_finished = 1; goto VRP;
-        ::(VRP_Vget) -> VRP_t = 0; VS = true; VRP_finished = 1; goto VRP;
-        ::(VRP_Vget == 0 && pre_VP == 0) -> VRP_finished == 1; VS = false;)VRP_t = 0;)goto IDLE;
-        ::else -> VRP_finished == 1; goto IDLE;
+        ::(pre_VP) -> VRP_t = (0);  VRP_finished = 1; goto VRP;
+        ::(VRP_Vget) -> VRP_t = (0); VS = (true);  VRP_finished = 1; goto VRP;
+        ::(VRP_Vget == 0 && pre_VP == 0) -> VRP_finished = 1; VS = (false); VRP_t = (0) * 10 / 10000 + VRP_t;  goto IDLE
         fi;
 
     VRP:  (VRP_finished == 0) -> 
         if
         ::(VRP_t >= VRP_TVRP) ->  VRP_finished = 1; goto IDLE;
-        ::(VRP_t < VRP_TVRP) -> VRP_finished == 1; VS = false;)VRP_t = 1;)goto VRP;
-        ::else -> VRP_finished == 1; goto VRP;
+        ::(VRP_t < VRP_TVRP) -> VRP_finished = 1; VS = (false); VRP_t = (10000) * 10 / 10000 + VRP_t;  goto VRP
         fi;
 
 }
@@ -282,20 +276,18 @@ proctype RHM_model(){
 
     R1:  (RHM_finished == 0) -> 
         if
-        ::(RHM_t == RHM_TAV) -> RHM_t = 0; RHM_Aget = false; RHM_Vget = true; RHM_finished = 1; goto R2;
-        ::(pre_VP) -> RHM_t = 0; RHM_finished = 1; goto R2;
-        ::(pre_AP) -> RHM_t = 0; RHM_finished = 1; goto R1;
-        ::(RHM_t < RHM_TAV && pre_VP == 0 && pre_AP == 0) -> RHM_finished == 1; RHM_Aget = false; RHM_Vget = false;)RHM_t = 1;)goto R1;
-        ::else -> RHM_finished == 1; goto R1;
+        ::(RHM_t == RHM_TAV) -> RHM_t = (0); RHM_Aget = (false); RHM_Vget = (true);  RHM_finished = 1; goto R2;
+        ::(pre_VP) -> RHM_t = (0);  RHM_finished = 1; goto R2;
+        ::(pre_AP) -> RHM_t = (0);  RHM_finished = 1; goto R1;
+        ::(RHM_t < RHM_TAV && pre_VP == 0 && pre_AP == 0) -> RHM_finished = 1; RHM_Aget = (false); RHM_Vget = (false); RHM_t = (10000) * 10 / 10000 + RHM_t;  goto R1
         fi;
 
     R2:  (RHM_finished == 0) -> 
         if
-        ::(RHM_t == RHM_TVA) -> RHM_t = 0; RHM_Aget = true; RHM_Vget = false; RHM_finished = 1; goto R1;
-        ::(pre_AP) -> RHM_t = 0; RHM_finished = 1; goto R1;
-        ::(pre_VP) -> RHM_t = 0; RHM_finished = 1; goto R2;
-        ::(RHM_t < RHM_TVA && pre_AP == 0 && pre_VP == 0) -> RHM_finished == 1; RHM_Aget = false; RHM_Vget = false;)RHM_t = 1;)goto R2;
-        ::else -> RHM_finished == 1; goto R2;
+        ::(RHM_t == RHM_TVA) -> RHM_t = (0); RHM_Aget = (true); RHM_Vget = (false);  RHM_finished = 1; goto R1;
+        ::(pre_AP) -> RHM_t = (0);  RHM_finished = 1; goto R1;
+        ::(pre_VP) -> RHM_t = (0);  RHM_finished = 1; goto R2;
+        ::(RHM_t < RHM_TVA && pre_AP == 0 && pre_VP == 0) -> RHM_finished = 1; RHM_Aget = (false); RHM_Vget = (false); RHM_t = (10000) * 10 / 10000 + RHM_t;  goto R2
         fi;
 
 }
@@ -305,26 +297,23 @@ proctype PVARP_model(){
 
     IDLE:  (PVARP_finished == 0) -> 
         if
-        ::(pre_VS || pre_VP) -> PVARP_t = 0; PVARP_finished = 1; goto PVAB;
-        ::(PVARP_Aget && (pre_VS || pre_VP)) -> PVARP_t = 0; AS = true; PVARP_finished = 1; goto PVAB;
-        ::(pre_VS == 0 && pre_VP == 0) -> PVARP_finished == 1; AS = false; PVARP_AR = false;)PVARP_t = 0;)goto IDLE;
-        ::else -> PVARP_finished == 1; goto IDLE;
+        ::(pre_VS || pre_VP) -> PVARP_t = (0);  PVARP_finished = 1; goto PVAB;
+        ::(PVARP_Aget && (pre_VS || pre_VP)) -> PVARP_t = (0); AS = (true);  PVARP_finished = 1; goto PVAB;
+        ::(pre_VS == 0 && pre_VP == 0) -> PVARP_finished = 1; AS = (false); PVARP_AR = (false); PVARP_t = (0) * 10 / 10000 + PVARP_t;  goto IDLE
         fi;
 
     PVAB:  (PVARP_finished == 0) -> 
         if
         ::(PVARP_t >= PVARP_TPVAB) ->  PVARP_finished = 1; goto PVARP;
-        ::(PVARP_t < PVARP_TPVAB) -> PVARP_finished == 1; AS = false; PVARP_AR = false;)PVARP_t = 1;)goto PVAB;
-        ::else -> PVARP_finished == 1; goto PVAB;
+        ::(PVARP_t < PVARP_TPVAB) -> PVARP_finished = 1; AS = (false); PVARP_AR = (false); PVARP_t = (10000) * 10 / 10000 + PVARP_t;  goto PVAB
         fi;
 
     PVARP:  (PVARP_finished == 0) -> 
         if
-        ::(PVARP_Aget && PVARP_t < PVARP_TPVARP) -> AS = false; PVARP_AR = true; PVARP_finished = 1; goto PVARP;
-        ::(PVARP_Aget && PVARP_t >= PVARP_TPVARP) -> PVARP_t = 0; PVARP_AR = true; PVARP_finished = 1; goto IDLE;
-        ::(PVARP_t >= PVARP_TPVARP) -> PVARP_t = 0; PVARP_finished = 1; goto IDLE;
-        ::(PVARP_Aget == 0 || PVARP_t < PVARP_TPVARP) -> PVARP_finished == 1; AS = false; PVARP_AR = false;)PVARP_t = 1;)goto PVARP;
-        ::else -> PVARP_finished == 1; goto PVARP;
+        ::(PVARP_Aget && PVARP_t < PVARP_TPVARP) -> AS = (false); PVARP_AR = (true);  PVARP_finished = 1; goto PVARP;
+        ::(PVARP_Aget && PVARP_t >= PVARP_TPVARP) -> PVARP_t = (0); PVARP_AR = (true);  PVARP_finished = 1; goto IDLE;
+        ::(PVARP_t >= PVARP_TPVARP) -> PVARP_t = (0);  PVARP_finished = 1; goto IDLE;
+        ::(PVARP_Aget == 0 || PVARP_t < PVARP_TPVARP) -> PVARP_finished = 1; AS = (false); PVARP_AR = (false); PVARP_t = (10000) * 10 / 10000 + PVARP_t;  goto PVARP
         fi;
 
 }
@@ -334,36 +323,35 @@ proctype URI_model(){
 
     URI:  (URI_finished == 0) -> 
         if
-        ::(pre_VS || pre_VP) -> clock = 0; URI_finished = 1; goto URI;
-        ::(pre_VP == 0 && pre_VS == 0) -> URI_finished == 1; )clock = 1;)goto URI;
-        ::else -> URI_finished == 1; goto URI;
+        ::(pre_VS || pre_VP) -> clock = (0);  URI_finished = 1; goto URI;
+        ::(pre_VP == 0 && pre_VS == 0) -> URI_finished = 1; clock = (10000) * 10 / 10000 + pre_clock;  goto URI
         fi;
 
 }
-proctype LRI_rsa(double value, double current_AEI){
+proctype LRI_rsa(int value, int current_AEI){
     if 
     ::(value == 0) -> 
-        LRI_rsa_function_returnVar = 0.402; 
-    ::(value == 1) -> 
-        LRI_rsa_function_returnVar = 0.357;
-    ::(value == 2) -> 
-        LRI_rsa_function_returnVar = 0.457;
-    ::(value == 3) -> 
+        LRI_rsa_function_returnVar = 4020; 
+    ::(value == 10000) -> 
+        LRI_rsa_function_returnVar = 3570;
+    ::(value == 20000) -> 
+        LRI_rsa_function_returnVar = 4570;
+    ::(value == 30000) -> 
         if 
-        ::(current_AEI > 0.346) -> 
-            LRI_rsa_function_returnVar = current_AEI - 0.01; 
+        ::(current_AEI > 3460) -> 
+            LRI_rsa_function_returnVar = current_AEI - 100; 
         ::else -> 
-            LRI_rsa_function_returnVar = 0.337;
+            LRI_rsa_function_returnVar = 3370;
         fi
-    ::(value == 4) -> 
+    ::(value == 40000) -> 
         if 
-        ::(current_AEI < 0.468) -> 
-            LRI_rsa_function_returnVar = current_AEI + 0.01; 
+        ::(current_AEI < 4680) -> 
+            LRI_rsa_function_returnVar = current_AEI + 100; 
         ::else -> 
-            LRI_rsa_function_returnVar = 0.477;
+            LRI_rsa_function_returnVar = 4770;
         fi
     ::else -> 
-        LRI_rsa_function_returnVar = 0.402;
+        LRI_rsa_function_returnVar = 4020;
     fi
 }init {
     atomic {

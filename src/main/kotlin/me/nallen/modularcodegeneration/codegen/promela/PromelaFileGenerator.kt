@@ -3,6 +3,7 @@ package me.nallen.modularcodegeneration.codegen.promela
 import me.nallen.modularcodegeneration.codegen.Configuration
 import me.nallen.modularcodegeneration.codegen.promela.Utils.generateCodeForParseTreeItem
 import me.nallen.modularcodegeneration.codegen.promela.Utils.generateCodeForProgram
+import me.nallen.modularcodegeneration.codegen.promela.Utils.generateFixedPointValue
 import me.nallen.modularcodegeneration.codegen.promela.Utils.generatePromelaType
 import me.nallen.modularcodegeneration.hybridautomata.*
 import me.nallen.modularcodegeneration.parsetree.Literal
@@ -17,9 +18,11 @@ object PromelaFileGenerator {
     private val usedVariableNames = HashSet<String>()
     private var automata: HybridItem = HybridAutomata()
     private var config: Configuration = Configuration()
-    private var systemIsAutomata = false;
+    private var systemIsAutomata = false
 
-    fun generate(item: HybridItem): String {
+    var multiplier = 10000
+
+    fun generate(item: HybridItem, codeGenConfig : Configuration): String {
         automata = item
         val result = StringBuilder()
         if(automata is HybridNetwork && !(automata as HybridNetwork).isFlat()) {
@@ -29,7 +32,8 @@ object PromelaFileGenerator {
                         "flattened.")
                 // And then flatten the network
             automata = automata.flatten()
-            }
+        }
+        config = codeGenConfig
         // Initialises all the variables
         result.appendln(generateVariableInitialisation(automata))
         // creates the timer process
@@ -57,41 +61,103 @@ object PromelaFileGenerator {
         }
         return result.toString().trim()
     }
-
-    private fun generateUpdateOrFlowForLocation(update: LinkedHashMap<String, ParseTreeItem>, instanceName: String) : String {
+    private fun appendFlowEquation(mappedVariable: AutomataVariablePair?, variableName: String, instanceName: String, equation: ParseTreeItem) : String {
         val result = StringBuilder()
-            for((variable, equation) in update){
-                if(equation.type == "functionCall"){
-                    result.append(" atomic{" )
-                    result.append(" run ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)};")
-                    if(equation is FunctionCall){
-                        val mapped = getAutomataVariablePairForMappedGlobalVariables(instanceName,variable)
-                        if(mapped != null){
-                            result.append(" ${mapped.variable} = ${instanceName}_${equation.functionName}_function_returnVar;")
-
-                        }
-                        else{
-                            result.append(" ${instanceName}_${variable} =  ${instanceName}_${equation.functionName}_function_returnVar;")
-                        }
-                    }
-                    result.append("} ")
-                    continue
-                }
-                val mapped = getAutomataVariablePairForMappedGlobalVariables(instanceName,variable)
-                if(mapped != null || systemIsAutomata){
-                    if (mapped != null) {
-                        result.append("${mapped.variable} = ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)}; ")
-                    }
-                    else{
-                        result.append("$variable = ${generateCodeForParseTreeItem(equation,"", globalVariable = globalOutputInputVariables)}; ")
-
-                    }
+        var variableNameModified = variableName
+       if(equation is FunctionCall){
+           variableNameModified = "${equation.functionName}_function_returnVar"
+       }
+        if(mappedVariable != null || systemIsAutomata){
+            if (mappedVariable != null) {
+                result.append(" * ${generateFixedPointValue(config.execution.stepSize, multiplier)} / $multiplier + pre_${mappedVariable.variable}; ")
+            }
+            else{
+                result.append(" * ${generateFixedPointValue(config.execution.stepSize, multiplier)} / $multiplier + pre_${variableNameModified}; ")
+            }
+        }
+        else{
+            result.append(" * ${generateFixedPointValue(config.execution.stepSize, multiplier)} / $multiplier + ${instanceName}_${variableNameModified}; ")
+        }
+        return result.toString()
+    }
+    private fun createUpdateEquation(mappedVariable: AutomataVariablePair?, variableName: String, instanceName: String, equation: ParseTreeItem) : String {
+        val result = StringBuilder()
+        if(equation is FunctionCall) {
+            result.append(" atomic{" )
+            result.append(" run ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)}; ")
+            if (mappedVariable != null) {
+                result.append(" ${mappedVariable.variable} = ${instanceName}_${equation.functionName}_function_returnVar")
+            } else {
+                result.append(" ${instanceName}_${variableName} =  ${instanceName}_${equation.functionName}_function_returnVar")
+            }
+             result.append("} ")
+        }
+        else{
+            if(mappedVariable != null || systemIsAutomata){
+                if (mappedVariable != null) {
+                    result.append("${mappedVariable.variable} = (${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)})")
                 }
                 else{
-                    result.append("${instanceName}_${variable} = ${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputInputVariables)}; ")
+                    result.append("$variableName = (${generateCodeForParseTreeItem(equation,"", globalVariable = globalOutputInputVariables)})")
                 }
+            }
+            else{
+                result.append("${instanceName}_${variableName} = (${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputInputVariables)})")
+            }
         }
-        return result.toString().trim()
+        return result.toString()
+    }
+    private fun generateUpdateOrFlowForLocation(flowOrUpdate: LinkedHashMap<String, ParseTreeItem>, instanceName: String, isFlow: Boolean) : String {
+        val result = StringBuilder()
+            for((variable, equation) in flowOrUpdate){
+                val mapped = getAutomataVariablePairForMappedGlobalVariables(instanceName,variable)
+                result.append(createUpdateEquation(mapped,variable,instanceName,equation))
+                if(isFlow){
+                    result.append(appendFlowEquation(mapped,variable,instanceName,equation))
+                }
+                else{
+                    result.append("; ")
+                }
+//                if(equation.type == "functionCall"){
+//                    result.append(" atomic{" )
+//                    result.append(" run ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)};")
+//                    if(equation is FunctionCall){
+//                        if(mapped != null){
+//                            result.append(" ${mapped.variable} = ${instanceName}_${equation.functionName}_function_returnVar")
+//                        }
+//                        else{
+//                            result.append(" ${instanceName}_${variable} =  ${instanceName}_${equation.functionName}_function_returnVar")
+//                        }
+//                        if(isFlow){
+//                            result.append(createFlowEquation(mapped,"${equation.functionName}_function_returnVar",instanceName))
+//                        }
+//                        else{
+//                            result.append(";")
+//                        }
+//                    }
+//                    result.append("} ")
+//                    continue
+//                }
+//                if(mapped != null || systemIsAutomata){
+//                    if (mapped != null) {
+//                        result.append("${mapped.variable} = (${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)})")
+//                    }
+//                    else{
+//                        result.append("$variable = (${generateCodeForParseTreeItem(equation,"", globalVariable = globalOutputInputVariables)})")
+//                    }
+//                }
+//                else{
+//                    result.append("${instanceName}_${variable} = (${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputInputVariables)})")
+//                }
+//                if(isFlow){
+//                    result.append(createFlowEquation(mapped,variable,instanceName))
+//                }
+//                else{
+//                    result.append(";")
+//                }
+        }
+
+        return result.toString()
     }
 
     private fun findAllTransitionLocationEdges(automataInstance: HybridAutomata, instanceName: String): String {
@@ -108,7 +174,7 @@ object PromelaFileGenerator {
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
                 result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(guard,instanceName,globalVariable = globalOutputInputVariables )}) -> ")
                 // for each equation in the transition add it in
-                result.append(generateUpdateOrFlowForLocation(update,instanceName))
+                result.append(generateUpdateOrFlowForLocation(update,instanceName,false))
                 // Adds the transition location after all variables have been updated as well as increment local tick for that process
                 result.append(" ${instanceName}_finished = 1; goto $toLocation;")
                 result.appendln()
@@ -116,8 +182,8 @@ object PromelaFileGenerator {
             }
             result.appendln("${config.getIndent(2)}::(" +
                     "${generateCodeForParseTreeItem(location.invariant, instanceName, globalVariable = globalOutputInputVariables)}) -> " +
-                    "${instanceName}_finished == 1; ${generateUpdateOrFlowForLocation(location.update, instanceName)}" +
-                    "${generateUpdateOrFlowForLocation(location.flow, instanceName)} goto ${locationName}")
+                    "${instanceName}_finished = 1; ${generateUpdateOrFlowForLocation(location.update, instanceName,false)}" +
+                    "${generateUpdateOrFlowForLocation(location.flow, instanceName, true)} goto $locationName")
             result.appendln("${config.getIndent(2)}fi;")
         }
         return result.toString()
@@ -172,6 +238,7 @@ object PromelaFileGenerator {
             systemIsAutomata = true;
             instanceToAutomataMap[item.name] = item
         }
+        result.appendln("int global_tick = 0")
         // Creates global variables
         result.appendln(generateGlobalVariables())
         if(item is HybridNetwork){
@@ -324,10 +391,14 @@ object PromelaFileGenerator {
         result.appendln("proctype clock_pro(){")
         result.appendln()
         // creates the line which checks that each local tick of a process has passed
-        result.appendln("${config.getIndent(1)}INITIAL:\n${config.getIndent(2)}if ::(${getProcessFinishVariablesEqualOne()}) ->")
+        result.appendln("${config.getIndent(1)}INITIAL:")
+        result.appendln("${config.getIndent(2)}if")
+        result.appendln("${config.getIndent(2)}::(global_tick == ${(config.execution.simulationTime/config.execution.stepSize).toInt()}) -> skip;")
+        result.appendln("${config.getIndent(2)}::(${getProcessFinishVariablesEqualOne()}) ->")
         result.appendln("${config.getIndent(3)}d_step{")
+        result.appendln("${config.getIndent(4)}global_tick++")
         // resets the local tick so every process is synchronised
-        result.appendln(resetProcessFinishVariables())
+        result.appendln(config.getIndent(4) + resetProcessFinishVariables())
         // Example assert statement printed in the file for user to change
         result.appendln("${config.getIndent(4)}// ADD ASSERT STATEMENT CHECK HERE")
         result.appendln("${config.getIndent(4)}//if")
@@ -357,7 +428,6 @@ object PromelaFileGenerator {
 
     private fun resetProcessFinishVariables(): String {
         val result = StringBuilder()
-        result.append(config.getIndent(3))
         for(instanceName in instanceToAutomataMap.keys){
             result.append("${instanceName}_finished == 0; ")
         }
