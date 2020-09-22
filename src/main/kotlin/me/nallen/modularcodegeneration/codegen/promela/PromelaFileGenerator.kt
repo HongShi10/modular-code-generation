@@ -176,7 +176,6 @@ object PromelaFileGenerator {
         if(automata is HybridNetwork){
             for(key in (automata as HybridNetwork).ioMapping.keys){
                  if("${key.automata}_${key.variable}" == convertedName){
-                     System.out.println(variableName)
                     return key
                 }
             }
@@ -409,7 +408,7 @@ object PromelaFileGenerator {
                     for(inputVar in function.inputs){
                         result.append("${generatePromelaType(inputVar.type)} ${inputVar.name}")
                         if(counter < numberOfInputs){
-                            result.append(", ")
+                            result.append("; ")
                         }
                         counter++
                     }

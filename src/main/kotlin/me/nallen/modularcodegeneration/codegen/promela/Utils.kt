@@ -2,7 +2,9 @@ package me.nallen.modularcodegeneration.codegen.promela
 
 import me.nallen.modularcodegeneration.codegen.Configuration
 import me.nallen.modularcodegeneration.codegen.c.Utils
+import me.nallen.modularcodegeneration.codegen.promela.PromelaFileGenerator.checkVariableHasMapping
 import me.nallen.modularcodegeneration.codegen.promela.PromelaFileGenerator.generateMappedVariable
+import me.nallen.modularcodegeneration.codegen.promela.PromelaFileGenerator.getAutomataVariablePairForMappedGlobalVariables
 import me.nallen.modularcodegeneration.parsetree.*
 import me.nallen.modularcodegeneration.utils.NamingConvention
 import me.nallen.modularcodegeneration.utils.convertWordDelimiterConvention
@@ -86,37 +88,44 @@ object Utils {
                     val parts = item.name.split(".")
                     val builder = StringBuilder()
                     var finishedVar = "";
-                    // For each part
+                    // For each part append it to builder with _ to separate them
                     for (part in parts) {
                         if (builder.isNotEmpty()) builder.append("_")
                         builder.append(part)
                     }
                     var instanceNameVariable = builder.toString()
+                    // adds on the instance name if one was provided
                     if(instanceName != ""){
                         instanceNameVariable = "${instanceName}_${builder}"
                     }
                     if(globalVariable != null) {
-                        val isGloballyMapped = PromelaFileGenerator.getAutomataVariablePairForMappedGlobalVariables(instanceNameVariable)
-                        val isLocallymapped = PromelaFileGenerator.checkVariableHasMapping(instanceNameVariable)
+                        val isGloballyMapped = getAutomataVariablePairForMappedGlobalVariables(instanceNameVariable)
+                        val isLocallymapped = checkVariableHasMapping(instanceNameVariable)
+                        // If the current variable is mapped to a global variable then return the global variable with pre_
                         if (isGloballyMapped != null) {
-                            if( isGloballyMapped.automata.isBlank()){
-                                return "pre_${isGloballyMapped.variable}"
-                            } else {
-                                return "${isGloballyMapped.automata}_${isGloballyMapped.variable}"
-                            }
+                            return "pre_${isGloballyMapped.variable}"
                         }
+                        // if its a mapped to another local variable then we use the local variable isntead
                         else if(isLocallymapped != null){
-                            return generateMappedVariable(isLocallymapped)
+                            var mappedVariable = generateMappedVariable(isLocallymapped)
+                            while(checkVariableHasMapping(mappedVariable) != null){
+                               var isNestedLocalMap = checkVariableHasMapping(mappedVariable);
+                                mappedVariable = isNestedLocalMap?.let { generateMappedVariable(it) }!!
+                            }
+                            if(getAutomataVariablePairForMappedGlobalVariables(mappedVariable) != null){
+                                return "pre_${getAutomataVariablePairForMappedGlobalVariables(mappedVariable)!!.variable}"
+                            }
+                            return mappedVariable
                         }
+                        // if the result variable is in the global variable map then attach pre_ to it
+                        // this if statement will only be used when there are no mappings so all variables are in the global scope
                         if (globalVariable!!.contains(builder.toString())) {
                             finishedVar = "pre_${builder}"
                             return finishedVar;
                         }
                     }
-                    if(instanceName != ""){
-                        return "${instanceName}_${builder}"
-                    }                    // And return the final variable name
-                    return builder.toString()
+                    // If none of the above gets returned then we return the variable as is
+                     return instanceNameVariable
                 }
             }
             is Constant -> when (item.name) {
