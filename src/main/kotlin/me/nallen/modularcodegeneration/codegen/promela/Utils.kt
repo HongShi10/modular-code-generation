@@ -2,6 +2,7 @@ package me.nallen.modularcodegeneration.codegen.promela
 
 import me.nallen.modularcodegeneration.codegen.Configuration
 import me.nallen.modularcodegeneration.codegen.c.Utils
+import me.nallen.modularcodegeneration.codegen.promela.PromelaFileGenerator.generateMappedVariable
 import me.nallen.modularcodegeneration.parsetree.*
 import me.nallen.modularcodegeneration.utils.NamingConvention
 import me.nallen.modularcodegeneration.utils.convertWordDelimiterConvention
@@ -87,27 +88,34 @@ object Utils {
                     var finishedVar = "";
                     // For each part
                     for (part in parts) {
-                        finishedVar = part
-                        if(globalVariable != null) {
-                            if (globalVariable!!.contains(part)) {
-                                finishedVar = "pre_$part"
-                                return finishedVar;
+                        if (builder.isNotEmpty()) builder.append("_")
+                        builder.append(part)
+                    }
+                    var instanceNameVariable = builder.toString()
+                    if(instanceName != ""){
+                        instanceNameVariable = "${instanceName}_${builder}"
+                    }
+                    if(globalVariable != null) {
+                        val isGloballyMapped = PromelaFileGenerator.getAutomataVariablePairForMappedGlobalVariables(instanceNameVariable)
+                        val isLocallymapped = PromelaFileGenerator.checkVariableHasMapping(instanceNameVariable)
+                        if (isGloballyMapped != null) {
+                            if( isGloballyMapped.automata.isBlank()){
+                                return "pre_${isGloballyMapped.variable}"
+                            } else {
+                                return "${isGloballyMapped.automata}_${isGloballyMapped.variable}"
                             }
                         }
-
-                        // If needed, deliminate by a period
-                        if (builder.isNotEmpty()) builder.append("_")
-
-                        if(instanceName != "") {
-                            builder.append("${instanceName}_${finishedVar}")
+                        else if(isLocallymapped != null){
+                            return generateMappedVariable(isLocallymapped)
                         }
-                        else{
-                            builder.append("${finishedVar}")
-
+                        if (globalVariable!!.contains(builder.toString())) {
+                            finishedVar = "pre_${builder}"
+                            return finishedVar;
                         }
                     }
-
-                    // And return the final variable name
+                    if(instanceName != ""){
+                        return "${instanceName}_${builder}"
+                    }                    // And return the final variable name
                     return builder.toString()
                 }
             }

@@ -110,7 +110,7 @@ object PromelaFileGenerator {
     private fun generateUpdateOrFlowForLocation(flowOrUpdate: LinkedHashMap<String, ParseTreeItem>, instanceName: String, isFlow: Boolean) : String {
         val result = StringBuilder()
             for((variable, equation) in flowOrUpdate){
-                val mapped = getAutomataVariablePairForMappedGlobalVariables(instanceName,variable)
+                val mapped = getAutomataVariablePairForMappedGlobalVariables("${instanceName}_$variable")
                 result.append(createUpdateEquation(mapped,variable,instanceName,equation))
                 if(isFlow){
                     result.append(appendFlowEquation(mapped,variable,instanceName,equation))
@@ -154,14 +154,13 @@ object PromelaFileGenerator {
 
     }
     // Checks if the current variable is a global variable and if it is then it checks if the variable has a mapping which maps it to this instance of the automata and returns the key
-    private fun getAutomataVariablePairForMappedGlobalVariables(instanceName: String, variableName: String): AutomataVariablePair? {
+    public fun getAutomataVariablePairForMappedGlobalVariables( variableName: String): AutomataVariablePair? {
         if(automata is HybridNetwork){
             for (mappedVariables in (automata as HybridNetwork).ioMapping){
                 val key = mappedVariables.key
                 val value = mappedVariables.value
                 val name = generateCodeForParseTreeItem(value)
-                val convertedName = instanceName + "_" + variableName
-                if(key.automata.isBlank() && convertedName == name){
+                if(variableName == name && key.automata == ""){
                     return key;
 
                 }
@@ -172,15 +171,26 @@ object PromelaFileGenerator {
     }
 
     // Checks if the variableName has a mapping defined in HAML
-    private fun checkVariableHasMapping(item: HybridItem, variableName: String ): AutomataVariablePair? {
-        if(item is HybridNetwork){
-            for(key in item.ioMapping.keys){
-                 if("${key.automata}_${key.variable}" == variableName){
+    public fun checkVariableHasMapping(variableName: String ): AutomataVariablePair? {
+        val convertedName = variableName
+        if(automata is HybridNetwork){
+            for(key in (automata as HybridNetwork).ioMapping.keys){
+                 if("${key.automata}_${key.variable}" == convertedName){
+                     System.out.println(variableName)
                     return key
                 }
             }
         }
         return null
+    }
+    public fun generateMappedVariable(mapped: AutomataVariablePair): String{
+        val result = StringBuilder()
+            if (automata is HybridNetwork) {
+                result.append((automata as HybridNetwork).ioMapping[mapped]?.let {
+                    generateCodeForParseTreeItem(it,globalVariable = globalOutputInputVariables)
+                })
+            }
+        return result.toString()
     }
 
     /**
@@ -209,7 +219,7 @@ object PromelaFileGenerator {
             // Finds all the variables for processes with NO MAPPINGS
             result.appendln(generateVariablesWithNoMappings(item))
             // Finds all the variables for processes WITH MAPPINGS
-            result.appendln(generateVariablesWithMappings(item))
+//            result.appendln(generateVariablesWithMappings(item))
         }
         // Creates variables for previous tick values to be assigned
         result.appendln(generateVariablesForPreviousClockTick(item))
@@ -253,7 +263,7 @@ object PromelaFileGenerator {
                     // As these variables are instance specific we need to generate a new name for the variable with the instance attached to it
                     val variableName = instanceName + "_" + variable.name
                 // if the variable name is part of the output
-                    if(checkVariableHasMapping(item,variableName) == null){
+                    if(checkVariableHasMapping(variableName) == null && getAutomataVariablePairForMappedGlobalVariables(variableName) == null){
                         if(!usedVariableNames.contains(variableName) && !globalOutputInputVariables.contains(variableName)) {
                             result.appendln("${generatePromelaType(variable.type)} $variableName = ${getVariableInitialValue(variable)};")
                             usedVariableNames.add(variableName)
@@ -264,36 +274,6 @@ object PromelaFileGenerator {
                     }
                 }
             }
-        }
-        return result.toString()
-    }
-    private fun generateVariablesWithMappings(item:HybridItem) : String{
-        val result = StringBuilder()
-        for(instanceName in instanceToAutomataMap.keys){
-            result.appendln()
-            result.appendln("// $instanceName Variables with mappings")
-            val automata = instanceToAutomataMap[instanceName]
-            if( automata is HybridAutomata){
-                for( variable in automata.variables){
-                    val variableName = instanceName + "_" + variable.name
-                    // If the variable name hasnt been used before we can use it and continue
-                        // Checks the IO mappings in HAML to see if the variable with the instance exists as a mapped variable
-                        val mapped = checkVariableHasMapping(item,variableName)
-                        if(mapped  != null){
-                            if(item is HybridNetwork) {
-                                if(!globalOutputInputVariables.contains(variableName) && !usedVariableNames.contains(variableName)) {
-                                    result.appendln("${generatePromelaType(variable.type)} $variableName = ${item.ioMapping[mapped]?.let { generateCodeForParseTreeItem( it) }};")
-                                    usedVariableNames.add(variableName)
-                                }
-                                else{
-                                    Logger.error("PROMELA Run-time generation could not produce variables: DUPLICATE VARIABLES")
-
-                                }
-                            }
-                        }
-                    }
-
-                }
         }
         return result.toString()
     }
@@ -332,7 +312,6 @@ object PromelaFileGenerator {
             // Generate code that represents the initial value for the variable
             initValue = generateCodeForParseTreeItem((automata as HybridAutomata).init.valuations[variable.name] !!)
         }
-
         // Now we can return the code that initialises the variable
         return initValue
     }
