@@ -46,13 +46,13 @@ proctype Gate_model(){
     g1:  (Gate_finished == 0) -> 
         if
         ::(Train_gateRequestUp) ->  Gate_finished = 1; goto g2;
-        ::(Train_gateRequestUp == 0) -> gate_pos = ((0 - Gate_position) / 20000*10000) * 1 / 10000 + pre_gate_pos; Gate_finished = 1; goto g1
+        ::(Train_gateRequestUp == 0) -> gate_pos = ((0 - pre_gate_pos) / 20000*10000) * 1 / 10000 + pre_gate_pos; Gate_finished = 1; goto g1
         fi;
 
     g2:  (Gate_finished == 0) -> 
         if
         ::(Train_gateRequestDown) ->  Gate_finished = 1; goto g1;
-        ::(Train_gateRequestDown == 0) -> gate_pos = ((110000 - Gate_position) / 20000*10000) * 1 / 10000 + pre_gate_pos; Gate_finished = 1; goto g2
+        ::(Train_gateRequestDown == 0) -> gate_pos = ((110000 - pre_gate_pos) / 20000*10000) * 1 / 10000 + pre_gate_pos; Gate_finished = 1; goto g2
         fi;
 
 }
@@ -62,20 +62,20 @@ proctype Train_model(){
 
     t1:  (Train_finished == 0) -> 
         if
-        ::(Train_position == 50000) -> Train_gateRequestUp = (true); Train_gateRequestDown = (false);  Train_finished = 1; goto t2;
-        ::(Train_position < 50000) -> train_pos = (Train_trainSpeed) * 1 / 10000 + pre_train_pos; Train_finished = 1; goto t1
+        ::(pre_train_pos == 50000) -> Train_gateRequestUp = (true); Train_gateRequestDown = (false);  Train_finished = 1; goto t2;
+        ::(pre_train_pos < 50000) -> train_pos = (Train_trainSpeed) * 1 / 10000 + pre_train_pos; Train_finished = 1; goto t1
         fi;
 
     t2:  (Train_finished == 0) -> 
         if
-        ::(Train_position == 150000) -> Train_gateRequestUp = (false); Train_gateRequestDown = (true);  Train_finished = 1; goto t3;
-        ::(Train_position >= 50000 && Train_position < 150000) -> train_pos = (Train_trainSpeed) * 1 / 10000 + pre_train_pos; Train_finished = 1; goto t2
+        ::(pre_train_pos == 150000) -> Train_gateRequestUp = (false); Train_gateRequestDown = (true);  Train_finished = 1; goto t3;
+        ::(pre_train_pos >= 50000 && pre_train_pos < 150000) -> train_pos = (Train_trainSpeed) * 1 / 10000 + pre_train_pos; Train_finished = 1; goto t2
         fi;
 
     t3:  (Train_finished == 0) -> 
         if
-        ::(Train_position == 250000) -> train_pos = (0); Train_gateRequestUp = (false); Train_gateRequestDown = (false);  Train_finished = 1; goto t1;
-        ::(Train_position >= 150000 && Train_position < 250000) -> train_pos = (Train_trainSpeed) * 1 / 10000 + pre_train_pos; Train_finished = 1; goto t3
+        ::(pre_train_pos == 250000) -> train_pos = (0); Train_gateRequestUp = (false); Train_gateRequestDown = (false);  Train_finished = 1; goto t1;
+        ::(pre_train_pos >= 150000 && pre_train_pos < 250000) -> train_pos = (Train_trainSpeed) * 1 / 10000 + pre_train_pos; Train_finished = 1; goto t3
         fi;
 
 }

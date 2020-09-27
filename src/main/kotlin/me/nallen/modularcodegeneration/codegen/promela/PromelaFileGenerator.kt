@@ -20,7 +20,7 @@ object PromelaFileGenerator {
     private var config: Configuration = Configuration()
     private var systemIsAutomata = false
 
-    var multiplier = 10000
+    var multiplier = 100000000
 
     fun generate(item: HybridItem, codeGenConfig : Configuration): String {
         automata = item
@@ -234,7 +234,9 @@ object PromelaFileGenerator {
         result.appendln("// Global Variables ")
         for(variable in automata.variables){
                 result.appendln("${generatePromelaType(variable.type)} ${variable.name} = ${getVariableInitialValue(variable)};");
+            if(variable.locality.getTextualName() == "Output") {
                 globalOutputInputVariables.add(variable.name)
+            }
                 usedVariableNames.add(variable.name)
         }
         return result.toString()
@@ -380,7 +382,7 @@ object PromelaFileGenerator {
         val result = StringBuilder()
         // Sets all the variables from the current tick to the pre_$variableName variable
         for(variable in automata.variables){
-            if(variable.locality.getTextualName() == "Outputs"){
+            if(variable.locality.getTextualName() == "Outputs" ){
                 result.appendln("pre_${variable.name} = ${variable.name};")
 
             }

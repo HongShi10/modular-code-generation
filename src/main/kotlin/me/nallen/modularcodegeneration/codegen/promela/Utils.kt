@@ -1,7 +1,6 @@
 package me.nallen.modularcodegeneration.codegen.promela
 
 import me.nallen.modularcodegeneration.codegen.Configuration
-import me.nallen.modularcodegeneration.codegen.c.Utils
 import me.nallen.modularcodegeneration.codegen.promela.PromelaFileGenerator.checkVariableHasMapping
 import me.nallen.modularcodegeneration.codegen.promela.PromelaFileGenerator.generateMappedVariable
 import me.nallen.modularcodegeneration.codegen.promela.PromelaFileGenerator.getAutomataVariablePairForMappedGlobalVariables
@@ -100,20 +99,31 @@ object Utils {
                     }
                     if(globalVariable != null) {
                         val isGloballyMapped = getAutomataVariablePairForMappedGlobalVariables(instanceNameVariable)
-                        val isLocallymapped = checkVariableHasMapping(instanceNameVariable)
+                        val isLocallyMapped = checkVariableHasMapping(instanceNameVariable)
                         // If the current variable is mapped to a global variable then return the global variable with pre_
                         if (isGloballyMapped != null) {
-                            return "pre_${isGloballyMapped.variable}"
+                            if( globalVariable.contains(isGloballyMapped.variable)){
+                                return "pre_${isGloballyMapped.variable}"
+
+                            }
+                            else{
+                                return isGloballyMapped.variable
+                            }
                         }
                         // if its a mapped to another local variable then we use the local variable isntead
-                        else if(isLocallymapped != null){
-                            var mappedVariable = generateMappedVariable(isLocallymapped)
+                        else if(isLocallyMapped != null){
+                            var mappedVariable = generateMappedVariable(isLocallyMapped)
                             while(checkVariableHasMapping(mappedVariable) != null){
                                var isNestedLocalMap = checkVariableHasMapping(mappedVariable);
                                 mappedVariable = isNestedLocalMap?.let { generateMappedVariable(it) }!!
                             }
                             if(getAutomataVariablePairForMappedGlobalVariables(mappedVariable) != null){
-                                return "pre_${getAutomataVariablePairForMappedGlobalVariables(mappedVariable)!!.variable}"
+                                return if(globalVariable.contains(getAutomataVariablePairForMappedGlobalVariables(mappedVariable)!!.variable)){
+                                    "pre_${getAutomataVariablePairForMappedGlobalVariables(mappedVariable)!!.variable}"
+                                } else{
+                                    getAutomataVariablePairForMappedGlobalVariables(mappedVariable)!!.variable
+
+                                }
                             }
                             return mappedVariable
                         }
@@ -135,7 +145,7 @@ object Utils {
             is Minus -> padOperand(instanceName,item, item.operandA,globalVariable) + " - " + padOperand(instanceName,item, item.operandB,globalVariable)
             is Negative -> "-" + padOperand(instanceName,item, item.operandA,globalVariable)
             is Power -> "pow(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ", " + generateCodeForParseTreeItem(item.operandB,instanceName,globalVariable = globalVariable) + ")"
-            is Multiply -> padOperand(instanceName,item, item.operandA,globalVariable) + " * " + padOperand(instanceName,item, item.operandB,globalVariable) + "/" + PromelaFileGenerator.multiplier
+            is Multiply -> "(" + padOperand(instanceName,item, item.operandA,globalVariable) + " * " + padOperand(instanceName,item, item.operandB,globalVariable) + ")" + "/" + PromelaFileGenerator.multiplier
             is Divide -> padOperand(instanceName,item, item.operandA,globalVariable) + " / " + padOperand(instanceName,item, item.operandB,globalVariable) + "*" + PromelaFileGenerator.multiplier
             is SquareRoot -> "sqrt(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
             is Exponential -> "exp(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
