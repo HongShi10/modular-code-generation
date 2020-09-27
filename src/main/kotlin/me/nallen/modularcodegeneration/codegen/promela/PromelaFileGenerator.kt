@@ -14,7 +14,7 @@ import me.nallen.modularcodegeneration.parsetree.ParseTreeItem
 
 object PromelaFileGenerator {
     private var instanceToAutomataMap: HashMap<String,HybridItem> = HashMap()
-    private val globalOutputInputVariables = HashSet<String>()
+    private val globalOutputVariables = HashSet<String>()
     private val usedVariableNames = HashSet<String>()
     private var automata: HybridItem = HybridAutomata()
     private var config: Configuration = Configuration()
@@ -84,7 +84,7 @@ object PromelaFileGenerator {
         val result = StringBuilder()
         if(equation is FunctionCall) {
             result.append(" atomic{" )
-            result.append(" run ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)}; ")
+            result.append(" run ${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputVariables)}; ")
             if (mappedVariable != null) {
                 result.append(" ${mappedVariable.variable} = ${instanceName}_${equation.functionName}_function_returnVar")
             } else {
@@ -95,14 +95,14 @@ object PromelaFileGenerator {
         else{
             if(mappedVariable != null || systemIsAutomata){
                 if (mappedVariable != null) {
-                    result.append("${mappedVariable.variable} = (${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputInputVariables)})")
+                    result.append("${mappedVariable.variable} = (${generateCodeForParseTreeItem(equation,instanceName, globalVariable = globalOutputVariables)})")
                 }
                 else{
-                    result.append("$variableName = (${generateCodeForParseTreeItem(equation,"", globalVariable = globalOutputInputVariables)})")
+                    result.append("$variableName = (${generateCodeForParseTreeItem(equation,"", globalVariable = globalOutputVariables)})")
                 }
             }
             else{
-                result.append("${instanceName}_${variableName} = (${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputInputVariables)})")
+                result.append("${instanceName}_${variableName} = (${generateCodeForParseTreeItem(equation, instanceName,globalVariable = globalOutputVariables)})")
             }
         }
         return result.toString()
@@ -135,7 +135,7 @@ object PromelaFileGenerator {
             result.appendln("${config.getIndent(2)}if")
 
             for((_, toLocation, guard, update) in automataInstance.edges.filter{it.fromLocation == location.name }) {
-                result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(guard,instanceName,globalVariable = globalOutputInputVariables )}) -> ")
+                result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(guard,instanceName,globalVariable = globalOutputVariables )}) -> ")
                 // for each equation in the transition add it in
                 result.append(generateUpdateOrFlowForLocation(update,instanceName,false))
                 // Adds the transition location after all variables have been updated as well as increment local tick for that process
@@ -144,7 +144,7 @@ object PromelaFileGenerator {
                 edges++
             }
             result.appendln("${config.getIndent(2)}::(" +
-                    "${generateCodeForParseTreeItem(location.invariant, instanceName, globalVariable = globalOutputInputVariables)}) -> " +
+                    "${generateCodeForParseTreeItem(location.invariant, instanceName, globalVariable = globalOutputVariables)}) -> " +
                     generateUpdateOrFlowForLocation(location.update, instanceName,false) +
                     generateUpdateOrFlowForLocation(location.flow, instanceName, true) +
                     "${instanceName}_finished = 1; goto $locationName")
@@ -186,7 +186,7 @@ object PromelaFileGenerator {
         val result = StringBuilder()
             if (automata is HybridNetwork) {
                 result.append((automata as HybridNetwork).ioMapping[mapped]?.let {
-                    generateCodeForParseTreeItem(it,globalVariable = globalOutputInputVariables)
+                    generateCodeForParseTreeItem(it,globalVariable = globalOutputVariables)
                 })
             }
         return result.toString()
@@ -235,7 +235,7 @@ object PromelaFileGenerator {
         for(variable in automata.variables){
                 result.appendln("${generatePromelaType(variable.type)} ${variable.name} = ${getVariableInitialValue(variable)};");
             if(variable.locality.getTextualName() == "Output") {
-                globalOutputInputVariables.add(variable.name)
+                globalOutputVariables.add(variable.name)
             }
                 usedVariableNames.add(variable.name)
         }
@@ -247,7 +247,7 @@ object PromelaFileGenerator {
             val variableName = variable.name
             if(variable.locality.getTextualName() == "Outputs"){
                 result.appendln("${generatePromelaType(variable.type)} pre_$variableName = ${getVariableInitialValue(variable)};")
-                globalOutputInputVariables.add(variableName)
+                globalOutputVariables.add(variableName)
                 usedVariableNames.add(variableName)
             }
         }
@@ -265,7 +265,7 @@ object PromelaFileGenerator {
                     val variableName = instanceName + "_" + variable.name
                 // if the variable name is part of the output
                     if(checkVariableHasMapping(variableName) == null && getAutomataVariablePairForMappedGlobalVariables(variableName) == null){
-                        if(!usedVariableNames.contains(variableName) && !globalOutputInputVariables.contains(variableName)) {
+                        if(!usedVariableNames.contains(variableName) && !globalOutputVariables.contains(variableName)) {
                             result.appendln("${generatePromelaType(variable.type)} $variableName = ${getVariableInitialValue(variable)};")
                             usedVariableNames.add(variableName)
                         }
