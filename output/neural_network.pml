@@ -2094,6 +2094,9 @@ proctype HiddenNeuron_2_60_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_60_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_62_activation_func(int in){
@@ -2168,6 +2171,9 @@ proctype HiddenNeuron_2_62_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_62_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_61_activation_func(int in){
@@ -2242,6 +2248,9 @@ proctype HiddenNeuron_2_61_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_61_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_64_activation_func(int in){
@@ -2316,6 +2325,9 @@ proctype HiddenNeuron_2_64_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_64_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_63_activation_func(int in){
@@ -2390,6 +2402,9 @@ proctype HiddenNeuron_2_63_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_63_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_10_activation_func(int in){
@@ -2464,6 +2479,9 @@ proctype HiddenNeuron_1_10_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_10_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_19_activation_func(int in){
@@ -2538,6 +2556,9 @@ proctype HiddenNeuron_1_19_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_19_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_12_activation_func(int in){
@@ -2612,6 +2633,9 @@ proctype HiddenNeuron_1_12_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_12_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_11_activation_func(int in){
@@ -2686,6 +2710,9 @@ proctype HiddenNeuron_1_11_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_11_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_14_activation_func(int in){
@@ -2760,6 +2787,9 @@ proctype HiddenNeuron_1_14_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_14_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_13_activation_func(int in){
@@ -2834,6 +2864,9 @@ proctype HiddenNeuron_1_13_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_13_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_16_activation_func(int in){
@@ -2908,6 +2941,9 @@ proctype HiddenNeuron_1_16_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_16_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_15_activation_func(int in){
@@ -2982,6 +3018,9 @@ proctype HiddenNeuron_1_15_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_15_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_18_activation_func(int in){
@@ -3056,6 +3095,9 @@ proctype HiddenNeuron_1_18_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_18_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_17_activation_func(int in){
@@ -3130,6 +3172,9 @@ proctype HiddenNeuron_1_17_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_17_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_21_activation_func(int in){
@@ -3204,6 +3249,9 @@ proctype HiddenNeuron_1_21_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_21_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_20_activation_func(int in){
@@ -3278,6 +3326,9 @@ proctype HiddenNeuron_1_20_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_20_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_23_activation_func(int in){
@@ -3352,6 +3403,9 @@ proctype HiddenNeuron_1_23_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_23_activation_func_function_returnVar = y;
 }
 proctype OutputNeuron_3_1_activation_func(int in){
@@ -3426,6 +3480,9 @@ proctype OutputNeuron_3_1_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     OutputNeuron_3_1_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_22_activation_func(int in){
@@ -3500,6 +3557,9 @@ proctype HiddenNeuron_1_22_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_22_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_25_activation_func(int in){
@@ -3574,6 +3634,9 @@ proctype HiddenNeuron_1_25_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_25_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_24_activation_func(int in){
@@ -3648,6 +3711,9 @@ proctype HiddenNeuron_1_24_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_24_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_27_activation_func(int in){
@@ -3722,6 +3788,9 @@ proctype HiddenNeuron_1_27_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_27_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_26_activation_func(int in){
@@ -3796,6 +3865,9 @@ proctype HiddenNeuron_1_26_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_26_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_29_activation_func(int in){
@@ -3870,6 +3942,9 @@ proctype HiddenNeuron_1_29_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_29_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_28_activation_func(int in){
@@ -3944,6 +4019,9 @@ proctype HiddenNeuron_1_28_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_28_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_30_activation_func(int in){
@@ -4018,6 +4096,9 @@ proctype HiddenNeuron_1_30_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_30_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_32_activation_func(int in){
@@ -4092,6 +4173,9 @@ proctype HiddenNeuron_1_32_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_32_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_31_activation_func(int in){
@@ -4166,6 +4250,9 @@ proctype HiddenNeuron_1_31_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_31_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_34_activation_func(int in){
@@ -4240,6 +4327,9 @@ proctype HiddenNeuron_1_34_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_34_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_33_activation_func(int in){
@@ -4314,6 +4404,9 @@ proctype HiddenNeuron_1_33_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_33_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_36_activation_func(int in){
@@ -4388,6 +4481,9 @@ proctype HiddenNeuron_1_36_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_36_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_35_activation_func(int in){
@@ -4462,6 +4558,9 @@ proctype HiddenNeuron_1_35_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_35_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_38_activation_func(int in){
@@ -4536,6 +4635,9 @@ proctype HiddenNeuron_1_38_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_38_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_37_activation_func(int in){
@@ -4610,6 +4712,9 @@ proctype HiddenNeuron_1_37_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_37_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_39_activation_func(int in){
@@ -4684,6 +4789,9 @@ proctype HiddenNeuron_1_39_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_39_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_41_activation_func(int in){
@@ -4758,6 +4866,9 @@ proctype HiddenNeuron_1_41_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_41_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_40_activation_func(int in){
@@ -4832,6 +4943,9 @@ proctype HiddenNeuron_1_40_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_40_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_43_activation_func(int in){
@@ -4906,6 +5020,9 @@ proctype HiddenNeuron_1_43_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_43_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_11_activation_func(int in){
@@ -4980,6 +5097,9 @@ proctype HiddenNeuron_2_11_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_11_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_42_activation_func(int in){
@@ -5054,6 +5174,9 @@ proctype HiddenNeuron_1_42_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_42_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_10_activation_func(int in){
@@ -5128,6 +5251,9 @@ proctype HiddenNeuron_2_10_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_10_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_45_activation_func(int in){
@@ -5202,6 +5328,9 @@ proctype HiddenNeuron_1_45_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_45_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_13_activation_func(int in){
@@ -5276,6 +5405,9 @@ proctype HiddenNeuron_2_13_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_13_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_44_activation_func(int in){
@@ -5350,6 +5482,9 @@ proctype HiddenNeuron_1_44_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_44_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_12_activation_func(int in){
@@ -5424,6 +5559,9 @@ proctype HiddenNeuron_2_12_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_12_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_47_activation_func(int in){
@@ -5498,6 +5636,9 @@ proctype HiddenNeuron_1_47_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_47_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_15_activation_func(int in){
@@ -5572,6 +5713,9 @@ proctype HiddenNeuron_2_15_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_15_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_46_activation_func(int in){
@@ -5646,6 +5790,9 @@ proctype HiddenNeuron_1_46_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_46_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_14_activation_func(int in){
@@ -5720,6 +5867,9 @@ proctype HiddenNeuron_2_14_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_14_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_49_activation_func(int in){
@@ -5794,6 +5944,9 @@ proctype HiddenNeuron_1_49_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_49_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_17_activation_func(int in){
@@ -5868,6 +6021,9 @@ proctype HiddenNeuron_2_17_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_17_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_48_activation_func(int in){
@@ -5942,6 +6098,9 @@ proctype HiddenNeuron_1_48_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_48_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_16_activation_func(int in){
@@ -6016,6 +6175,9 @@ proctype HiddenNeuron_2_16_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_16_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_19_activation_func(int in){
@@ -6090,6 +6252,9 @@ proctype HiddenNeuron_2_19_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_19_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_18_activation_func(int in){
@@ -6164,6 +6329,9 @@ proctype HiddenNeuron_2_18_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_18_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_50_activation_func(int in){
@@ -6238,6 +6406,9 @@ proctype HiddenNeuron_1_50_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_50_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_52_activation_func(int in){
@@ -6312,6 +6483,9 @@ proctype HiddenNeuron_1_52_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_52_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_20_activation_func(int in){
@@ -6386,6 +6560,9 @@ proctype HiddenNeuron_2_20_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_20_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_51_activation_func(int in){
@@ -6460,6 +6637,9 @@ proctype HiddenNeuron_1_51_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_51_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_54_activation_func(int in){
@@ -6534,6 +6714,9 @@ proctype HiddenNeuron_1_54_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_54_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_22_activation_func(int in){
@@ -6608,6 +6791,9 @@ proctype HiddenNeuron_2_22_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_22_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_53_activation_func(int in){
@@ -6682,6 +6868,9 @@ proctype HiddenNeuron_1_53_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_53_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_21_activation_func(int in){
@@ -6756,6 +6945,9 @@ proctype HiddenNeuron_2_21_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_21_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_56_activation_func(int in){
@@ -6830,6 +7022,9 @@ proctype HiddenNeuron_1_56_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_56_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_24_activation_func(int in){
@@ -6904,6 +7099,9 @@ proctype HiddenNeuron_2_24_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_24_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_55_activation_func(int in){
@@ -6978,6 +7176,9 @@ proctype HiddenNeuron_1_55_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_55_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_23_activation_func(int in){
@@ -7052,6 +7253,9 @@ proctype HiddenNeuron_2_23_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_23_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_58_activation_func(int in){
@@ -7126,6 +7330,9 @@ proctype HiddenNeuron_1_58_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_58_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_26_activation_func(int in){
@@ -7200,6 +7407,9 @@ proctype HiddenNeuron_2_26_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_26_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_57_activation_func(int in){
@@ -7274,6 +7484,9 @@ proctype HiddenNeuron_1_57_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_57_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_25_activation_func(int in){
@@ -7348,6 +7561,9 @@ proctype HiddenNeuron_2_25_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_25_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_28_activation_func(int in){
@@ -7422,6 +7638,9 @@ proctype HiddenNeuron_2_28_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_28_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_59_activation_func(int in){
@@ -7496,6 +7715,9 @@ proctype HiddenNeuron_1_59_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_59_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_27_activation_func(int in){
@@ -7570,6 +7792,9 @@ proctype HiddenNeuron_2_27_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_27_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_29_activation_func(int in){
@@ -7644,6 +7869,9 @@ proctype HiddenNeuron_2_29_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_29_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_4_activation_func(int in){
@@ -7718,6 +7946,9 @@ proctype HiddenNeuron_2_4_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_4_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_3_activation_func(int in){
@@ -7792,6 +8023,9 @@ proctype HiddenNeuron_2_3_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_3_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_61_activation_func(int in){
@@ -7866,6 +8100,9 @@ proctype HiddenNeuron_1_61_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_61_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_6_activation_func(int in){
@@ -7940,6 +8177,9 @@ proctype HiddenNeuron_2_6_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_6_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_60_activation_func(int in){
@@ -8014,6 +8254,9 @@ proctype HiddenNeuron_1_60_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_60_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_5_activation_func(int in){
@@ -8088,6 +8331,9 @@ proctype HiddenNeuron_2_5_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_5_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_63_activation_func(int in){
@@ -8162,6 +8408,9 @@ proctype HiddenNeuron_1_63_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_63_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_31_activation_func(int in){
@@ -8236,6 +8485,9 @@ proctype HiddenNeuron_2_31_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_31_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_62_activation_func(int in){
@@ -8310,6 +8562,9 @@ proctype HiddenNeuron_1_62_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_62_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_30_activation_func(int in){
@@ -8384,6 +8639,9 @@ proctype HiddenNeuron_2_30_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_30_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_2_activation_func(int in){
@@ -8458,6 +8716,9 @@ proctype HiddenNeuron_2_2_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_2_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_33_activation_func(int in){
@@ -8532,6 +8793,9 @@ proctype HiddenNeuron_2_33_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_33_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_64_activation_func(int in){
@@ -8606,6 +8870,9 @@ proctype HiddenNeuron_1_64_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_64_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_1_activation_func(int in){
@@ -8680,6 +8947,9 @@ proctype HiddenNeuron_2_1_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_1_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_32_activation_func(int in){
@@ -8754,6 +9024,9 @@ proctype HiddenNeuron_2_32_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_32_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_8_activation_func(int in){
@@ -8828,6 +9101,9 @@ proctype HiddenNeuron_2_8_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_8_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_7_activation_func(int in){
@@ -8902,6 +9178,9 @@ proctype HiddenNeuron_2_7_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_7_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_9_activation_func(int in){
@@ -8976,6 +9255,9 @@ proctype HiddenNeuron_2_9_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_9_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_35_activation_func(int in){
@@ -9050,6 +9332,9 @@ proctype HiddenNeuron_2_35_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_35_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_34_activation_func(int in){
@@ -9124,6 +9409,9 @@ proctype HiddenNeuron_2_34_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_34_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_37_activation_func(int in){
@@ -9198,6 +9486,9 @@ proctype HiddenNeuron_2_37_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_37_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_36_activation_func(int in){
@@ -9272,6 +9563,9 @@ proctype HiddenNeuron_2_36_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_36_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_39_activation_func(int in){
@@ -9346,6 +9640,9 @@ proctype HiddenNeuron_2_39_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_39_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_38_activation_func(int in){
@@ -9420,6 +9717,9 @@ proctype HiddenNeuron_2_38_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_38_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_40_activation_func(int in){
@@ -9494,6 +9794,9 @@ proctype HiddenNeuron_2_40_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_40_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_42_activation_func(int in){
@@ -9568,6 +9871,9 @@ proctype HiddenNeuron_2_42_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_42_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_41_activation_func(int in){
@@ -9642,6 +9948,9 @@ proctype HiddenNeuron_2_41_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_41_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_44_activation_func(int in){
@@ -9716,6 +10025,9 @@ proctype HiddenNeuron_2_44_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_44_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_43_activation_func(int in){
@@ -9790,6 +10102,9 @@ proctype HiddenNeuron_2_43_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_43_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_46_activation_func(int in){
@@ -9864,6 +10179,9 @@ proctype HiddenNeuron_2_46_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_46_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_45_activation_func(int in){
@@ -9938,6 +10256,9 @@ proctype HiddenNeuron_2_45_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_45_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_48_activation_func(int in){
@@ -10012,6 +10333,9 @@ proctype HiddenNeuron_2_48_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_48_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_47_activation_func(int in){
@@ -10086,6 +10410,9 @@ proctype HiddenNeuron_2_47_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_47_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_49_activation_func(int in){
@@ -10160,6 +10487,9 @@ proctype HiddenNeuron_2_49_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_49_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_5_activation_func(int in){
@@ -10234,6 +10564,9 @@ proctype HiddenNeuron_1_5_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_5_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_4_activation_func(int in){
@@ -10308,6 +10641,9 @@ proctype HiddenNeuron_1_4_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_4_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_7_activation_func(int in){
@@ -10382,6 +10718,9 @@ proctype HiddenNeuron_1_7_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_7_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_51_activation_func(int in){
@@ -10456,6 +10795,9 @@ proctype HiddenNeuron_2_51_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_51_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_6_activation_func(int in){
@@ -10530,6 +10872,9 @@ proctype HiddenNeuron_1_6_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_6_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_50_activation_func(int in){
@@ -10604,6 +10949,9 @@ proctype HiddenNeuron_2_50_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_50_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_1_activation_func(int in){
@@ -10678,6 +11026,9 @@ proctype HiddenNeuron_1_1_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_1_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_53_activation_func(int in){
@@ -10752,6 +11103,9 @@ proctype HiddenNeuron_2_53_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_53_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_52_activation_func(int in){
@@ -10826,6 +11180,9 @@ proctype HiddenNeuron_2_52_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_52_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_3_activation_func(int in){
@@ -10900,6 +11257,9 @@ proctype HiddenNeuron_1_3_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_3_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_55_activation_func(int in){
@@ -10974,6 +11334,9 @@ proctype HiddenNeuron_2_55_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_55_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_2_activation_func(int in){
@@ -11048,6 +11411,9 @@ proctype HiddenNeuron_1_2_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_2_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_54_activation_func(int in){
@@ -11122,6 +11488,9 @@ proctype HiddenNeuron_2_54_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_54_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_9_activation_func(int in){
@@ -11196,6 +11565,9 @@ proctype HiddenNeuron_1_9_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_9_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_1_8_activation_func(int in){
@@ -11270,6 +11642,9 @@ proctype HiddenNeuron_1_8_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_1_8_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_57_activation_func(int in){
@@ -11344,6 +11719,9 @@ proctype HiddenNeuron_2_57_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_57_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_56_activation_func(int in){
@@ -11418,6 +11796,9 @@ proctype HiddenNeuron_2_56_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_56_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_59_activation_func(int in){
@@ -11492,6 +11873,9 @@ proctype HiddenNeuron_2_59_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_59_activation_func_function_returnVar = y;
 }
 proctype HiddenNeuron_2_58_activation_func(int in){
@@ -11566,6 +11950,9 @@ proctype HiddenNeuron_2_58_activation_func(int in){
     if 
     ::(neg_Input == true) -> 
         y = (y * -100000000)/100000000; 
+    ::else -> 
+    
+    fi
     HiddenNeuron_2_58_activation_func_function_returnVar = y;
 }init {
     atomic {

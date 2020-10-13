@@ -20,7 +20,7 @@ object PromelaFileGenerator {
     private var config: Configuration = Configuration()
     private var systemIsAutomata = false
 
-    var multiplier = 100000000
+    var multiplier = 10
 
     fun generate(item: HybridItem, codeGenConfig : Configuration): String {
         automata = item
@@ -307,8 +307,10 @@ object PromelaFileGenerator {
     private fun getVariableInitialValue(variable: Variable): String {
         // Let's start with a default value for the initialisation
         var initValue: String = generateDefaultInitForType(variable.type)
-
         // But, if an initial value for the variable is provided then let's use that
+        if(variable.defaultValue != null) {
+            initValue = generateCodeForParseTreeItem(variable.defaultValue!!);
+        }
         if(automata is HybridAutomata && (automata as HybridAutomata).init.valuations.containsKey(variable.name)) {
             // Generate code that represents the initial value for the variable
             initValue = generateCodeForParseTreeItem((automata as HybridAutomata).init.valuations[variable.name] !!)
