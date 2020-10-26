@@ -41,15 +41,15 @@ object Utils {
         // For each possible ParseTreeItem we have a different output string that will be generated
         // We recursively call these generation functions until we reach the end of the tree
         return when (item) {
-            is And -> padOperand(instanceName,item, item.operandA,globalVariable) + " && " + padOperand(instanceName,item, item.operandB,globalVariable)
-            is Or -> padOperand(instanceName,item, item.operandA,globalVariable) + " || " + padOperand(instanceName,item, item.operandB,globalVariable)
-            is Not -> padOperand(instanceName,item, item.operandA, globalVariable) + " == 0"
-            is GreaterThan -> padOperand(instanceName,item, item.operandA, globalVariable) + " > " + padOperand(instanceName,item, item.operandB, globalVariable)
-            is GreaterThanOrEqual -> padOperand(instanceName,item, item.operandA, globalVariable) + " >= " + padOperand(instanceName,item, item.operandB,globalVariable )
-            is LessThanOrEqual -> padOperand(instanceName,item, item.operandA, globalVariable) + " <= " + padOperand(instanceName,item, item.operandB,globalVariable)
-            is LessThan -> padOperand(instanceName,item, item.operandA, globalVariable) + " < " + padOperand(instanceName,item, item.operandB,globalVariable)
-            is Equal -> padOperand(instanceName,item, item.operandA, globalVariable) + " == " + padOperand(instanceName,item, item.operandB,globalVariable)
-            is NotEqual -> padOperand(instanceName,item, item.operandA, globalVariable) + " != " + padOperand(instanceName,item, item.operandB,globalVariable)
+            is And -> "(" + padOperand(instanceName,item, item.operandA,globalVariable) + " && " + padOperand(instanceName,item, item.operandB,globalVariable) + ")"
+             is Or -> "(" + padOperand(instanceName,item, item.operandA,globalVariable) + " || " + padOperand(instanceName,item, item.operandB,globalVariable)+ ")"
+            is Not -> "(" + padOperand(instanceName,item, item.operandA, globalVariable) + " == 0)"
+            is GreaterThan -> "(" + padOperand(instanceName,item, item.operandA, globalVariable) + " > " + padOperand(instanceName,item, item.operandB, globalVariable) + ")"
+                    is GreaterThanOrEqual -> "(" + padOperand(instanceName,item, item.operandA, globalVariable) + " >= " + padOperand(instanceName,item, item.operandB,globalVariable )+ ")"
+            is LessThanOrEqual -> "(" + padOperand(instanceName,item, item.operandA, globalVariable) + " <= " + padOperand(instanceName,item, item.operandB,globalVariable)+ ")"
+            is LessThan -> "(" + padOperand(instanceName,item, item.operandA, globalVariable) + " < " + padOperand(instanceName,item, item.operandB,globalVariable)+ ")"
+            is Equal ->"(" +  padOperand(instanceName,item, item.operandA, globalVariable) + " == " + padOperand(instanceName,item, item.operandB,globalVariable)+ ")"
+            is NotEqual -> "(" + padOperand(instanceName,item, item.operandA, globalVariable) + " != " + padOperand(instanceName,item, item.operandB,globalVariable)+ ")"
             is FunctionCall -> {
 
                 // Otherwise, let's build a function
@@ -64,7 +64,7 @@ object Utils {
                 }
 
                 // And then return the final function name
-                return "${(item.functionName)}($builder)"
+                return "${(instanceName)}_${(item.functionName)}($builder)"
             }
             is Literal ->  {
                 return if(item.value.equals("true") || item.value.equals("false")){
@@ -146,7 +146,7 @@ object Utils {
             is Negative -> "-" + padOperand(instanceName,item, item.operandA,globalVariable)
             is Power -> "pow(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ", " + generateCodeForParseTreeItem(item.operandB,instanceName,globalVariable = globalVariable) + ")"
             is Multiply -> "(" + padOperand(instanceName,item, item.operandA,globalVariable) + " * " + padOperand(instanceName,item, item.operandB,globalVariable) + ")" + "/" + PromelaFileGenerator.multiplier
-            is Divide -> padOperand(instanceName,item, item.operandA,globalVariable) + " / " + padOperand(instanceName,item, item.operandB,globalVariable) + "*" + PromelaFileGenerator.multiplier
+            is Divide ->  PromelaFileGenerator.multiplier.toString() + "*" + padOperand(instanceName,item, item.operandA,globalVariable) + " / " + padOperand(instanceName,item, item.operandB,globalVariable)
             is SquareRoot -> "sqrt(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
             is Exponential -> "exp(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"
             is Ln -> "log(" + generateCodeForParseTreeItem(item.operandA,instanceName,globalVariable = globalVariable) + ")"

@@ -20,7 +20,7 @@ object PromelaFileGenerator {
     private var config: Configuration = Configuration()
     private var systemIsAutomata = false
 
-    var multiplier = 10
+    var multiplier = 10000
 
     fun generate(item: HybridItem, codeGenConfig : Configuration): String {
         automata = item
@@ -66,6 +66,17 @@ object PromelaFileGenerator {
         var variableNameModified = variableName
        if(equation is FunctionCall){
            variableNameModified = "${equation.functionName}_function_returnVar"
+           if(mappedVariable != null || systemIsAutomata){
+               if (mappedVariable != null) {
+                   return result.append("${mappedVariable.variable} = ${mappedVariable.variable} * ${generateFixedPointValue(config.execution.stepSize, multiplier)} / $multiplier ; ").toString()
+               }
+               else{
+                   return result.append("${variableNameModified} = ${variableNameModified} * ${generateFixedPointValue(config.execution.stepSize, multiplier)} / $multiplier ; ").toString()
+               }
+           }
+           else{
+               return result.append("${instanceName}_${variableNameModified} * ${generateFixedPointValue(config.execution.stepSize, multiplier)} / $multiplier + ${instanceName}_${variableNameModified}; ").toString()
+           }
        }
         if(mappedVariable != null || systemIsAutomata){
             if (mappedVariable != null) {
@@ -131,6 +142,9 @@ object PromelaFileGenerator {
             result.appendln()
             val locationName = location.name
             result.appendln("${config.getIndent(1)}${locationName}:  (${instanceName}_finished == 0) -> ")
+//            result.appendln(config.getIndent(2) +
+//                    generateUpdateOrFlowForLocation(location.update, instanceName,false) +
+//                    "${generateUpdateOrFlowForLocation(location.flow, instanceName, true)};")
             // finds the location of the transition with the update and guards
             result.appendln("${config.getIndent(2)}if")
 
@@ -138,6 +152,7 @@ object PromelaFileGenerator {
                 result.append("${config.getIndent(2)}::(${generateCodeForParseTreeItem(guard,instanceName,globalVariable = globalOutputVariables )}) -> ")
                 // for each equation in the transition add it in
                 result.append(generateUpdateOrFlowForLocation(update,instanceName,false))
+
                 // Adds the transition location after all variables have been updated as well as increment local tick for that process
                 result.append(" ${instanceName}_finished = 1; goto $toLocation;")
                 result.appendln()

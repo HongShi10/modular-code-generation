@@ -19,7 +19,7 @@ system:
           default: -1600
         C3:
           type: REAL
-          default: 0.0009988
+          default: 0.0010000
         C4:
           type: REAL
           default: -530
@@ -70,7 +70,7 @@ system:
         ERP:
           invariant: v > vR
           flow:
-            v: f(theta)
+            v: f(theta, C5, C4)
             t: 1
           transitions:
             - to: RRP
@@ -91,6 +91,8 @@ system:
         f:
           inputs:
             theta: REAL
+            C5: REAL
+            C4: REAL
           logic: |
             relative = C5 * theta
             return C4 - relative
