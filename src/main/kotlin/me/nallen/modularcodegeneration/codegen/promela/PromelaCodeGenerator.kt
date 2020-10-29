@@ -20,8 +20,9 @@ class PromelaCodeGenerator {
 
             // Use default parameters for top-level item
             item.setDefaultParametrisation()
+            var multiplier = 1;
 //            System.out.println(PromelaFileGenerator.generate(item))
-            File(outputDir, "${Utils.createFileName(item.name)}.pml").writeText(PromelaFileGenerator.generate(item,codeGenConfig))
+            File(outputDir, "${Utils.createFileName(item.name)}.pml").writeText(PromelaFileGenerator.generate(item,codeGenConfig,multiplier))
         }
 
 
